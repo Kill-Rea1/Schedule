@@ -11,6 +11,8 @@ import Firebase
 
 class ProfileController: UIViewController {
     
+    // MARK:- Properties
+    
     let cellId = "cellId"
     
     fileprivate let profileView = ProfileView()
@@ -25,6 +27,7 @@ class ProfileController: UIViewController {
             }
             profileView.adminImageView.isHidden = !newValue.isAdmin
             profileView.emaiTextField.text = newValue.email
+            self.isAdmin = newValue.isAdmin
         }
     }
     fileprivate var prevUniversity: String!
@@ -42,6 +45,18 @@ class ProfileController: UIViewController {
             profileView.groupLabel.text = "Группа \(newValue ?? "")"
         }
     }
+    public var isAdmin: Bool! {
+        willSet {
+            profileView.adminImageView.isHidden = !newValue
+            if newValue {
+                profileView.nameTextFieldLeadingConstraint.constant = 32 + profileView.adminImageView.frame.width
+            } else {
+                profileView.nameTextFieldLeadingConstraint.constant = 32
+            }
+        }
+    }
+    
+    // MARK:- View Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +65,8 @@ class ProfileController: UIViewController {
         setupNavigationItem()
         addTargets()
     }
+    
+    // MARK:- Fileprivate Methods
     
     fileprivate func addTargets() {
         profileView.nameChangeButton.addTarget(self, action: #selector(handleButtonTapped(sender:)), for: .touchUpInside)
@@ -77,18 +94,19 @@ class ProfileController: UIViewController {
         searchController.prevVC = self
         switch sender {
         case profileView.universityChangeButton:
+            searchController.prevData = user.university
             searchController.isGroupSearching = false
             searchController.isUniversitySearching = true
         default:
+            searchController.prevData = user.group
             searchController.isGroupSearching = true
             searchController.isUniversitySearching = false
             searchController.selectedUniversity = university
         }
-        navigationController?.pushViewController(searchController, animated: true)
+        present(searchController, animated: true)
     }
     
     fileprivate func setupNavigationItem() {
-        navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "Профиль"
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu"), style: .plain, target: self, action: #selector(handleMenu))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "editProfile"), style: .plain, target: self, action: #selector(handleSave))
@@ -110,11 +128,15 @@ class ProfileController: UIViewController {
             return
         }
         
-        let newUser = UserDB(uid: user.uid, email: email, name: name, university: university, group: group, isAdmin: false)
+        guard let isAdmin = isAdmin else {
+            return
+        }
+        
+        let newUser = UserDB(uid: user.uid, email: email, name: name, university: university, group: group, isAdmin: isAdmin)
         var newUserRef = user.ref
         newUserRef?.setValue(newUser.convertToDictionary())
         newUserRef = Database.database().reference().child("universities").child(university).child("groups").child(group).child("students").child(newUser.uid)
-        newUserRef?.updateChildValues(["name": newUser.name, "uid": newUser.uid, "email": newUser.email, "isAdmin": false])
+        newUserRef?.updateChildValues(["name": newUser.name, "uid": newUser.uid, "email": newUser.email, "isAdmin": isAdmin])
         newUserRef? = Database.database().reference().child("universities").child(user.university).child("groups").child(user.group).child("students").child(user.uid)
         newUserRef?.setValue(nil)
         profileView.nameTextField.isEnabled = false

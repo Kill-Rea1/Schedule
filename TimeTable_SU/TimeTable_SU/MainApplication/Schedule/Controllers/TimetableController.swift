@@ -52,7 +52,7 @@ class TimetableController: UIViewController, MGSwipeTableCellDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        checkIfUserLoggedIn()
+        checkIfUserLoggedIn()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -81,7 +81,6 @@ class TimetableController: UIViewController, MGSwipeTableCellDelegate {
     }
     
     fileprivate func setupNavigationItems() {
-        navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "Расписание"
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu"), style: .plain, target: self, action: #selector(handleMenu))
         navigationController?.navigationBar.tintColor = .black
@@ -288,6 +287,7 @@ extension TimetableController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func swipeTableCell(_ cell: MGSwipeTableCell, swipeButtonsFor direction: MGSwipeDirection, swipeSettings: MGSwipeSettings, expansionSettings: MGSwipeExpansionSettings) -> [UIView]? {
+        if !user.isAdmin { return nil }
         let indexPath = timetableView.tableView.indexPath(for: cell)!
         let subject = timetableView.subjects[indexPath.section][indexPath.row]
         if direction == .rightToLeft {

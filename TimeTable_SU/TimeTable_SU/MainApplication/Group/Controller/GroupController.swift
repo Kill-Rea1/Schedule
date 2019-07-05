@@ -11,35 +11,30 @@ import Firebase
 
 class GroupController: UIViewController {
     
+    // MARK:- Properties
+    
     fileprivate var ref: DatabaseReference!
     fileprivate var students = [Student]()
+    fileprivate let tableView = UITableView(frame: .zero, style: .plain)
     public var user: UserDB! {
         willSet {
-            label.text = "Группа \(newValue.group)"
+            navigationItem.title = "Группа \(newValue.group)"
         }
     }
 
+    // MARK:- View Methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         loadStudents()
         setupNavigationBar()
-        view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        view.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
     }
     
-    fileprivate let label: MainLabel = {
-        let label = MainLabel()
-        label.font = UIFont(name: UIFont().myFont(), size: 30)
-        label.textColor = .black
-        label.textAlignment = .left
-        return label
-    }()
-    
-    fileprivate let tableView = UITableView(frame: .zero, style: .plain)
+    // MARK:- Fileprivate Methods
     
     fileprivate func setupNavigationBar() {
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "Группа"
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu"), style: .plain, target: self, action: #selector(handleMenu))
         navigationController?.navigationBar.tintColor = .black
     }
@@ -70,7 +65,7 @@ class GroupController: UIViewController {
         tableView.delegate = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.tableFooterView = UIView()
-        //        tableView.rowHeight = 70
+        tableView.rowHeight = 80
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
         tableView.dataSource = self
@@ -78,11 +73,9 @@ class GroupController: UIViewController {
     }
     
     fileprivate func setupView() {
-        view.addSubview(label)
         view.addSubview(tableView)
         setupTableView()
-        label.addConstraints(view.safeAreaLayoutGuide.leadingAnchor, view.safeAreaLayoutGuide.trailingAnchor, view.safeAreaLayoutGuide.topAnchor, nil, .init(top: 10, left: 20, bottom: 0, right: 20))
-        tableView.addConstraints(view.safeAreaLayoutGuide.leadingAnchor, view.safeAreaLayoutGuide.trailingAnchor, label.bottomAnchor, view.bottomAnchor, .init(top: 10, left: 20, bottom: 0, right: 20))
+        tableView.addConstraints(view.safeAreaLayoutGuide.leadingAnchor, view.safeAreaLayoutGuide.trailingAnchor, view.topAnchor, view.bottomAnchor, .init(top: 40, left: 20, bottom: 0, right: 20))
     }
 }
 
@@ -143,7 +136,7 @@ extension GroupController: UITableViewDelegate, UITableViewDataSource {
         label.text = "Все студенты"
         label.font = UIFont(name: UIFont().myFont(), size: 28)
         label.textColor = .black
-        label.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        label.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
         return label
     }
 }

@@ -11,8 +11,6 @@ import Firebase
 
 extension MenuController: UINavigationControllerDelegate {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let mainNavigationController = UIApplication.shared.keyWindow?.rootViewController as? MainNavigationController
-//        let containerController = mainNavigationController?.viewControllers.first as? MainController
         let navigation = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController
         let containerController = navigation?.viewControllers.first as? MainController
         containerController?.didSelectMenuItem(indexPathRow: indexPath.row)
@@ -26,7 +24,7 @@ class MenuController: UITableViewController {
         super.viewDidLoad()
         setupTableView()
         navigationItem.title = "Меню"
-        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
     }
     
     fileprivate func setupTableView() {

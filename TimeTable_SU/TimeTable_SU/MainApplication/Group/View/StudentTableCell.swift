@@ -12,28 +12,21 @@ class StudentTableCell: BaseCell {
     
     static let reuseId = "studentCell"
     
+    // MARK:- Setup View
+    
     override func setupViews() {
         super.setupViews()
-        configureStudentStackView()
-        configureStackView()
-    }
-    
-    fileprivate func configureStackView() {
-        let stackView = UIStackView(arrangedSubviews: [studentStackView, UIView(), adminStackView])
-        stackView.axis = .horizontal
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        setupContenView()
         
-        addSubview(stackView)
-        stackView.addConstraints(leadingAnchor, trailingAnchor, topAnchor, bottomAnchor)
+        configure()
     }
     
-    fileprivate func configureStudentStackView() {
-        studentStackView = UIStackView(arrangedSubviews: [nameLabel, emailLabel])
-        studentStackView.spacing = 8
-        studentStackView.axis = .vertical
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.frame = contentView.frame.inset(by: .init(top: 5, left: 5, bottom: 5, right: 5))
     }
     
-    fileprivate var studentStackView: UIStackView!
+    // MARK:- UIKit
     
     public let nameLabel: MainLabel = {
         let label = MainLabel()
@@ -46,14 +39,6 @@ class StudentTableCell: BaseCell {
         label.font = UIFont(name: UIFont().myFont(), size: 14)
         label.textAlignment = .left
         return label
-    }()
-    
-    lazy fileprivate var adminStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [adminButton, adminLabel])
-        stackView.axis = .vertical
-        stackView.backgroundColor = .purple
-        stackView.spacing = 4
-        return stackView
     }()
     
     public let adminLabel: MainLabel = {
@@ -69,4 +54,24 @@ class StudentTableCell: BaseCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    // MARK:- Fileprivate Methods
+    
+    fileprivate func configure() {
+        contentView.addSubview(nameLabel)
+        contentView.addSubview(emailLabel)
+        contentView.addSubview(adminLabel)
+        contentView.addSubview(adminButton)
+        nameLabel.addConstraints(contentView.leadingAnchor, nil, contentView.topAnchor, nil, .init(top: 10, left: 10, bottom: 0, right: 0), .init(width: 0, height: 30))
+        emailLabel.addConstraints(contentView.leadingAnchor, nil, nil, contentView.bottomAnchor, .init(top: 0, left: 10, bottom: 10, right: 0), .init(width: 0, height: 15))
+        adminButton.addConstraints(nil, contentView.trailingAnchor, contentView.topAnchor, nil, .init(top: 10, left: 0, bottom: 0, right: 10), .init(width: 40, height: 40))
+        adminLabel.addConstraints(nil, contentView.trailingAnchor, nil, contentView.bottomAnchor, .init(top: 0, left: 0, bottom: 5, right: 10), .init(width: 0, height: 30))
+    }
+    
+    fileprivate func setupContenView() {
+        contentView.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        contentView.layer.borderWidth = 0.5
+        contentView.layer.borderColor = UIColor.lightGray.cgColor
+        contentView.layer.cornerRadius = 14
+    }
 }

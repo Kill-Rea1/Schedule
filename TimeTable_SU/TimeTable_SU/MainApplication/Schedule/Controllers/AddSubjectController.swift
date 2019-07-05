@@ -39,9 +39,7 @@ class AddSubjectController: UIViewController {
         } else {
             navigationItem.title = "Новый предмет"
         }
-        navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.tintColor = .black
-        navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
     }
     
@@ -80,7 +78,6 @@ class AddSubjectController: UIViewController {
 
     fileprivate func setupView() {
         view.addSubview(addSubjectView)
-        // AddSubjectView constraints
         addSubjectView.addConstraints(view.safeAreaLayoutGuide.leadingAnchor, view.safeAreaLayoutGuide.trailingAnchor, view.safeAreaLayoutGuide.topAnchor, view.safeAreaLayoutGuide.bottomAnchor)
     }
     

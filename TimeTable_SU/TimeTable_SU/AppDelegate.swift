@@ -23,18 +23,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             window?.rootViewController = UINavigationController(rootViewController: EnterController())
         }
-//        window?.rootViewController = UINavigationController(rootViewController: SettingsController())
-//        window?.rootViewController = MainNavigationController()
+//        window?.rootViewController = UINavigationController(rootViewController: CustomAlertController())
         
-        UINavigationBar.appearance().tintColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
+        UINavigationBar.appearance().barTintColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
         let attrs = [
             NSAttributedString.Key.foregroundColor: UIColor.black,
             NSAttributedString.Key.font: UIFont(name: UIFont().myFont(), size: 30)!
         ]
-//        UINavigationBar.appearance().prefersLargeTitles = true
+        UINavigationBar.appearance().prefersLargeTitles = true
         UINavigationBar.appearance().largeTitleTextAttributes = attrs
         UINavigationBar.appearance().shadowImage = UIImage()
-        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        UINavigationBar.appearance().isTranslucent = false
+//        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         let customFont = UIFont(name: UIFont().myFont(), size: 13)!
         UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: customFont], for: .normal)
         

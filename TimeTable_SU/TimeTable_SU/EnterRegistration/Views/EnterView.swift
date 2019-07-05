@@ -28,6 +28,7 @@ extension EnterView: UITextFieldDelegate {
 class EnterView: BaseView {
     
     // MARK:- Properties
+    
     fileprivate let height: CGFloat = 40
     fileprivate let padding: CGFloat = 20
     
@@ -81,7 +82,6 @@ class EnterView: BaseView {
         button.setTitle("Войти", for: .normal)
         button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 18)
         button.tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-//        button.frame = CGRect(x: 0, y: 0, width: 60, height: 60)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -93,7 +93,6 @@ class EnterView: BaseView {
         button.setTitle("Регистрация", for: .normal)
         button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 18)
         button.tintColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
-//        button.frame = CGRect(x: 0, y: 0, width: 60, height: 60)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -114,7 +113,7 @@ class EnterView: BaseView {
         return button
     }()
     
-    // MARK:- Private Methods
+    // MARK:- Fileprivate Methods
 
     fileprivate func addSubviews() {
         addSubview(titleLabel)

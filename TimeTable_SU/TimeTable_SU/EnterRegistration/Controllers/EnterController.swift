@@ -14,6 +14,7 @@ class EnterController: UIViewController {
     // MARK:- Properties
 
     fileprivate let enterView = EnterView()
+    fileprivate let alertController = CustomAlertController()
     
     // MARK:- ViewController Methods
 
@@ -22,17 +23,59 @@ class EnterController: UIViewController {
         setupView()
         enterView.loginButton.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
         enterView.registerButton.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
+        enterView.resetPasswordButton.addTarget(self, action: #selector(handleReset), for: .touchUpInside)
         navigationController?.navigationBar.isHidden = true
         navigationController?.navigationBar.tintColor = .red
     }
     
     // MARK:- Private Methods
     
+    @objc func handleReset() {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseIn, animations: {
+            self.alertController.alpha = 1
+        })
+    }
+    
     fileprivate func setupView() {
         view.addSubview(enterView)
+        view.addSubview(alertController)
+        setupAlertController()
         enterView.addConstraints(view.leadingAnchor, view.trailingAnchor, view.topAnchor, view.bottomAnchor)
+        let window = UIApplication.shared.keyWindow
+        alertController.frame = window?.frame ?? .zero
     }
-
+    
+    fileprivate func setupAlertController() {
+        alertController.alpha = 0
+        alertController.titleLabel.text = "Введите почту"
+        alertController.myTextView.text = "Почта"
+        alertController.confirmButton.setTitle("Готово", for: .normal)
+        alertController.confirmButton.addTarget(self, action: #selector(handleDone), for: .touchUpInside)
+        alertController.cancelButton.addTarget(self, action: #selector(handleCancel), for: .touchUpInside)
+    }
+    
+    @objc fileprivate func handleDone() {
+        guard let email = alertController.myTextView.text, email != "", email != "Почта" else {
+            handleCancel()
+            displayWarningLabel(withText: "Вы не ввели почту")
+            return
+        }
+        handleCancel()
+        Auth.auth().sendPasswordReset(withEmail: email) { [weak self] (error) in
+            if error != nil {
+                self?.displayWarningLabel(withText: "Такой пользователь не найден")
+            }
+            self?.displayWarningLabel(withText: "Проверьте почту")
+        }
+    }
+    
+    @objc fileprivate func handleCancel() {
+        view.endEditing(true)
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.alertController.alpha = 0
+        })
+    }
+    
     @objc fileprivate func handleRegister() {
         navigationController?.pushViewController(RegistrationController(), animated: true)
     }

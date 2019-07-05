@@ -85,7 +85,7 @@ class TimetableView: BaseView {
         return label
     }()
     
-    // MARK:- Private Methods
+    // MARK:- Fileprivate Methods
     
     fileprivate func tableViewSettings() {
         tableView.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)

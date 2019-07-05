@@ -24,6 +24,7 @@
 		ED56C6CC22A97BF100A618A1 /* AddSubjectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED56C6C722A97BF100A618A1 /* AddSubjectController.swift */; };
 		ED56C6CF22A97BF100A618A1 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED56C6CA22A97BF100A618A1 /* MenuController.swift */; };
 		ED56C6D022A97BF100A618A1 /* TimetableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED56C6CB22A97BF100A618A1 /* TimetableController.swift */; };
+		ED94C8BE22CF9FED00F1E1CF /* CustomAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED94C8BD22CF9FEC00F1E1CF /* CustomAlertController.swift */; };
 		ED98FCD422BD3F260010949B /* UserClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED98FCD322BD3F260010949B /* UserClass.swift */; };
 		EDA30DF222C7BBF900E74D76 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA30DF122C7BBF900E74D76 /* SearchController.swift */; };
 		EDA30E0522CBFC1C00E74D76 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDA30E0422CBFC1C00E74D76 /* GoogleService-Info.plist */; };
@@ -97,6 +98,7 @@
 		ED56C6C722A97BF100A618A1 /* AddSubjectController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSubjectController.swift; sourceTree = "<group>"; };
 		ED56C6CA22A97BF100A618A1 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		ED56C6CB22A97BF100A618A1 /* TimetableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimetableController.swift; sourceTree = "<group>"; };
+		ED94C8BD22CF9FEC00F1E1CF /* CustomAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertController.swift; sourceTree = "<group>"; };
 		ED98FCD322BD3F260010949B /* UserClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserClass.swift; sourceTree = "<group>"; };
 		EDA30DF122C7BBF900E74D76 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		EDA30E0022C90CCF00E74D76 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 			isa = PBXGroup;
 			children = (
 				EDE45CF322BE5A79005091BC /* Extensions+Helpers.swift */,
+				ED94C8BD22CF9FEC00F1E1CF /* CustomAlertController.swift */,
 			);
 			path = "Extensions+Helpers";
 			sourceTree = "<group>";
@@ -722,6 +725,7 @@
 				EDE45CFC22BE67D7005091BC /* ProfileController.swift in Sources */,
 				EDA30E1122CC21F700E74D76 /* ExamClass.swift in Sources */,
 				ED56C6C422A97BD900A618A1 /* SubjectClass.swift in Sources */,
+				ED94C8BE22CF9FED00F1E1CF /* CustomAlertController.swift in Sources */,
 				EDE45D0722BEA5EE005091BC /* RegistrationView.swift in Sources */,
 				ED56C6BF22A97BCC00A618A1 /* TimetableCell.swift in Sources */,
 				EDA30E1722CC316C00E74D76 /* AddExamView.swift in Sources */,

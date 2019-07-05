@@ -10,11 +10,16 @@ import UIKit
 import Firebase
 import MGSwipeTableCell
 
-class SessionController: UIViewController, UITableViewDelegate, UITableViewDataSource, MGSwipeTableCellDelegate {
+class SessionController: UIViewController, MGSwipeTableCellDelegate {
+    
+    // MARK:- Properties
+    
     fileprivate var ref: DatabaseReference!
     fileprivate var exams = [Exam]()
     public var user: UserDB!
     fileprivate let tableView = UITableView(frame: .zero, style: .plain)
+    
+    // MARK:- View Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,8 +34,9 @@ class SessionController: UIViewController, UITableViewDelegate, UITableViewDataS
         ref.removeAllObservers()
     }
     
+    // MARK:- Fileprivate Methods
+    
     fileprivate func setupNavigationItem() {
-        navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "Сессия"
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu"), style: .plain, target: self, action: #selector(handleMenu))
         let addButton = UIBarButtonItem(image: #imageLiteral(resourceName: "add"), style: .plain, target: self, action: #selector(handleAdd))
@@ -40,7 +46,6 @@ class SessionController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     @objc fileprivate func handleMenu() {
-//        ((UIApplication.shared.keyWindow?.rootViewController as? MainNavigationController)?.viewControllers.first as? MainController)?.openMenu()
         ((UIApplication.shared.keyWindow?.rootViewController as? UINavigationController)?.viewControllers.first as? MainController)?.openMenu()
     }
     
@@ -48,8 +53,6 @@ class SessionController: UIViewController, UITableViewDelegate, UITableViewDataS
         guard let user = user else { return }
         let addExamVC = AddExamController()
         addExamVC.user = user
-//        guard let mainNavigationController = UIApplication.shared.keyWindow?.rootViewController as? MainNavigationController else { return }
-//        (mainNavigationController.viewControllers.first as? MainController)?.navigate(to: addExamVC)
         if let navigationController = navigationController {
             navigationController.pushViewController(addExamVC, animated: true)
         }
@@ -85,13 +88,13 @@ class SessionController: UIViewController, UITableViewDelegate, UITableViewDataS
         tableView.backgroundColor = .clear
         tableView.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
     }
+}
 
-    // MARK: - Table view data source
-
+extension SessionController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return exams.count
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
@@ -149,8 +152,6 @@ class SessionController: UIViewController, UITableViewDelegate, UITableViewDataS
                     addExamVC.user = self.user
                     addExamVC.exam = exam
                     addExamVC.fromEdit = true
-//                    guard let mainNavigationController = UIApplication.shared.keyWindow?.rootViewController as? MainNavigationController else { return true }
-//                    (mainNavigationController.viewControllers.first as? MainController)?.navigate(to: addExamVC)
                     if let navigationController = self.navigationController {
                         navigationController.pushViewController(addExamVC, animated: true)
                     }

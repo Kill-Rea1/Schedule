@@ -61,7 +61,7 @@ class MainController: UIViewController, UINavigationControllerDelegate {
         setupGestures()
     }
     
-    // Public Methods
+    // MARK:- Public Methods
     
     public func navigate(to viewController: UIViewController) {
         navigationController?.pushViewController(viewController, animated: true)
@@ -106,7 +106,6 @@ class MainController: UIViewController, UINavigationControllerDelegate {
             } catch {
                 print(error.localizedDescription)
             }
-//            guard let mainNavigationController = UIApplication.shared.keyWindow?.rootViewController as? MainNavigationController else { return }
             UserDefaults.standard.setIsLoggedIn(value: false)
             let enterController = EnterController()
             navigationController?.viewControllers = [enterController]
@@ -117,7 +116,7 @@ class MainController: UIViewController, UINavigationControllerDelegate {
         currentView.bringSubviewToFront(darkCoverView)
     }
     
-    // Private Methods
+    // MARK:- Fileprivate Methods
     
     fileprivate func setupGestures() {
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))

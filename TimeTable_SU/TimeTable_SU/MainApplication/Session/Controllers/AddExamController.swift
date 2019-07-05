@@ -11,11 +11,15 @@ import Firebase
 
 class AddExamController: UIViewController {
     
+    // MARK:- Properties
+    
     fileprivate var ref: DatabaseReference!
     fileprivate let addExamView = AddExamView()
     public var user: UserDB!
     public var fromEdit = false
     public var exam: Exam?
+    
+    // MARK:- View Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,12 +30,12 @@ class AddExamController: UIViewController {
         } else {
             navigationItem.title = "Добавить зачет"
         }
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.tintColor = .black
         setupView()
         addExamView.saveButton.addTarget(self, action: #selector(handleSave), for: .touchUpInside)
     }
+    
+    // MARK:- Fileprivate Methods
     
     fileprivate func setupView() {
         view.addSubview(addExamView)

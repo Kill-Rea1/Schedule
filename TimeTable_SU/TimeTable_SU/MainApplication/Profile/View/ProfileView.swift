@@ -10,10 +10,14 @@ import UIKit
 
 class ProfileView: BaseView {
     
+    // MARK:- Properties
+    
     fileprivate let padding: CGFloat = 20
     fileprivate let spacingButtons: CGFloat = 10
     fileprivate let spacingSections: CGFloat = 40
     public var nameTextFieldLeadingConstraint: NSLayoutConstraint!
+    
+    // MARK:- Setup View
     
     override func setupViews() {
         super.setupViews()
@@ -21,6 +25,8 @@ class ProfileView: BaseView {
         translatesAutoresizingMaskIntoConstraints = false
         addViews()
     }
+    
+    // MARK:- UIKit
     
     public let nameTextField: MainTextField = {
         let textField = MainTextField()
@@ -44,7 +50,7 @@ class ProfileView: BaseView {
         let label = MainLabel()
         label.textAlignment = .left
         label.font = UIFont(name: "Comfortaa", size: 28)
-        label.numberOfLines = 4
+        label.numberOfLines = 0
         return label
     }()
     
@@ -61,7 +67,7 @@ class ProfileView: BaseView {
         let label = MainLabel()
         label.textAlignment = .left
         label.font = UIFont(name: "Comfortaa", size: 28)
-        label.numberOfLines = 4
+        label.numberOfLines = 0
         return label
     }()
     
@@ -96,6 +102,8 @@ class ProfileView: BaseView {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
+    
+    // MARK:- Fileprivate Methods
         
     fileprivate func addViews() {
         addSubview(adminImageView)

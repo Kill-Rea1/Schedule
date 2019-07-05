@@ -12,6 +12,7 @@ import Firebase
 class RegistrationController: UIViewController {
     
     // MARK:- Properties
+    
     fileprivate var ref: DatabaseReference!
     public var isAdmin = false {
         willSet {
@@ -67,22 +68,13 @@ class RegistrationController: UIViewController {
             registerView.groupButton.alpha = 1
         }
     }
-    public var group: University! {
+    public var group: String? {
         willSet {
             guard let group = newValue else {
                 registerView.groupButton.setTitle("Выберите группу", for: .normal)
                 return
             }
-            registerView.groupButton.setTitle("Группа: \(group.name)", for: .normal)
-        }
-    }
-    public var isMovedFromSearching = false {
-        willSet {
-            if newValue {
-                registerView.notFoundButton.isHidden = false
-            } else {
-                registerView.notFoundButton.isHidden = true
-            }
+            registerView.groupButton.setTitle("Группа: \(group)", for: .normal)
         }
     }
     
@@ -134,7 +126,6 @@ class RegistrationController: UIViewController {
         registerView.registerButton.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
         registerView.universityButton.addTarget(self, action: #selector(handleSearch), for: .touchUpInside)
         registerView.groupButton.addTarget(self, action: #selector(handleSearch), for: .touchUpInside)
-        registerView.notFoundButton.addTarget(self, action: #selector(handleFound), for: .touchUpInside)
         registerView.tipButton.addTarget(self, action: #selector(handleShow), for: .touchUpInside)
         doneButton.addTarget(self, action: #selector(handleHide), for: .touchUpInside)
     }
@@ -153,63 +144,6 @@ class RegistrationController: UIViewController {
         }
     }
     
-    @objc fileprivate func handleFound() {
-        let alerController = UIAlertController(title: "Введите университет и группу", message: "", preferredStyle: .alert)
-        let addAction: UIAlertAction!
-        if university == nil {
-            alerController.addTextField { (textField) in
-                textField.textAlignment = .left
-                textField.placeholder = "Введите университет"
-                textField.font = UIFont(name: "Comfortaa", size: 16)
-                textField.autocorrectionType = .no
-            }
-            alerController.addTextField { (textField) in
-                textField.placeholder = "Введите группу"
-                textField.textAlignment = .left
-                textField.font = UIFont(name: "Comfortaa", size: 16)
-                textField.autocorrectionType = .no
-            }
-            addAction = UIAlertAction(title: "Добавить", style: .default, handler: { [weak self] (action) in
-                guard let university = alerController.textFields![0].text else { return }
-                guard let group = alerController.textFields![1].text else { return }
-                
-                if !university.isEmpty && !group.isEmpty {
-                    let newUniversity = University(name: university)
-                    self?.university = newUniversity.name
-                    let newGroup = University(name: group)
-                    self?.group = newGroup
-                    self?.registerView.notFoundButton.isHidden = true
-                    self?.isAdmin = true
-                    self?.ref.child("universities").child(newUniversity.name).setValue(["name" :newUniversity.name])
-                    self?.ref.child("universities").child(newUniversity.name).child("groups").child(newGroup.name).setValue(["name": newGroup.name])
-//                    self?.registerView.headerView.isHidden = false
-                }
-            })
-        } else {
-            alerController.addTextField { (textField) in
-                textField.placeholder = "Введите группу"
-                textField.textAlignment = .left
-                textField.font = UIFont(name: "Comfortaa", size: 16)
-                textField.autocorrectionType = .no
-            }
-            addAction = UIAlertAction(title: "Добавить", style: .default, handler: { [weak self] (action) in
-                guard let group = alerController.textFields![0].text else { return }
-                if !group.isEmpty {
-                    self?.registerView.notFoundButton.isHidden = true
-                    let newGroup = University(name: group)
-                    self?.group = newGroup
-                    self?.isAdmin = true
-                    self?.ref.child("universities").child((self?.university!)!).child("groups").child(newGroup.name).setValue(["name": newGroup.name])
-//                    self?.registerView.headerView.isHidden = false
-                }
-            })
-        }
-        let cancelAction = UIAlertAction(title: "Отменить", style: .cancel)
-        alerController.addAction(addAction)
-        alerController.addAction(cancelAction)
-        present(alerController, animated: true)
-    }
-    
     @objc fileprivate func handleSearch(sender: UIButton) {
         let searchController = SearchController()
         searchController.prevVC = self
@@ -222,7 +156,7 @@ class RegistrationController: UIViewController {
             searchController.isUniversitySearching = false
             searchController.selectedUniversity = university
         }
-        navigationController?.pushViewController(searchController, animated: true)
+        present(searchController, animated: true, completion: nil)
     }
     
     @objc fileprivate func handleRegister() {
@@ -263,10 +197,10 @@ class RegistrationController: UIViewController {
             guard let uid = res?.user.uid else { return }
             self?.ref = Database.database().reference()
             var userRef = self?.ref.child("users").child(uid)
-            let newUser = UserDB(uid: uid, email: email, name: name, university: university, group: group.name, isAdmin: self!.isAdmin)
+            let newUser = UserDB(uid: uid, email: email, name: name, university: university, group: group, isAdmin: self!.isAdmin)
             var values = newUser.convertToDictionary()
             userRef?.setValue(values)
-            userRef = Database.database().reference().child("universities").child(university).child("groups").child(group.name).child("students").child(uid)
+            userRef = Database.database().reference().child("universities").child(university).child("groups").child(group).child("students").child(uid)
             values = ["uid": uid,"name": newUser.name, "email": email, "isAdmin": newUser.isAdmin]
             userRef?.setValue(values)
             guard let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController else { return }

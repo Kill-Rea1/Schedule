@@ -9,26 +9,20 @@
 import UIKit
 
 class ExamTableCell: BaseCell {
+    
+    // MARK:- Properties
+    
     static let reuseId = "examCell"
+    
+    // MARK:- Setup View
     
     override func setupViews() {
         super.setupViews()
         contentView.backgroundColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
-        contentView.addSubview(nameLabel)
-        contentView.addSubview(classroomLabel)
-        contentView.addSubview(clockImage)
-        contentView.addSubview(timeLabel)
-        contentView.addSubview(typeLabel)
-        
-        nameLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        nameLabel.addConstraints(nil, nil, contentView.topAnchor, nil, .init(top: 30, left: 0, bottom: 0, right: 0), .init(width: 0, height: 25))
-        classroomLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        classroomLabel.addConstraints(nil, nil, nameLabel.bottomAnchor, nil, .init(top: 5, left: 0, bottom: 0, right: 0), .init(width: 0, height: 20))
-        clockImage.addConstraints(contentView.leadingAnchor, nil, contentView.topAnchor, nil, .init(top: 15, left: 10, bottom: 0, right: 0), .init(width: 35, height: 35))
-        timeLabel.centerXAnchor.constraint(equalTo: clockImage.centerXAnchor).isActive = true
-        timeLabel.addConstraints(nil, nil, clockImage.bottomAnchor, nil, .init(top: 10, left: 0, bottom: 0, right: 0), .init(width: 50, height: 20))
-        typeLabel.addConstraints(nil, contentView.trailingAnchor, contentView.topAnchor, nil, .init(top: 5, left: 0, bottom: 0, right: 10), .init(width: 100, height: 35))
+        configure()
     }
+    
+    // MARK:- UIKit
     
     public let nameLabel: MainLabel = {
         let label = MainLabel()
@@ -66,4 +60,23 @@ class ExamTableCell: BaseCell {
         label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return label
     }()
+    
+    // MARK:- Fileprivate Method
+    
+    fileprivate func configure() {
+        contentView.addSubview(nameLabel)
+        contentView.addSubview(classroomLabel)
+        contentView.addSubview(clockImage)
+        contentView.addSubview(timeLabel)
+        contentView.addSubview(typeLabel)
+        
+        nameLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        nameLabel.addConstraints(nil, nil, contentView.topAnchor, nil, .init(top: 30, left: 0, bottom: 0, right: 0), .init(width: 0, height: 25))
+        classroomLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        classroomLabel.addConstraints(nil, nil, nameLabel.bottomAnchor, nil, .init(top: 5, left: 0, bottom: 0, right: 0), .init(width: 0, height: 20))
+        clockImage.addConstraints(contentView.leadingAnchor, nil, contentView.topAnchor, nil, .init(top: 15, left: 10, bottom: 0, right: 0), .init(width: 35, height: 35))
+        timeLabel.centerXAnchor.constraint(equalTo: clockImage.centerXAnchor).isActive = true
+        timeLabel.addConstraints(nil, nil, clockImage.bottomAnchor, nil, .init(top: 10, left: 0, bottom: 0, right: 0), .init(width: 50, height: 20))
+        typeLabel.addConstraints(nil, contentView.trailingAnchor, contentView.topAnchor, nil, .init(top: 5, left: 0, bottom: 0, right: 10), .init(width: 100, height: 35))
+    }
 }

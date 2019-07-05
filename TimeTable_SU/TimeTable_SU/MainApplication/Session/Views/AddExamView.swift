@@ -10,10 +10,14 @@ import UIKit
 
 class AddExamView: BaseView, UITextFieldDelegate {
     
+    // MARK:- Properties
+    
     fileprivate let spacing: CGFloat = 20
     fileprivate let padding: CGFloat = 20
     public var selectedType = "Зачет"
     public let types =  ["Зачет", "Дифф. Зачет", "Экзамен"]
+    
+    // MARK:- View Methods
 
     override func setupViews() {
         super.setupViews()
@@ -26,6 +30,8 @@ class AddExamView: BaseView, UITextFieldDelegate {
         classroom.delegate = self
         startTimeTextField.delegate = self
     }
+    
+    // MARK:- UIKit
     
     public let subjectName: MainTextField = {
         let textField = MainTextField()
@@ -62,6 +68,8 @@ class AddExamView: BaseView, UITextFieldDelegate {
         textField.text = formatter.string(from: time.date)
         textField.layer.cornerRadius = 8
         textField.tintColor = UIColor.clear
+        let paddingViewSubject = UIView(frame: CGRect(x: 0, y: 0, width: 4, height: textField.frame.height))
+        textField.leftView = paddingViewSubject
         return textField
     }()
     
@@ -105,6 +113,8 @@ class AddExamView: BaseView, UITextFieldDelegate {
         button.layer.cornerRadius = 14
         return button
     }()
+    
+    // MARK:- Fileprivate Methods
     
     @objc fileprivate func examTypeChanged(sender: UISegmentedControl) {
         selectedType = types[sender.selectedSegmentIndex]

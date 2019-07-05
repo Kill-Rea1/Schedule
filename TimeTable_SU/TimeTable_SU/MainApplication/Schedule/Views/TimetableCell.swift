@@ -85,7 +85,7 @@ class TimetableCell: BaseCell {
         return label
     }()
     
-    // MARK:- Private Methods
+    // MARK:- Fileprivate Methods
     
     fileprivate func addSubviews() {
         contentView.addSubview(subjectLabel)

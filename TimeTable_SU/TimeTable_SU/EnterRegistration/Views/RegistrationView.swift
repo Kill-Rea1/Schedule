@@ -56,14 +56,12 @@ class RegistrationView: BaseView {
     fileprivate let adminImageView: UIImageView = {
         let imageView = UIImageView(image: #imageLiteral(resourceName: "premium"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
-//        imageView.isHidden = true
         return imageView
     }()
     fileprivate let adminLabel: MainLabel = {
         let label = MainLabel()
         label.font = UIFont(name: UIFont().myFont(), size: 24)
         label.text = "Вы будете админом!"
-//        label.isHidden = true
         return label
     }()
     
@@ -128,7 +126,7 @@ class RegistrationView: BaseView {
         button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 16)
         button.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
         button.titleLabel?.textAlignment = .left
-        button.titleLabel?.numberOfLines = 5
+        button.titleLabel?.numberOfLines = 0
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -141,18 +139,6 @@ class RegistrationView: BaseView {
         button.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
         button.titleLabel?.textAlignment = .left
         button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    public let notFoundButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.frame = CGRect(x: 0, y: 0, width: 60, height: 50)
-        button.setTitle("Не нашли что-то? Добавьте!", for: .normal)
-        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 14)
-        button.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
-        button.titleLabel?.textAlignment = .left
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.isHidden = true
         return button
     }()
     
@@ -181,7 +167,7 @@ class RegistrationView: BaseView {
         let label = MainLabel()
         label.textColor = .red
         label.text = "Warning"
-        label.numberOfLines = 2
+        label.numberOfLines = 0
         return label
     }()
     
@@ -194,7 +180,6 @@ class RegistrationView: BaseView {
         addSubview(nameTextField)
         addSubview(universityButton)
         addSubview(groupButton)
-        addSubview(notFoundButton)
         addSubview(registerButton)
         addSubview(headerView)
         
@@ -206,8 +191,7 @@ class RegistrationView: BaseView {
         universityButton.addConstraints(leadingAnchor, trailingAnchor, nil, nil, .init(top: 0, left: padding, bottom: 0, right: padding), .init(width: 0, height: height))
         universityButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         groupButton.addConstraints(leadingAnchor, trailingAnchor, universityButton.bottomAnchor, nil, .init(top: spacing, left: padding, bottom: 0, right: padding), .init(width: 0, height: height))
-        notFoundButton.addConstraints(leadingAnchor, trailingAnchor, groupButton.bottomAnchor, nil, .init(top: spacing, left: padding, bottom: 0, right: padding), .init(width: 0, height: height * 0.75))
-        registerButton.addConstraints(leadingAnchor, trailingAnchor, notFoundButton.bottomAnchor, nil, .init(top: spacing, left: padding, bottom: 0, right: padding), .init(width: 0, height: height))
+        registerButton.addConstraints(leadingAnchor, trailingAnchor, groupButton.bottomAnchor, nil, .init(top: spacing * 1.5, left: padding, bottom: 0, right: padding), .init(width: 0, height: height))
     }
     
     fileprivate func putDelegates() {
@@ -220,8 +204,9 @@ class RegistrationView: BaseView {
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         let doneButton = UIBarButtonItem(title: "Готово", style: .plain, target: self, action: #selector(dismissKeyboard))
+        let flexibleButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         doneButton.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        toolbar.setItems([doneButton], animated: true)
+        toolbar.setItems([flexibleButton, doneButton], animated: true)
         toolbar.isUserInteractionEnabled = true
         toolbar.backgroundColor = #colorLiteral(red: 0.8138477206, green: 0.8237602115, blue: 0.8536676764, alpha: 1)
         emailTextField.inputAccessoryView = toolbar

@@ -72,6 +72,8 @@ class AddSubjectView: BaseView {
         textField.text = formatter.string(from: time.date)
         textField.layer.cornerRadius = 8
         textField.tintColor = UIColor.clear
+        let paddingViewSubject = UIView(frame: CGRect(x: 0, y: 0, width: 4, height: textField.frame.height))
+        textField.leftView = paddingViewSubject
         return textField
     }()
     
@@ -97,6 +99,8 @@ class AddSubjectView: BaseView {
         textField.text = formatter.string(from: time.date)
         textField.layer.cornerRadius = 8
         textField.tintColor = UIColor.clear
+        let paddingViewSubject = UIView(frame: CGRect(x: 0, y: 0, width: 6, height: textField.frame.height))
+        textField.leftView = paddingViewSubject
         return textField
     }()
     
@@ -132,7 +136,7 @@ class AddSubjectView: BaseView {
         return button
     }()
     
-    // MARK:- Methods
+    // MARK:- Fileprivate Methods
     
     fileprivate func createToolBar() {
         let toolbar = UIToolbar()

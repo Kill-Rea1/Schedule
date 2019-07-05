@@ -31,31 +31,6 @@ class BaseCell: MGSwipeTableCell {
     func setupViews() {}
 }
 
-class MainNavigationController: UINavigationController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        navigationBar.isHidden = true
-        if isLoggedIn() {
-            let rootViewController = MainController()
-            viewControllers = [rootViewController]
-        } else {
-            let rootViewController = EnterController()
-            viewControllers = [rootViewController]
-        }
-    }
-    
-    fileprivate func isLoggedIn() -> Bool {
-        return UserDefaults.standard.isLoggedIn()
-    }
-    
-    @objc func showEnterController() {
-        let enterController = EnterController()
-        present(enterController, animated: true, completion: {
-        })
-    }
-}
-
 extension UserDefaults {
     func setIsLoggedIn(value: Bool) {
         set(value, forKey: "isLoggedIn")
