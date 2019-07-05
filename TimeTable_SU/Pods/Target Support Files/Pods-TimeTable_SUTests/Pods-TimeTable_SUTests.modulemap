@@ -1,0 +1,6 @@
+framework module Pods_TimeTable_SUTests {
+  umbrella header "Pods-TimeTable_SUTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

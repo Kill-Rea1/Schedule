@@ -1,0 +1,25 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'TimeTable_SU' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for TimeTable_SU
+  pod 'Firebase/Core'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Database'
+  pod 'Firebase/Analytics'
+  pod 'MGSwipeTableCell'
+
+  target 'TimeTable_SUTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'TimeTable_SUUITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
