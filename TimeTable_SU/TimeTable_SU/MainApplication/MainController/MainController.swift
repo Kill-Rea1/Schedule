@@ -25,7 +25,6 @@ class MainController: UIViewController, UINavigationControllerDelegate {
     fileprivate var panGesture: UIPanGestureRecognizer!
     fileprivate var isMenuOpened = false
     fileprivate var currentController: UIViewController = UINavigationController(rootViewController: TimetableController())
-    let spinner = UIActivityIndicatorView(style: .whiteLarge)
     
     // MARK:- Views
     
@@ -53,8 +52,6 @@ class MainController: UIViewController, UINavigationControllerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.prefersLargeTitles = false
-        navigationController?.navigationBar.isHidden = true
     }
     
     override func viewDidLoad() {
@@ -109,10 +106,10 @@ class MainController: UIViewController, UINavigationControllerDelegate {
             } catch {
                 print(error.localizedDescription)
             }
-            guard let mainNavigationController = UIApplication.shared.keyWindow?.rootViewController as? MainNavigationController else { return }
+//            guard let mainNavigationController = UIApplication.shared.keyWindow?.rootViewController as? MainNavigationController else { return }
             UserDefaults.standard.setIsLoggedIn(value: false)
             let enterController = EnterController()
-            mainNavigationController.viewControllers = [enterController]
+            navigationController?.viewControllers = [enterController]
             dismiss(animated: true, completion: nil)
         }
         currentView.addSubview(currentController.view)

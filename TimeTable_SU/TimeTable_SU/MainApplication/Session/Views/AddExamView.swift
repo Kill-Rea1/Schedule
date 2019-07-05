@@ -81,7 +81,7 @@ class AddExamView: BaseView, UITextFieldDelegate {
         textField.inputView = date
         textField.textAlignment = .center
         textField.layer.cornerRadius = 8
-        textField.font = UIFont(name: "Comfortaa", size: 16)
+        textField.font = UIFont(name: UIFont().myFont(), size: 16)
         textField.tintColor = UIColor.clear
         return textField
     }()
@@ -97,7 +97,7 @@ class AddExamView: BaseView, UITextFieldDelegate {
         let button = UIButton(type: .system)
         button.frame = CGRect(x: 0, y: 0, width: 60, height: 50)
         button.setTitle("Добавить", for: .normal)
-        button.titleLabel?.font = UIFont(name: "Comfortaa", size: 18)
+        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 18)
         button.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.borderWidth = 1
@@ -168,50 +168,5 @@ class AddExamView: BaseView, UITextFieldDelegate {
         examType.addConstraints(leadingAnchor, trailingAnchor, dateTextField.bottomAnchor, nil, .init(top: spacing, left: padding, bottom: 0, right: padding), .init(width: 0, height: 40))
         saveButton.addConstraints(nil, nil, examType.bottomAnchor, nil, .init(top: spacing * 3, left: 0, bottom: 0, right: 0), .init(width: 120, height: 50))
         saveButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        
-//        // Subject name constaints
-//        subjectName.topAnchor.constraint(equalTo: topAnchor, constant: spacing * 4).isActive = true
-//        subjectName.heightAnchor.constraint(equalToConstant: 40).isActive = true
-//        subjectName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding).isActive = true
-//        subjectName.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding).isActive = true
-//        
-//        // Classrom constraints
-//        classroom.topAnchor.constraint(equalTo: subjectName.bottomAnchor, constant: spacing).isActive = true
-//        classroom.heightAnchor.constraint(equalToConstant: 40).isActive = true
-//        classroom.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding).isActive = true
-//        classroom.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding).isActive = true
-//        
-//        // Start time label constraints
-//        startTimeLabel.topAnchor.constraint(equalTo: classroom.bottomAnchor, constant: spacing).isActive = true
-//        startTimeLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
-//        startTimeLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding).isActive = true
-//        startTimeLabel.widthAnchor.constraint(equalToConstant: 175).isActive = true
-//        
-//        // Start time text field constraints
-//        startTimeTextField.topAnchor.constraint(equalTo: classroom.bottomAnchor, constant: spacing).isActive = true
-//        startTimeTextField.heightAnchor.constraint(equalToConstant: 30).isActive = true
-//        startTimeTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding).isActive = true
-//        startTimeTextField.widthAnchor.constraint(equalToConstant: 65).isActive = true
-//        
-//        dateLabel.topAnchor.constraint(equalTo: startTimeLabel.bottomAnchor, constant: spacing).isActive = true
-//        dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding).isActive = true
-//        dateLabel.trailingAnchor.constraint(equalTo: centerXAnchor).isActive = true
-//        dateLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
-//        
-//        dateTextField.topAnchor.constraint(equalTo: startTimeTextField.bottomAnchor, constant: spacing).isActive = true
-//        dateTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
-//        dateTextField.leadingAnchor.constraint(equalTo: centerXAnchor).isActive = true
-//        dateTextField.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -padding).isActive = true
-//        
-//        examType.topAnchor.constraint(equalTo: dateTextField.bottomAnchor, constant: spacing).isActive = true
-//        examType.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding).isActive = true
-//        examType.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding).isActive = true
-//        examType.heightAnchor.constraint(equalToConstant: 40).isActive = true
-//        
-//        // Save button constraints
-//        saveButton.topAnchor.constraint(equalTo: examType.bottomAnchor, constant: spacing * 3).isActive = true
-//        saveButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-//        saveButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-//        saveButton.widthAnchor.constraint(equalToConstant: 120).isActive = true
     }
 }

@@ -125,7 +125,7 @@ class ProfileController: UIViewController {
     }
     
     @objc fileprivate func handleMenu() {
-        ((UIApplication.shared.keyWindow?.rootViewController as? MainNavigationController)?.viewControllers.first as? MainController)?.openMenu()
+        ((UIApplication.shared.keyWindow?.rootViewController as? UINavigationController)?.viewControllers.first as? MainController)?.openMenu()
     }
     
     fileprivate func setupView() {

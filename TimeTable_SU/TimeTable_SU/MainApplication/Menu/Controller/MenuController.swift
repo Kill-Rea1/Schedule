@@ -11,8 +11,10 @@ import Firebase
 
 extension MenuController: UINavigationControllerDelegate {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let mainNavigationController = UIApplication.shared.keyWindow?.rootViewController as? MainNavigationController
-        let containerController = mainNavigationController?.viewControllers.first as? MainController
+//        let mainNavigationController = UIApplication.shared.keyWindow?.rootViewController as? MainNavigationController
+//        let containerController = mainNavigationController?.viewControllers.first as? MainController
+        let navigation = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController
+        let containerController = navigation?.viewControllers.first as? MainController
         containerController?.didSelectMenuItem(indexPathRow: indexPath.row)
         tableView.deselectRow(at: indexPath, animated: true)
     }

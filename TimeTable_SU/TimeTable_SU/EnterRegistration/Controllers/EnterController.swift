@@ -62,10 +62,8 @@ class EnterController: UIViewController {
                 return
             }
             if user != nil {
-                let rootController = UIApplication.shared.keyWindow?.rootViewController
-                guard let mainNavigationController = rootController as? MainNavigationController else { return }
-                mainNavigationController.viewControllers = [MainController()]
-                
+                guard let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController else { return }
+                navigationController.viewControllers = [MainController()]
                 UserDefaults.standard.setIsLoggedIn(value: true)
                 
                 self?.dismiss(animated: true, completion: nil)

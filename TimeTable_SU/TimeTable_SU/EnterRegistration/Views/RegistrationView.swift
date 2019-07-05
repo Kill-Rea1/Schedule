@@ -61,7 +61,7 @@ class RegistrationView: BaseView {
     }()
     fileprivate let adminLabel: MainLabel = {
         let label = MainLabel()
-        label.font = UIFont(name: "Comfortaa", size: 24)
+        label.font = UIFont(name: UIFont().myFont(), size: 24)
         label.text = "Вы будете админом!"
 //        label.isHidden = true
         return label
@@ -95,7 +95,7 @@ class RegistrationView: BaseView {
         let textField = MainTextField()
         textField.textAlignment = .center
         textField.placeholder = "Введите почту.."
-        textField.font = UIFont(name: "Comfortaa", size: 20)
+        textField.font = UIFont(name: UIFont().myFont(), size: 20)
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
         return textField
@@ -105,7 +105,7 @@ class RegistrationView: BaseView {
         let textField = MainTextField()
         textField.textAlignment = .center
         textField.placeholder = "Придумайте пароль.."
-        textField.font = UIFont(name: "Comfortaa", size: 20)
+        textField.font = UIFont(name: UIFont().myFont(), size: 20)
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
         textField.isSecureTextEntry = true
@@ -116,7 +116,7 @@ class RegistrationView: BaseView {
         let textField = MainTextField()
         textField.textAlignment = .center
         textField.placeholder = "Введите имя.."
-        textField.font = UIFont(name: "Comfortaa", size: 20)
+        textField.font = UIFont(name: UIFont().myFont(), size: 20)
         textField.autocorrectionType = .no
         return textField
     }()
@@ -125,7 +125,7 @@ class RegistrationView: BaseView {
         let button = UIButton(type: .system)
         button.frame = CGRect(x: 0, y: 0, width: 60, height: 50)
         button.setTitle("Выберите ВУЗ", for: .normal)
-        button.titleLabel?.font = UIFont(name: "Comfortaa", size: 16)
+        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 16)
         button.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
         button.titleLabel?.textAlignment = .left
         button.titleLabel?.numberOfLines = 5
@@ -137,7 +137,7 @@ class RegistrationView: BaseView {
         let button = UIButton(type: .system)
         button.frame = CGRect(x: 0, y: 0, width: 60, height: 50)
         button.setTitle("Выберите группу", for: .normal)
-        button.titleLabel?.font = UIFont(name: "Comfortaa", size: 16)
+        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 16)
         button.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
         button.titleLabel?.textAlignment = .left
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -148,7 +148,7 @@ class RegistrationView: BaseView {
         let button = UIButton(type: .system)
         button.frame = CGRect(x: 0, y: 0, width: 60, height: 50)
         button.setTitle("Не нашли что-то? Добавьте!", for: .normal)
-        button.titleLabel?.font = UIFont(name: "Comfortaa", size: 14)
+        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 14)
         button.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
         button.titleLabel?.textAlignment = .left
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -160,7 +160,7 @@ class RegistrationView: BaseView {
         let button = UIButton(type: .system)
         button.frame = CGRect(x: 0, y: 0, width: 60, height: 50)
         button.setTitle("Зарегестрироваться", for: .normal)
-        button.titleLabel?.font = UIFont(name: "Comfortaa", size: 18)
+        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 18)
         button.setTitleColor(.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.borderWidth = 1

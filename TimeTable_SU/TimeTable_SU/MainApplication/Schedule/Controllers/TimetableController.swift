@@ -18,8 +18,9 @@ class TimetableController: UIViewController, MGSwipeTableCellDelegate {
     fileprivate var refreshControl = UIRefreshControl()
     fileprivate var user: UserDB! {
         willSet {
-            let rootViewController = UIApplication.shared.keyWindow?.rootViewController as? MainNavigationController
-            (rootViewController?.viewControllers.first as! MainController).user = newValue
+            guard let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController else { return }
+            guard let mainController = navigationController.viewControllers.first as? MainController else { return }
+            mainController.user = newValue
             if newValue.isAdmin {
                 let addButton = UIBarButtonItem(image: #imageLiteral(resourceName: "add"), style: .plain, target: self, action: #selector(handleAdd))
                 let refreshButton = UIBarButtonItem(image: #imageLiteral(resourceName: "refresh"), style: .plain, target: self, action: #selector(refresh))
@@ -51,7 +52,7 @@ class TimetableController: UIViewController, MGSwipeTableCellDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        checkIfUserLoggedIn()
+//        checkIfUserLoggedIn()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -92,23 +93,22 @@ class TimetableController: UIViewController, MGSwipeTableCellDelegate {
         } catch let logoutError {
             print(logoutError)
         }
-        guard let mainNavigationController = UIApplication.shared.keyWindow?.rootViewController as? MainNavigationController else { return}
-        let registerController = EnterController()
-        mainNavigationController.viewControllers = [registerController]
+        guard let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController else { return }
+        let enterController = EnterController()
+        navigationController.viewControllers = [enterController]
         UserDefaults.standard.setIsLoggedIn(value: false)
         dismiss(animated: true, completion: nil)
     }
     
     @objc fileprivate func handleMenu() {
-        ((UIApplication.shared.keyWindow?.rootViewController as? MainNavigationController)?.viewControllers.first as? MainController)?.openMenu()
+        ((UIApplication.shared.keyWindow?.rootViewController as? UINavigationController)?.viewControllers.first as? MainController)?.openMenu()
     }
     
     @objc fileprivate func handleAdd() {
         guard let user = user else { return }
         let addSubjectVC = AddSubjectController()
         addSubjectVC.user = user
-        guard let mainNavigationController = UIApplication.shared.keyWindow?.rootViewController as? MainNavigationController else { return }
-        (mainNavigationController.viewControllers.first as? MainController)?.navigate(to: addSubjectVC)
+        navigationController?.pushViewController(addSubjectVC, animated: true)
     }
     
     fileprivate func setupTargets() {
@@ -124,7 +124,9 @@ class TimetableController: UIViewController, MGSwipeTableCellDelegate {
     @objc fileprivate func refresh(_ sender: AnyObject) {
         timetableView.weekParity.selectedSegmentIndex = 0
         checkIfUserLoggedIn()
-        refreshControl.endRefreshing()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.refreshControl.endRefreshing()
+        }
     }
     
     fileprivate func isSubjectsExist() {
@@ -275,8 +277,6 @@ extension TimetableController: UITableViewDelegate, UITableViewDataSource {
             cell.typeSubjectLabel.text = subject.subjectType
             cell.weekParityLabel.text = subject.parity
             cell.selectionStyle = .none
-            cell.layer.cornerRadius = 14
-            cell.clipsToBounds = true
             cell.swipeBackgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
             cell.delegate = self
             cell.rightSwipeSettings.transition = .border
@@ -319,8 +319,9 @@ extension TimetableController: UITableViewDelegate, UITableViewDataSource {
                     addSubjectVC.user = self.user
                     addSubjectVC.subject = subject
                     addSubjectVC.fromEdit = true
-                    guard let mainNavigationController = UIApplication.shared.keyWindow?.rootViewController as? MainNavigationController else { return true }
-                    (mainNavigationController.viewControllers.first as? MainController)?.navigate(to: addSubjectVC)
+                    if let navigationController = self.navigationController {
+                        navigationController.pushViewController(addSubjectVC, animated: true)
+                    }
                     return true
                 })
             ]
@@ -335,7 +336,7 @@ extension TimetableController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let label = UILabel()
-        label.font = UIFont(name: "Comfortaa", size: 24)
+        label.font = UIFont(name: UIFont().myFont(), size: 24)
         label.textColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         label.text = timetableView.subjects[section].first?.weekday ?? ""
         label.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)

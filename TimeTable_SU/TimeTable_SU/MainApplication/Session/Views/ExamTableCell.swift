@@ -28,43 +28,18 @@ class ExamTableCell: BaseCell {
         timeLabel.centerXAnchor.constraint(equalTo: clockImage.centerXAnchor).isActive = true
         timeLabel.addConstraints(nil, nil, clockImage.bottomAnchor, nil, .init(top: 10, left: 0, bottom: 0, right: 0), .init(width: 50, height: 20))
         typeLabel.addConstraints(nil, contentView.trailingAnchor, contentView.topAnchor, nil, .init(top: 5, left: 0, bottom: 0, right: 10), .init(width: 100, height: 35))
-        
-//        NSLayoutConstraint.activate([
-//                nameLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-//                nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
-//                nameLabel.heightAnchor.constraint(equalToConstant: 25),
-//                
-//                classroomLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5),
-//                classroomLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-//                classroomLabel.heightAnchor.constraint(equalToConstant: 20),
-//                
-//                clockImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
-//                clockImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-//                clockImage.widthAnchor.constraint(equalToConstant: 35),
-//                clockImage.heightAnchor.constraint(equalToConstant: 35),
-//                
-//                timeLabel.centerXAnchor.constraint(equalTo: clockImage.centerXAnchor),
-//                timeLabel.topAnchor.constraint(equalTo: clockImage.bottomAnchor, constant: 10),
-//                timeLabel.widthAnchor.constraint(equalToConstant: 50),
-//                timeLabel.heightAnchor.constraint(equalToConstant: 20),
-//                
-//                typeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-//                typeLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-//                typeLabel.widthAnchor.constraint(equalToConstant: 100),
-//                typeLabel.heightAnchor.constraint(equalToConstant: 35)
-//            ])
     }
     
     public let nameLabel: MainLabel = {
         let label = MainLabel()
-        label.font = UIFont(name: "Comfortaa", size: 18)
+        label.font = UIFont(name: UIFont().myFont(), size: 18)
         label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return label
     }()
     
     public let classroomLabel: MainLabel = {
         let label = MainLabel()
-        label.font = UIFont(name: "Comfortaa", size: 12)
+        label.font = UIFont(name: UIFont().myFont(), size: 12)
         label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return label
     }()
@@ -80,14 +55,14 @@ class ExamTableCell: BaseCell {
     
     public let timeLabel: MainLabel = {
         let label = MainLabel()
-        label.font = UIFont(name: "Comfortaa", size: 16)
+        label.font = UIFont(name: UIFont().myFont(), size: 16)
         label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return label
     }()
     
     public let typeLabel: MainLabel = {
         let label = MainLabel()
-        label.font = UIFont(name: "Comfortaa", size: 14)
+        label.font = UIFont(name: UIFont().myFont(), size: 14)
         label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return label
     }()

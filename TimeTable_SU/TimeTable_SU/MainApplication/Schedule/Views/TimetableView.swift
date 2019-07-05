@@ -47,7 +47,7 @@ class TimetableView: BaseView {
     fileprivate let backgroundLabel: MainLabel = {
         let label = MainLabel()
         label.text = "Нет расписания"
-        label.font = UIFont(name: "Comfortaa", size: 35)
+        label.font = UIFont(name: UIFont().myFont(), size: 35)
         return label
     }()
     
@@ -69,7 +69,7 @@ class TimetableView: BaseView {
         formatter.dateFormat = "d MMMM"
         let text = formatter.string(from: date)
         label.text = text
-        label.font = UIFont(name: "Comfortaa", size: 16)
+        label.font = UIFont(name: UIFont().myFont(), size: 16)
         label.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         return label
     }()
@@ -81,7 +81,7 @@ class TimetableView: BaseView {
         let text = weekOfYear % 2 == 0 ? "Нечетная неделя" : "Четная неделя"
         label.text = text
         label.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
-        label.font = UIFont(name: "Comfortaa", size: 16)
+        label.font = UIFont(name: UIFont().myFont(), size: 16)
         return label
     }()
     

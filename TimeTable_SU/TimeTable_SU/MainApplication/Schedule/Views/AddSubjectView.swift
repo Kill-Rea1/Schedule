@@ -123,7 +123,7 @@ class AddSubjectView: BaseView {
         let button = UIButton(type: .system)
         button.frame = CGRect(x: 0, y: 0, width: 60, height: 50)
         button.setTitle("Добавить", for: .normal)
-        button.titleLabel?.font = UIFont(name: "Comfortaa", size: 18)
+        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 18)
         button.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.borderWidth = 1

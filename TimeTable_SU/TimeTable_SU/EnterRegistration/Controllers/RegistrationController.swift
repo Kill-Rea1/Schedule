@@ -38,7 +38,7 @@ class RegistrationController: UIViewController {
         textView.text = "Только админы расписания могут изменять его"
         textView.backgroundColor = .clear
         textView.textColor = .white
-        textView.font = UIFont(name: "Comfortaa", size: 16)
+        textView.font = UIFont(name: UIFont().myFont(), size: 16)
         return textView
     }()
     
@@ -47,7 +47,7 @@ class RegistrationController: UIViewController {
         button.setTitle("Понятно!", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont(name: "Comfrotaa", size: 28)
+        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 28)
         button.backgroundColor = .clear
 //        button.layer.cornerRadius = 14
         return button
@@ -126,16 +126,6 @@ class RegistrationController: UIViewController {
         tipView.addSize(to: .init(width: 200, height: 150))
         tipView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         tipView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-//        NSLayoutConstraint.activate([
-//            registerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-//            registerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-//            registerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-//            registerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-//            tipView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//            tipView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-//            tipView.widthAnchor.constraint(equalToConstant: 200),
-//            tipView.heightAnchor.constraint(equalToConstant: 150)
-//            ])
         registerView.groupButton.isEnabled = false
         registerView.groupButton.alpha = 0.5
     }
@@ -279,9 +269,8 @@ class RegistrationController: UIViewController {
             userRef = Database.database().reference().child("universities").child(university).child("groups").child(group.name).child("students").child(uid)
             values = ["uid": uid,"name": newUser.name, "email": email, "isAdmin": newUser.isAdmin]
             userRef?.setValue(values)
-            let rootController = UIApplication.shared.keyWindow?.rootViewController
-            guard let mainNavigationController = rootController as? MainNavigationController else { return }
-            mainNavigationController.viewControllers = [MainController()]
+            guard let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController else { return }
+            navigationController.viewControllers = [MainController()]
             UserDefaults.standard.setIsLoggedIn(value: true)
             self?.dismiss(animated: true, completion: nil)
         }

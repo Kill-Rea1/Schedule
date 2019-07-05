@@ -24,11 +24,12 @@ class GroupController: UIViewController {
         setupView()
         loadStudents()
         setupNavigationBar()
+        view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
     }
     
     fileprivate let label: MainLabel = {
         let label = MainLabel()
-        label.font = UIFont(name: "Comfortaa", size: 30)
+        label.font = UIFont(name: UIFont().myFont(), size: 30)
         label.textColor = .black
         label.textAlignment = .left
         return label
@@ -44,7 +45,7 @@ class GroupController: UIViewController {
     }
     
     @objc fileprivate func handleMenu() {
-        ((UIApplication.shared.keyWindow?.rootViewController as? MainNavigationController)?.viewControllers.first as? MainController)?.openMenu()
+        ((UIApplication.shared.keyWindow?.rootViewController as? UINavigationController)?.viewControllers.first as? MainController)?.openMenu()
     }
     
     fileprivate func loadStudents() {
@@ -82,13 +83,6 @@ class GroupController: UIViewController {
         setupTableView()
         label.addConstraints(view.safeAreaLayoutGuide.leadingAnchor, view.safeAreaLayoutGuide.trailingAnchor, view.safeAreaLayoutGuide.topAnchor, nil, .init(top: 10, left: 20, bottom: 0, right: 20))
         tableView.addConstraints(view.safeAreaLayoutGuide.leadingAnchor, view.safeAreaLayoutGuide.trailingAnchor, label.bottomAnchor, view.bottomAnchor, .init(top: 10, left: 20, bottom: 0, right: 20))
-//        label.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-//        label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
-//        label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
-//        tableView.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 10).isActive = true
-//        tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-//        tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
-//        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 }
 
@@ -147,9 +141,9 @@ extension GroupController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let label = UILabel()
         label.text = "Все студенты"
-        label.font = UIFont(name: "Comfortaa", size: 28)
+        label.font = UIFont(name: UIFont().myFont(), size: 28)
         label.textColor = .black
-        label.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
+        label.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         return label
     }
 }

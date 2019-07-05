@@ -25,12 +25,6 @@ class StudentTableCell: BaseCell {
         
         addSubview(stackView)
         stackView.addConstraints(leadingAnchor, trailingAnchor, topAnchor, bottomAnchor)
-//        NSLayoutConstraint.activate([
-//            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-//            stackView.topAnchor.constraint(equalTo: topAnchor),
-//            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-//            stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
-//            ])
     }
     
     fileprivate func configureStudentStackView() {
@@ -49,7 +43,7 @@ class StudentTableCell: BaseCell {
     
     public let emailLabel: MainLabel = {
         let label = MainLabel()
-        label.font = UIFont(name: "Comfortaa", size: 14)
+        label.font = UIFont(name: UIFont().myFont(), size: 14)
         label.textAlignment = .left
         return label
     }()
@@ -64,7 +58,7 @@ class StudentTableCell: BaseCell {
     
     public let adminLabel: MainLabel = {
         let label = MainLabel()
-        label.font = UIFont(name: "Comfortaa", size: 14)
+        label.font = UIFont(name: UIFont().myFont(), size: 14)
         label.text = "Admin"
         return label
     }()

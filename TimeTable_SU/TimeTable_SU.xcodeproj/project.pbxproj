@@ -24,7 +24,6 @@
 		ED56C6CC22A97BF100A618A1 /* AddSubjectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED56C6C722A97BF100A618A1 /* AddSubjectController.swift */; };
 		ED56C6CF22A97BF100A618A1 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED56C6CA22A97BF100A618A1 /* MenuController.swift */; };
 		ED56C6D022A97BF100A618A1 /* TimetableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED56C6CB22A97BF100A618A1 /* TimetableController.swift */; };
-		ED94C8BA22CED32700F1E1CF /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED94C8B922CED32700F1E1CF /* Default-568h@2x.png */; };
 		ED98FCD422BD3F260010949B /* UserClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED98FCD322BD3F260010949B /* UserClass.swift */; };
 		EDA30DF222C7BBF900E74D76 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA30DF122C7BBF900E74D76 /* SearchController.swift */; };
 		EDA30E0522CBFC1C00E74D76 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDA30E0422CBFC1C00E74D76 /* GoogleService-Info.plist */; };
@@ -98,7 +97,6 @@
 		ED56C6C722A97BF100A618A1 /* AddSubjectController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSubjectController.swift; sourceTree = "<group>"; };
 		ED56C6CA22A97BF100A618A1 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		ED56C6CB22A97BF100A618A1 /* TimetableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimetableController.swift; sourceTree = "<group>"; };
-		ED94C8B922CED32700F1E1CF /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		ED98FCD322BD3F260010949B /* UserClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserClass.swift; sourceTree = "<group>"; };
 		EDA30DF122C7BBF900E74D76 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		EDA30E0022C90CCF00E74D76 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
@@ -215,7 +213,6 @@
 		ED56C67F22A9786400A618A1 = {
 			isa = PBXGroup;
 			children = (
-				ED94C8B922CED32700F1E1CF /* Default-568h@2x.png */,
 				ED56C68A22A9786400A618A1 /* TimeTable_SU */,
 				ED56C6A222A9786600A618A1 /* TimeTable_SUTests */,
 				ED56C6AD22A9786600A618A1 /* TimeTable_SUUITests */,
@@ -238,9 +235,10 @@
 		ED56C68A22A9786400A618A1 /* TimeTable_SU */ = {
 			isa = PBXGroup;
 			children = (
+				ED56C68B22A9786400A618A1 /* AppDelegate.swift */,
 				EDA30DF522C83CCF00E74D76 /* EnterRegistration */,
 				EDA30DF922C83D4E00E74D76 /* MainApplication */,
-				ED9CB69D22C567A1002E781D /* Extinsions+Helpers */,
+				ED9CB69D22C567A1002E781D /* Extensions+Helpers */,
 				EDAE2E7B22BBCE7800A8D794 /* Supporting files */,
 			);
 			path = TimeTable_SU;
@@ -264,13 +262,12 @@
 			path = TimeTable_SUUITests;
 			sourceTree = "<group>";
 		};
-		ED9CB69D22C567A1002E781D /* Extinsions+Helpers */ = {
+		ED9CB69D22C567A1002E781D /* Extensions+Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				ED56C68B22A9786400A618A1 /* AppDelegate.swift */,
 				EDE45CF322BE5A79005091BC /* Extensions+Helpers.swift */,
 			);
-			path = "Extinsions+Helpers";
+			path = "Extensions+Helpers";
 			sourceTree = "<group>";
 		};
 		EDA30DF522C83CCF00E74D76 /* EnterRegistration */ = {
@@ -600,7 +597,6 @@
 				ED56C69122A9786500A618A1 /* Main.storyboard in Resources */,
 				EDAE2E9922BD25A300A8D794 /* Assets.xcassets in Resources */,
 				EDA30E0522CBFC1C00E74D76 /* GoogleService-Info.plist in Resources */,
-				ED94C8BA22CED32700F1E1CF /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

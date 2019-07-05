@@ -40,15 +40,19 @@ class SessionController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     @objc fileprivate func handleMenu() {
-        ((UIApplication.shared.keyWindow?.rootViewController as? MainNavigationController)?.viewControllers.first as? MainController)?.openMenu()
+//        ((UIApplication.shared.keyWindow?.rootViewController as? MainNavigationController)?.viewControllers.first as? MainController)?.openMenu()
+        ((UIApplication.shared.keyWindow?.rootViewController as? UINavigationController)?.viewControllers.first as? MainController)?.openMenu()
     }
     
     @objc fileprivate func handleAdd() {
         guard let user = user else { return }
         let addExamVC = AddExamController()
         addExamVC.user = user
-        guard let mainNavigationController = UIApplication.shared.keyWindow?.rootViewController as? MainNavigationController else { return }
-        (mainNavigationController.viewControllers.first as? MainController)?.navigate(to: addExamVC)
+//        guard let mainNavigationController = UIApplication.shared.keyWindow?.rootViewController as? MainNavigationController else { return }
+//        (mainNavigationController.viewControllers.first as? MainController)?.navigate(to: addExamVC)
+        if let navigationController = navigationController {
+            navigationController.pushViewController(addExamVC, animated: true)
+        }
     }
     
     @objc fileprivate func handleRefresh() {
@@ -145,8 +149,11 @@ class SessionController: UIViewController, UITableViewDelegate, UITableViewDataS
                     addExamVC.user = self.user
                     addExamVC.exam = exam
                     addExamVC.fromEdit = true
-                    guard let mainNavigationController = UIApplication.shared.keyWindow?.rootViewController as? MainNavigationController else { return true }
-                    (mainNavigationController.viewControllers.first as? MainController)?.navigate(to: addExamVC)
+//                    guard let mainNavigationController = UIApplication.shared.keyWindow?.rootViewController as? MainNavigationController else { return true }
+//                    (mainNavigationController.viewControllers.first as? MainController)?.navigate(to: addExamVC)
+                    if let navigationController = self.navigationController {
+                        navigationController.pushViewController(addExamVC, animated: true)
+                    }
                     return true
                 })
             ]

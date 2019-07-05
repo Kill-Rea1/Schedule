@@ -31,7 +31,7 @@ extension SearchController: UISearchBarDelegate, UITableViewDelegate, UITableVie
         cell.textLabel?.text = cellStr
         cell.textLabel?.numberOfLines = 5
         cell.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
-        cell.textLabel?.font = UIFont(name: "Comfortaa", size: 16)
+        cell.textLabel?.font = UIFont(name: UIFont().myFont(), size: 16)
         return cell
     }
     
@@ -123,7 +123,7 @@ class SearchController: UIViewController {
     fileprivate func setupNavigationBer() {
         let newBackButton = UIBarButtonItem(title: "Регистрация", style: .plain, target: self, action: #selector(handleBack))
         newBackButton.tintColor = .black
-        navigationItem.leftBarButtonItem = newBackButton
+        navigationItem.backBarButtonItem = newBackButton
         navigationItem.title = isUniversitySearching ? "Выберите университет" : "Выберите группу"
     }
     
@@ -132,7 +132,7 @@ class SearchController: UIViewController {
         tableView.dataSource = self
         searchBar.delegate = self
         searchBar.returnKeyType = UIReturnKeyType.done
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Comfortaa", size: 16)!]
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedString.Key.font: UIFont(name: UIFont().myFont(), size: 16)!]
         definesPresentationContext = true
     }
     
@@ -145,6 +145,7 @@ class SearchController: UIViewController {
     }
     
     @objc fileprivate func handleBack() {
+        print("back")
         guard let prevVC = prevVC as? RegistrationController else {
             navigationController?.popViewController(animated: true)
             return
