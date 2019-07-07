@@ -66,7 +66,7 @@ class GroupController: UIViewController {
         tableView.delegate = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.tableFooterView = UIView()
-        tableView.rowHeight = 80
+//        tableView.rowHeight = 80
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
         tableView.dataSource = self

@@ -109,7 +109,7 @@ class SearchController: UIViewController {
     }()
     fileprivate let titleLabel: MainLabel = {
         let label = MainLabel()
-        label.font = UIFont(name: UIFont().myFont(), size: 22)
+        label.font = UIFont(name: UIFont().myFont(), size: 16)
         label.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
         return label
     }()

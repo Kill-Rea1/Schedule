@@ -21,10 +21,6 @@ class ProfileController: UIViewController {
             profileView.nameTextField.text = newValue.name
             self.university = newValue.university
             self.group = newValue.group
-            if !newValue.isAdmin {
-                profileView.nameTextFieldLeadingConstraint.constant -= profileView.adminImageView.frame.width
-            }
-            profileView.adminImageView.isHidden = !newValue.isAdmin
             profileView.emailTextField.text = newValue.email
             self.isAdmin = newValue.isAdmin
         }
@@ -46,11 +42,6 @@ class ProfileController: UIViewController {
     public var isAdmin: Bool! {
         willSet {
             profileView.adminImageView.isHidden = !newValue
-            if newValue {
-                profileView.nameTextFieldLeadingConstraint.constant = 40 + profileView.adminImageView.frame.width
-            } else {
-                profileView.nameTextFieldLeadingConstraint.constant = 40
-            }
         }
     }
     

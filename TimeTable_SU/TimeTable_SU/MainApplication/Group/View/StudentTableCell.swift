@@ -38,6 +38,7 @@ class StudentTableCell: BaseCell {
         let label = MainLabel()
         label.font = UIFont(name: UIFont().myFont(), size: 14)
         label.textAlignment = .left
+        label.numberOfLines = 0
         return label
     }()
     
@@ -63,9 +64,9 @@ class StudentTableCell: BaseCell {
         contentView.addSubview(adminLabel)
         contentView.addSubview(adminButton)
         nameLabel.addConstraints(contentView.leadingAnchor, nil, contentView.topAnchor, nil, .init(top: 10, left: 10, bottom: 0, right: 0), .init(width: 0, height: 30))
-        emailLabel.addConstraints(contentView.leadingAnchor, nil, nil, contentView.bottomAnchor, .init(top: 0, left: 10, bottom: 10, right: 0), .init(width: 0, height: 15))
-        adminButton.addConstraints(nil, contentView.trailingAnchor, contentView.topAnchor, nil, .init(top: 10, left: 0, bottom: 0, right: 10), .init(width: 40, height: 40))
-        adminLabel.addConstraints(nil, contentView.trailingAnchor, nil, contentView.bottomAnchor, .init(top: 0, left: 0, bottom: 5, right: 10), .init(width: 0, height: 30))
+        emailLabel.addConstraints(contentView.leadingAnchor, adminLabel.leadingAnchor, nameLabel.bottomAnchor, contentView.bottomAnchor, .init(top: 20, left: 10, bottom: 10, right: 5), .init(width: 0, height: 15))
+        adminButton.addConstraints(nil, contentView.trailingAnchor, contentView.topAnchor, nil, .init(top: 5, left: 0, bottom: 0, right: 10), .init(width: 40, height: 40))
+        adminLabel.addConstraints(nil, contentView.trailingAnchor, adminButton.bottomAnchor, nil, .init(top: 0, left: 0, bottom: 0, right: 10), .init(width: 0, height: 30))
     }
     
     fileprivate func setupContenView() {

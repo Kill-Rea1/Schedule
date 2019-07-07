@@ -129,7 +129,7 @@ class TimetableController: UIViewController, MGSwipeTableCellDelegate {
         }
     }
     
-    fileprivate func isSubjectsExist() {
+    fileprivate func checkIfSubjectsExist() {
         if timetableView.subjects.isEmpty {
             timetableView.tableView.alpha = 0
             timetableView.backgroundView.alpha = 0.5
@@ -156,7 +156,7 @@ class TimetableController: UIViewController, MGSwipeTableCellDelegate {
                 }
             }
             timetableView.tableView.reloadData()
-            isSubjectsExist()
+            checkIfSubjectsExist()
         case 2:
             timetableView.subjects = [[Subject]]()
             for array in subjects {
@@ -171,11 +171,11 @@ class TimetableController: UIViewController, MGSwipeTableCellDelegate {
                 }
             }
             timetableView.tableView.reloadData()
-            isSubjectsExist()
+            checkIfSubjectsExist()
         default:
             timetableView.subjects = subjects
             timetableView.tableView.reloadData()
-            isSubjectsExist()
+            checkIfSubjectsExist()
         }
     }
 
@@ -225,7 +225,7 @@ class TimetableController: UIViewController, MGSwipeTableCellDelegate {
                     self?.subjects = _subjects
                     self?.timetableView.subjects = _subjects
                     self?.timetableView.tableView.reloadData()
-                    self?.isSubjectsExist()
+                    self?.checkIfSubjectsExist()
                 })
             }
         }
@@ -312,7 +312,7 @@ extension TimetableController: UITableViewDelegate, UITableViewDataSource {
                         }
                     }
                     self.timetableView.tableView.endUpdates()
-                    self.isSubjectsExist()
+                    self.checkIfSubjectsExist()
                     return true
                 }),
                 MGSwipeButton(title: "Изменить", icon: #imageLiteral(resourceName: "edit"), backgroundColor: .clear, callback: { (cell) -> Bool in

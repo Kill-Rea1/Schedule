@@ -46,6 +46,7 @@ class SessionController: UIViewController, MGSwipeTableCellDelegate {
     // MARK:- View Methods
     
     override func viewDidLoad() {
+        tableView.alpha = 0
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
         setupNavigationItem()
@@ -88,6 +89,16 @@ class SessionController: UIViewController, MGSwipeTableCellDelegate {
         loadExams()
     }
     
+    fileprivate func checkIfExamsExist() {
+        if exams.isEmpty {
+            tableView.alpha = 0
+            backgroundView.alpha = 0.5
+        } else {
+            tableView.alpha = 1
+            backgroundView.alpha = 0
+        }
+    }
+    
     fileprivate func loadExams() {
         ref = Database.database().reference().child("universities").child(user.university).child("groups").child(user.group).child("session")
         ref.observe(.value) { [weak self] (snapshot) in
@@ -99,6 +110,7 @@ class SessionController: UIViewController, MGSwipeTableCellDelegate {
             _exams = _exams.sorted { $0.dateType < $1.dateType }
             self?.exams = _exams
             self?.tableView.reloadData()
+            self?.checkIfExamsExist()
         }
     }
     
@@ -112,7 +124,7 @@ class SessionController: UIViewController, MGSwipeTableCellDelegate {
         backgroundImage.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor).isActive = true
         backgroundLabel.addConstraints(backgroundView.leadingAnchor, backgroundView.trailingAnchor, backgroundImage.bottomAnchor, nil, .init(top: 30, left: 0, bottom: 0, right: 0), .init(width: 0, height: 55))
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.addConstraints(view.leadingAnchor, view.trailingAnchor, view.topAnchor, view.bottomAnchor, .init(top: 100, left: 10, bottom: 0, right: 10))
+        tableView.addConstraints(view.leadingAnchor, view.trailingAnchor, view.topAnchor, view.bottomAnchor, .init(top: 20, left: 10, bottom: 0, right: 10))
     }
     
     fileprivate func setupTableView() {
