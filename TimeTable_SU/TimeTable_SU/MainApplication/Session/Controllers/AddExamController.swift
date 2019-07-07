@@ -60,7 +60,7 @@ class AddExamController: UIViewController {
     
     fileprivate func setupView() {
         view.addSubview(addExamView)
-        addExamView.addConstraints(view.safeAreaLayoutGuide.leadingAnchor, view.safeAreaLayoutGuide.trailingAnchor, view.safeAreaLayoutGuide.topAnchor, view.safeAreaLayoutGuide.bottomAnchor)
+        addExamView.addConstraints(view.leadingAnchor, view.trailingAnchor, view.topAnchor, view.bottomAnchor)
     }
     
     @objc fileprivate func handleSave() {

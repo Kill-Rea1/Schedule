@@ -16,7 +16,7 @@ class GroupController: UIViewController {
     fileprivate var ref: DatabaseReference!
     fileprivate var students = [Student]()
     fileprivate let tableView = UITableView(frame: .zero, style: .plain)
-    public var user: UserDB! {
+    fileprivate var user: UserDB! {
         willSet {
             navigationItem.title = "Группа \(newValue.group)"
         }
@@ -26,8 +26,8 @@ class GroupController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadUser()
         setupView()
-        loadStudents()
         setupNavigationBar()
         view.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
     }
@@ -42,6 +42,16 @@ class GroupController: UIViewController {
     
     @objc fileprivate func handleMenu() {
         ((UIApplication.shared.keyWindow?.rootViewController as? UINavigationController)?.viewControllers.first as? MainController)?.openMenu()
+    }
+    
+    fileprivate func loadUser() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        ref = Database.database().reference().child("users").child(uid)
+        ref.observeSingleEvent(of: .value) { [weak self] (snapshot) in
+            let user = UserDB(snapshot: snapshot)
+            self?.user = user
+            self?.loadStudents()
+        }
     }
     
     fileprivate func loadStudents() {
@@ -62,11 +72,8 @@ class GroupController: UIViewController {
 
     
     fileprivate func setupTableView() {
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.tableFooterView = UIView()
-//        tableView.rowHeight = 80
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
         tableView.dataSource = self

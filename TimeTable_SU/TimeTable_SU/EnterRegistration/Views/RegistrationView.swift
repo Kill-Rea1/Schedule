@@ -75,7 +75,7 @@ class RegistrationView: BaseScrollView {
             adminImageView.heightAnchor.constraint(equalToConstant: 40),
             adminImageView.widthAnchor.constraint(equalToConstant: 40),
             adminImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            adminLabel.leadingAnchor.constraint(equalTo: adminImageView.trailingAnchor, constant: 20),
+            adminLabel.leadingAnchor.constraint(equalTo: adminImageView.trailingAnchor, constant: 5),
             adminLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             adminLabel.heightAnchor.constraint(equalTo: adminImageView.heightAnchor),
             adminLabel.widthAnchor.constraint(equalToConstant: 280),
@@ -183,15 +183,14 @@ class RegistrationView: BaseScrollView {
         addSubview(registerButton)
         addSubview(headerView)
         
-        headerView.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, nil, emailTextField.topAnchor, .init(top: 0, left: padding, bottom: 10, right: padding), .init(width: 0, height: 50))
-        warningLabel.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, nil, nameTextField.topAnchor, .init(top: 0, left: padding, bottom: spacing * 2, right: padding), .init(width: 0, height: height * 1.5))
-        nameTextField.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, nil, emailTextField.topAnchor, .init(top: 0, left: padding, bottom: spacing, right: padding), .init(width: 0, height: height))
-        emailTextField.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, nil, passwordTextField.topAnchor, .init(top: 0, left: padding, bottom: spacing, right: padding), .init(width: 0, height: height))
-        passwordTextField.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, nil, universityButton.topAnchor, .init(top: 0, left: padding, bottom: spacing, right: padding), .init(width: 0, height: height))
-        universityButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, nil, nil, .init(top: 0, left: padding, bottom: 0, right: padding), .init(width: 0, height: height))
-        universityButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        headerView.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, topAnchor, nil, .init(top: 0, left: padding, bottom: 0, right: 0), .init(width: 0, height: 50))
+        warningLabel.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, headerView.bottomAnchor, nil, .init(top: 5, left: 0, bottom: 0, right: 0), .init(width: 0, height: height * 1.5))
+        nameTextField.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, warningLabel.bottomAnchor, nil, .init(top: spacing, left: padding, bottom: 0, right: padding), .init(width: 0, height: height))
+        emailTextField.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, nameTextField.bottomAnchor, nil, .init(top: spacing, left: padding, bottom: 0, right: padding), .init(width: 0, height: height))
+        passwordTextField.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, emailTextField.bottomAnchor, nil, .init(top: spacing, left: padding, bottom: 0, right: padding), .init(width: 0, height: height))
+        universityButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, passwordTextField.bottomAnchor, nil, .init(top: spacing, left: padding, bottom: 0, right: padding), .init(width: 0, height: height))
         groupButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, universityButton.bottomAnchor, nil, .init(top: spacing, left: padding, bottom: 0, right: padding), .init(width: 0, height: height))
-        registerButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, groupButton.bottomAnchor, nil, .init(top: spacing * 1.5, left: padding, bottom: 0, right: padding), .init(width: 0, height: height))
+        registerButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, groupButton.bottomAnchor, bottomAnchor, .init(top: spacing * 1.5, left: padding, bottom: height, right: padding), .init(width: 0, height: height))
     }
     
     fileprivate func putDelegates() {

@@ -16,14 +16,12 @@ class ProfileView: BaseScrollView {
     fileprivate let padding: CGFloat = 20
     fileprivate let spacingButtons: CGFloat = 10
     fileprivate let spacingSections: CGFloat = 30
-    public var nameTextFieldLeadingConstraint: NSLayoutConstraint!
     
     // MARK:- Setup View
     
     override func setupViews() {
         super.setupViews()
         backgroundColor = .clear
-        translatesAutoresizingMaskIntoConstraints = false
         addViews()
     }
     
@@ -130,7 +128,6 @@ class ProfileView: BaseScrollView {
         addSubview(emailTextField)
         addSubview(emailChangeButton)
         addSubview(saveButton)
-        
         adminImageView.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, topAnchor, nil, .init(top: 20, left: padding, bottom: 0, right: 0), .init(width: 44, height: 44))
         nameTextField.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, adminImageView.bottomAnchor, nil, .init(top: spacingButtons, left: padding, bottom: 0, right: padding), .init(width: 0, height: 44))
         nameChangeButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, nameTextField.bottomAnchor, nil, .init(top: spacingButtons, left: padding, bottom: 0, right: 0), .init(width: 0, height: 20))
@@ -140,7 +137,7 @@ class ProfileView: BaseScrollView {
         groupChangeButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, groupLabel.bottomAnchor, nil, .init(top: spacingButtons, left: padding, bottom: 0, right: 0), .init(width: 0, height: 20))
         emailTextField.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, groupChangeButton.bottomAnchor, nil, .init(top: spacingSections, left: padding, bottom: 0, right: padding), .init(width: 0, height: 44))
         emailChangeButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, emailTextField.bottomAnchor, nil, .init(top: spacingButtons, left: padding, bottom: 0, right: 0), .init(width: 0, height: 20))
-        saveButton.addConstraints(nil, nil, emailChangeButton.bottomAnchor, nil, .init(top: spacingSections, left: 0, bottom: 0, right: 0), .init(width: 0, height: 50))
+        saveButton.addConstraints(nil, nil, emailChangeButton.bottomAnchor, bottomAnchor, .init(top: spacingSections, left: 0, bottom: 50, right: 0), .init(width: 0, height: 50))
         saveButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
 }

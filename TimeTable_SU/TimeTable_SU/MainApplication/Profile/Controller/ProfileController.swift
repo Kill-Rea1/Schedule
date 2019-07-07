@@ -13,10 +13,9 @@ class ProfileController: UIViewController {
     
     // MARK:- Properties
     
-    let cellId = "cellId"
-    
     fileprivate let profileView = ProfileView()
-    public var user: UserDB! {
+    fileprivate var ref: DatabaseReference!
+    fileprivate var user: UserDB! {
         willSet {
             profileView.nameTextField.text = newValue.name
             self.university = newValue.university
@@ -28,9 +27,8 @@ class ProfileController: UIViewController {
     public var university: String! {
         willSet {
             profileView.universityLabel.text = newValue
-            if self.university != newValue {
+            if university != newValue {
                 profileView.groupLabel.text = "Выберете группу"
-            } else {
             }
         }
     }
@@ -47,13 +45,18 @@ class ProfileController: UIViewController {
     
     // MARK:- View Methods
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupKeyboardNotifications()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadUser()
         setupView()
         view.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
         setupNavigationItem()
         addTargets()
-        setupKeyboardNotifications()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -68,15 +71,18 @@ class ProfileController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    @objc fileprivate func keyboardWillShow(notofication: Notification) {
-        guard let userInfo = notofication.userInfo else { return }
+    @objc fileprivate func keyboardWillShow(notification: Notification) {
+        guard let userInfo = notification.userInfo else { return }
         let keyboardFrameSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        profileView.contentSize = CGSize(width: profileView.frame.width, height: profileView.frame.height + keyboardFrameSize.height)
+        profileView.contentSize = CGSize(width: profileView.contentSize.width, height: profileView.contentSize.height + keyboardFrameSize.height)
         profileView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrameSize.height, right: 0)
     }
     
-    @objc fileprivate func keyboardWillHide() {
-        profileView.contentSize = CGSize(width: profileView.frame.width, height: profileView.frame.height)
+    @objc fileprivate func keyboardWillHide(notification: Notification) {
+        guard let userInfo = notification.userInfo else { return }
+        let keyboardFrameSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        profileView.contentSize = CGSize(width: profileView.contentSize.width, height: profileView.contentSize.height - keyboardFrameSize.height)
+        profileView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     fileprivate func addTargets() {
@@ -88,6 +94,7 @@ class ProfileController: UIViewController {
     }
     
     @objc fileprivate func handleButtonTapped(sender: UIButton) {
+        
         switch sender {
         case profileView.nameChangeButton:
             profileView.nameTextField.isEnabled = true
@@ -147,15 +154,15 @@ class ProfileController: UIViewController {
         let newUser = UserDB(uid: user.uid, email: email, name: name, university: university, group: group, isAdmin: isAdmin)
         var newUserRef = user.ref
         newUserRef?.setValue(newUser.convertToDictionary())
-        newUserRef = Database.database().reference().child("universities").child(university).child("groups").child(group).child("students").child(newUser.uid)
-        newUserRef?.updateChildValues(["name": newUser.name, "uid": newUser.uid, "email": newUser.email, "isAdmin": isAdmin])
         newUserRef? = Database.database().reference().child("universities").child(user.university).child("groups").child(user.group).child("students").child(user.uid)
         newUserRef?.setValue(nil)
+        newUserRef = Database.database().reference().child("universities").child(university).child("groups").child(group).child("students").child(newUser.uid)
+        newUserRef?.updateChildValues(["name": newUser.name, "uid": newUser.uid, "email": newUser.email, "isAdmin": isAdmin])
         profileView.nameTextField.isEnabled = false
         profileView.nameTextField.layer.borderWidth = 0
         profileView.emailTextField.isEnabled = false
         profileView.emailTextField.layer.borderWidth = 0
-        navigationItem.rightBarButtonItem?.isEnabled = false
+        profileView.saveButton.isEnabled = false
     }
     
     @objc fileprivate func handleMenu() {
@@ -168,7 +175,7 @@ class ProfileController: UIViewController {
         createToolBar()
         hideKeyboard()
         view.addSubview(profileView)
-        profileView.addConstraints(view.safeAreaLayoutGuide.leadingAnchor, view.safeAreaLayoutGuide.trailingAnchor, view.safeAreaLayoutGuide.topAnchor, view.safeAreaLayoutGuide.bottomAnchor)
+        profileView.addConstraints(view.leadingAnchor, view.trailingAnchor, view.topAnchor, view.bottomAnchor)
     }
     
     fileprivate func createToolBar() {
@@ -192,6 +199,15 @@ class ProfileController: UIViewController {
     
     @objc fileprivate func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    fileprivate func loadUser() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        ref = Database.database().reference().child("users").child(uid)
+        ref.observe(.value) { [weak self] (snapshot) in
+            let user = UserDB(snapshot: snapshot)
+            self?.user = user
+        }
     }
 }
 

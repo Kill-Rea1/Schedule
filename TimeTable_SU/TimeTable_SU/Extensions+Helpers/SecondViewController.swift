@@ -1,19 +1,19 @@
 //
-//  ViewController.swift
+//  SecondViewController.swift
 //  TimeTable_SU
 //
-//  Created by Кирилл Иванов on 07/07/2019.
+//  Created by Кирилл Иванов on 08/07/2019.
 //  Copyright © 2019 Kirill Ivanoff. All rights reserved.
 //
 
 import UIKit
 
-class ViewController: UIViewController {
+class SecondViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        print("first view controller loaded")
+        print("second view controller loaded")
     }
     
 

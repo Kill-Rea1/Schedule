@@ -18,15 +18,17 @@ class EnterController: UIViewController {
     
     // MARK:- ViewController Methods
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupKeyboardNotifications()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         view.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
         navigationController?.navigationBar.isHidden = true
-        enterView.loginButton.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
-        enterView.registerButton.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
-        enterView.resetPasswordButton.addTarget(self, action: #selector(handleReset), for: .touchUpInside)
-        setupKeyboardNotifications()
+        addTargets()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -44,13 +46,22 @@ class EnterController: UIViewController {
     @objc fileprivate func keyboardWillShow(notification: Notification) {
         guard let userInfo = notification.userInfo else { return }
         let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        let keyboardViewEndFrame = view.convert(keyboardSize, from: view.window)
-        enterView.contentSize = CGSize(width: enterView.frame.width, height: enterView.frame.height + keyboardViewEndFrame.height)
-        enterView.scrollIndicatorInsets = enterView.contentInset
+        let keyboardFrameSize = view.convert(keyboardSize, from: view.window)
+        enterView.contentSize = CGSize(width: enterView.contentSize.width, height: enterView.contentSize.height + keyboardFrameSize.height)
+        enterView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrameSize.height, right: 0)
     }
     
-    @objc fileprivate func keyboardWillHide() {
-        enterView.contentSize = CGSize(width: enterView.bounds.size.width, height: enterView.bounds.size.height)
+    @objc fileprivate func keyboardWillHide(notification: Notification) {
+        guard let userInfo = notification.userInfo else { return }
+        let keyboardFrameSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        enterView.contentSize = CGSize(width: enterView.contentSize.width, height: enterView.contentSize.height - keyboardFrameSize.height)
+        enterView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+    
+    fileprivate func addTargets() {
+        enterView.loginButton.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
+        enterView.registerButton.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
+        enterView.resetPasswordButton.addTarget(self, action: #selector(handleReset), for: .touchUpInside)
     }
     
     @objc func handleReset() {
@@ -63,10 +74,7 @@ class EnterController: UIViewController {
         view.addSubview(enterView)
         view.addSubview(alertController)
         setupAlertController()
-        enterView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        enterView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        enterView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        enterView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        enterView.addConstraints(view.leadingAnchor, view.trailingAnchor, view.topAnchor, view.bottomAnchor)
         let window = UIApplication.shared.keyWindow
         alertController.frame = window?.frame ?? .zero
     }

@@ -91,7 +91,7 @@ class AddSubjectController: UIViewController {
 
     fileprivate func setupView() {
         view.addSubview(addSubjectView)
-        addSubjectView.addConstraints(view.safeAreaLayoutGuide.leadingAnchor, view.safeAreaLayoutGuide.trailingAnchor, view.safeAreaLayoutGuide.topAnchor, view.safeAreaLayoutGuide.bottomAnchor)
+        addSubjectView.addConstraints(view.leadingAnchor, view.trailingAnchor, view.topAnchor, view.bottomAnchor)
     }
     
     fileprivate func editingView() {

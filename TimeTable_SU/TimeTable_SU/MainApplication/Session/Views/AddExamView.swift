@@ -177,7 +177,7 @@ class AddExamView: BaseScrollView {
         dateLabel.addConstraints(safeAreaLayoutGuide.leadingAnchor, centerXAnchor, startTimeLabel.bottomAnchor, nil, .init(top: spacing, left: padding, bottom: 0, right: 0), .init(width: 0, height: 40))
         dateTextField.addConstraints(centerXAnchor, safeAreaLayoutGuide.trailingAnchor, startTimeTextField.bottomAnchor, nil, .init(top: spacing, left: 0, bottom: 0, right: padding), .init(width: 0, height: 40))
         examType.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, dateTextField.bottomAnchor, nil, .init(top: spacing, left: padding, bottom: 0, right: padding), .init(width: 0, height: 40))
-        saveButton.addConstraints(nil, nil, examType.bottomAnchor, nil, .init(top: spacing * 3, left: 0, bottom: 0, right: 0), .init(width: 120, height: 50))
+        saveButton.addConstraints(nil, nil, examType.bottomAnchor, bottomAnchor, .init(top: spacing * 3, left: 0, bottom: 50, right: 0), .init(width: 120, height: 50))
         saveButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
 }

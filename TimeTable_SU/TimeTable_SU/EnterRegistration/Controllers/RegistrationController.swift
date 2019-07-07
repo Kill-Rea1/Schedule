@@ -79,14 +79,17 @@ class RegistrationController: UIViewController {
     
     // MARK:- ViewController Methods
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupKeyboardNotifications()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
         setup()
         setupActions()
         navigationController?.navigationBar.isHidden = false
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -96,16 +99,25 @@ class RegistrationController: UIViewController {
     
     // MARK:- Private Methods
     
+    fileprivate func setupKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
     @objc fileprivate func keyboardWillShow(notification: Notification) {
         guard let userInfo = notification.userInfo else { return }
         let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        let keyboardViewEndFrame = view.convert(keyboardSize, from: view.window)
-        registerView.contentSize = CGSize(width: registerView.frame.width, height: registerView.frame.height + keyboardViewEndFrame.height)
-        registerView.scrollIndicatorInsets = registerView.contentInset
+        let keyboardFrameSize = view.convert(keyboardSize, from: view.window)
+        registerView.contentSize = CGSize(width: registerView.contentSize.width, height: registerView.contentSize.height + keyboardFrameSize.height)
+        registerView.scrollIndicatorInsets = .init(top: 0, left: 0, bottom: keyboardFrameSize.height, right: 0)
     }
     
-    @objc fileprivate func keyboardWillHide() {
-        registerView.contentSize = CGSize(width: registerView.bounds.size.width, height: registerView.bounds.size.height)
+    @objc fileprivate func keyboardWillHide(notification: Notification) {
+        guard let userInfo = notification.userInfo else { return }
+        let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let keyboardFrameSize = view.convert(keyboardSize, from: view.window)
+        registerView.contentSize = CGSize(width: registerView.contentSize.width, height: registerView.contentSize.height - keyboardFrameSize.height)
+        registerView.scrollIndicatorInsets = .init(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     @objc fileprivate func handleHide() {
@@ -133,7 +145,7 @@ class RegistrationController: UIViewController {
         navigationItem.title = "Регистрация"
         view.addSubview(registerView)
         view.addSubview(tipView)
-        registerView.addConstraints(view.safeAreaLayoutGuide.leadingAnchor, view.safeAreaLayoutGuide.trailingAnchor, view.safeAreaLayoutGuide.topAnchor, view.safeAreaLayoutGuide.bottomAnchor)
+        registerView.addConstraints(view.leadingAnchor, view.trailingAnchor, view.topAnchor, view.bottomAnchor)
         tipView.addSize(to: .init(width: 200, height: 150))
         tipView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         tipView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true

@@ -16,7 +16,7 @@ class SessionController: UIViewController, MGSwipeTableCellDelegate {
     
     fileprivate var ref: DatabaseReference!
     fileprivate var exams = [Exam]()
-    public var user: UserDB!
+    fileprivate var user: UserDB!
     fileprivate let tableView = UITableView(frame: .zero, style: .plain)
     fileprivate let backgroundImage: UIImageView = {
         let imageView = UIImageView()
@@ -35,7 +35,7 @@ class SessionController: UIViewController, MGSwipeTableCellDelegate {
         return label
     }()
     
-    public let backgroundView: UIView = {
+    fileprivate let backgroundView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .clear
@@ -47,16 +47,18 @@ class SessionController: UIViewController, MGSwipeTableCellDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        loadExams()
+        if user != nil {
+            loadExams()
+        }
         ((UIApplication.shared.keyWindow?.rootViewController as? UINavigationController)?.viewControllers.first as? MainController)?.isAddControllerOpened = false
     }
     
     override func viewDidLoad() {
+        loadUser()
         tableView.alpha = 0
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
         setupNavigationItem()
-        loadExams()
         setupTableView()
         setupViews()
     }
@@ -103,6 +105,16 @@ class SessionController: UIViewController, MGSwipeTableCellDelegate {
         } else {
             tableView.alpha = 1
             backgroundView.alpha = 0
+        }
+    }
+    
+    fileprivate func loadUser() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        ref = Database.database().reference().child("users").child(uid)
+        ref.observeSingleEvent(of: .value) { [weak self] (snapshot) in
+            let user = UserDB(snapshot: snapshot)
+            self?.user = user
+            self?.loadExams()
         }
     }
     
@@ -184,11 +196,14 @@ extension SessionController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! ExamTableCell
-        cell.showSwipe(.rightToLeft, animated: true)
+        if user.isAdmin {
+            let cell = tableView.cellForRow(at: indexPath) as! ExamTableCell
+            cell.showSwipe(.rightToLeft, animated: true)
+        }
     }
     
     func swipeTableCell(_ cell: MGSwipeTableCell, swipeButtonsFor direction: MGSwipeDirection, swipeSettings: MGSwipeSettings, expansionSettings: MGSwipeExpansionSettings) -> [UIView]? {
+        if !user.isAdmin { return nil }
         let indexPath = tableView.indexPath(for: cell)!
         let exam = exams[indexPath.section]
         if direction == .rightToLeft {

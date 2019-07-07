@@ -25,7 +25,7 @@ class MainController: UIViewController, UINavigationControllerDelegate {
     fileprivate var panGesture: UIPanGestureRecognizer!
     fileprivate var isMenuOpened = false
     fileprivate var currentController: UIViewController = UINavigationController(rootViewController: TimetableController())
-    public var isAddControllerOpened: Bool! {
+    public var isAddControllerOpened = true {
         willSet {
             panGesture.isEnabled = !newValue
         }
@@ -93,17 +93,11 @@ class MainController: UIViewController, UINavigationControllerDelegate {
         case 0:
             currentController = UINavigationController(rootViewController: TimetableController())
         case 1:
-            let sessionController = SessionController()
-            sessionController.user = user
-            currentController = UINavigationController(rootViewController: sessionController)
+            currentController = UINavigationController(rootViewController: SessionController())
         case 2:
-            let profileController = ProfileController()
-            profileController.user = user
-            currentController = UINavigationController(rootViewController: profileController)
+            currentController = UINavigationController(rootViewController: ProfileController())
         case 3:
-            let groupController = GroupController()
-            groupController.user = user
-            currentController = UINavigationController(rootViewController: groupController)
+            currentController = UINavigationController(rootViewController: GroupController())
         default:
             do {
                 try Auth.auth().signOut()
