@@ -142,7 +142,7 @@ class ProfileView: BaseScrollView {
         emailChangeButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, emailTextField.bottomAnchor, nil, .init(top: spacingButtons, left: padding, bottom: 0, right: 0), .init(width: 0, height: 20))
         nameTextFieldLeadingConstraint = nameTextField.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: padding + adminImageView.frame.width + 12)
         nameTextFieldLeadingConstraint.isActive = true
-        saveButton.addConstraints(nil, nil, emailChangeButton.bottomAnchor, nil, .init(top: spacingSections * 2, left: 0, bottom: 0, right: 0), .init(width: 0, height: 45))
+        saveButton.addConstraints(nil, nil, emailChangeButton.bottomAnchor, nil, .init(top: spacingSections * 2, left: 0, bottom: 0, right: 0), .init(width: 0, height: 60))
         saveButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
 }

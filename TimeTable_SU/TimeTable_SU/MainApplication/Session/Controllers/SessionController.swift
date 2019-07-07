@@ -18,6 +18,30 @@ class SessionController: UIViewController, MGSwipeTableCellDelegate {
     fileprivate var exams = [Exam]()
     public var user: UserDB!
     fileprivate let tableView = UITableView(frame: .zero, style: .plain)
+    fileprivate let backgroundImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = #imageLiteral(resourceName: "noSchedule")
+        imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+        imageView.tintColor = .black
+        imageView.alpha = 0.5
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    fileprivate let backgroundLabel: MainLabel = {
+        let label = MainLabel()
+        label.text = "Нет сессии"
+        label.font = UIFont(name: UIFont().myFont(), size: 35)
+        return label
+    }()
+    
+    public let backgroundView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .clear
+        view.alpha = 0.5
+        return view
+    }()
     
     // MARK:- View Methods
     
@@ -27,6 +51,7 @@ class SessionController: UIViewController, MGSwipeTableCellDelegate {
         setupNavigationItem()
         loadExams()
         setupTableView()
+        setupViews()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -77,10 +102,20 @@ class SessionController: UIViewController, MGSwipeTableCellDelegate {
         }
     }
     
-    fileprivate func setupTableView() {
+    fileprivate func setupViews() {
         view.addSubview(tableView)
+        view.addSubview(backgroundView)
+        backgroundView.addSubview(backgroundLabel)
+        backgroundView.addSubview(backgroundImage)
+        backgroundView.addConstraints(view.leadingAnchor, view.trailingAnchor, view.topAnchor, view.bottomAnchor)
+        backgroundImage.addConstraints(nil, nil, backgroundView.topAnchor, nil, .init(top: 20, left: 0, bottom: 0, right: 0), .init(width: 150, height: 150))
+        backgroundImage.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor).isActive = true
+        backgroundLabel.addConstraints(backgroundView.leadingAnchor, backgroundView.trailingAnchor, backgroundImage.bottomAnchor, nil, .init(top: 30, left: 0, bottom: 0, right: 0), .init(width: 0, height: 55))
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.addConstraints(view.leadingAnchor, view.trailingAnchor, view.topAnchor, view.bottomAnchor, .init(top: 100, left: 10, bottom: 0, right: 10))
+    }
+    
+    fileprivate func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()

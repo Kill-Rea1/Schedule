@@ -89,10 +89,11 @@ class ProfileController: UIViewController {
     }
     
     fileprivate func addTargets() {
-        profileView.nameChangeButton.addTarget(self, action: #selector(handleButtonTapped(sender:)), for: .touchUpInside)
-        profileView.universityChangeButton.addTarget(self, action: #selector(handleButtonTapped(sender:)), for: .touchUpInside)
-        profileView.groupChangeButton.addTarget(self, action: #selector(handleButtonTapped(sender:)), for: .touchUpInside)
-        profileView.emailChangeButton.addTarget(self, action: #selector(handleButtonTapped(sender:)), for: .touchUpInside)
+        profileView.nameChangeButton.addTarget(self, action: #selector(handleButtonTapped), for: .touchUpInside)
+        profileView.universityChangeButton.addTarget(self, action: #selector(handleButtonTapped), for: .touchUpInside)
+        profileView.groupChangeButton.addTarget(self, action: #selector(handleButtonTapped), for: .touchUpInside)
+        profileView.emailChangeButton.addTarget(self, action: #selector(handleButtonTapped), for: .touchUpInside)
+        profileView.saveButton.addTarget(self, action: #selector(handleSave), for: .touchUpInside)
     }
     
     @objc fileprivate func handleButtonTapped(sender: UIButton) {
@@ -100,9 +101,11 @@ class ProfileController: UIViewController {
         case profileView.nameChangeButton:
             profileView.nameTextField.isEnabled = true
             profileView.nameTextField.layer.borderWidth = 1
+            profileView.nameTextField.becomeFirstResponder()
         case profileView.emailChangeButton:
             profileView.emailTextField.isEnabled = true
             profileView.emailTextField.layer.borderWidth = 1
+            profileView.emailTextField.becomeFirstResponder()
         default:
             handleSearch(sender: sender)
         }
