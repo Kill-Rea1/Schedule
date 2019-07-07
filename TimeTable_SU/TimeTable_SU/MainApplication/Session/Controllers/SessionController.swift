@@ -43,6 +43,7 @@ class SessionController: UIViewController, MGSwipeTableCellDelegate {
         let refreshButton = UIBarButtonItem(image: #imageLiteral(resourceName: "refresh"), style: .plain, target: self, action: #selector(handleRefresh))
         navigationItem.rightBarButtonItems = [addButton, refreshButton]
         navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     @objc fileprivate func handleMenu() {

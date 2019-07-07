@@ -9,13 +9,25 @@
 import UIKit
 import MGSwipeTableCell
 
-class BaseView : UIView {
+class BaseView: UIView {
     init() {
         super.init(frame: .zero)
         setupViews()
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    func setupViews(){}
+}
+
+class BaseScrollView: UIScrollView {
+    init() {
+        super.init(frame: .zero)
+        setupViews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder: has not been implemented")
     }
     func setupViews(){}
 }
@@ -63,7 +75,7 @@ class MainTextField: UITextField {
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.black.cgColor
         self.layer.cornerRadius = 14
-        self.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
+        self.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         self.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         self.font = UIFont(name: UIFont().myFont(), size: 16)
         self.translatesAutoresizingMaskIntoConstraints = false

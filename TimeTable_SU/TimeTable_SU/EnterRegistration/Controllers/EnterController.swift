@@ -17,18 +17,41 @@ class EnterController: UIViewController {
     fileprivate let alertController = CustomAlertController()
     
     // MARK:- ViewController Methods
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        view.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
+        navigationController?.navigationBar.isHidden = true
         enterView.loginButton.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
         enterView.registerButton.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
         enterView.resetPasswordButton.addTarget(self, action: #selector(handleReset), for: .touchUpInside)
-        navigationController?.navigationBar.isHidden = true
-        navigationController?.navigationBar.tintColor = .red
+        setupKeyboardNotifications()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK:- Private Methods
+    
+    fileprivate func setupKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc fileprivate func keyboardWillShow(notification: Notification) {
+        guard let userInfo = notification.userInfo else { return }
+        let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let keyboardViewEndFrame = view.convert(keyboardSize, from: view.window)
+        enterView.contentSize = CGSize(width: enterView.frame.width, height: enterView.frame.height + keyboardViewEndFrame.height)
+        enterView.scrollIndicatorInsets = enterView.contentInset
+    }
+    
+    @objc fileprivate func keyboardWillHide() {
+        enterView.contentSize = CGSize(width: enterView.bounds.size.width, height: enterView.bounds.size.height)
+    }
     
     @objc func handleReset() {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseIn, animations: {
@@ -40,7 +63,10 @@ class EnterController: UIViewController {
         view.addSubview(enterView)
         view.addSubview(alertController)
         setupAlertController()
-        enterView.addConstraints(view.leadingAnchor, view.trailingAnchor, view.topAnchor, view.bottomAnchor)
+        enterView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        enterView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        enterView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        enterView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         let window = UIApplication.shared.keyWindow
         alertController.frame = window?.frame ?? .zero
     }

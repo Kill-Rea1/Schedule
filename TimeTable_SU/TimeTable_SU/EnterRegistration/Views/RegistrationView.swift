@@ -30,7 +30,7 @@ extension RegistrationView: UITextFieldDelegate {
     }
 }
 
-class RegistrationView: BaseView {
+class RegistrationView: BaseScrollView {
 
     // MARK:- Properties
     
@@ -39,7 +39,7 @@ class RegistrationView: BaseView {
     fileprivate let spacing: CGFloat = 20
     
     // MARK:- Initialisation
-    
+
     override func setupViews() {
         super.setupViews()
         backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
@@ -183,15 +183,15 @@ class RegistrationView: BaseView {
         addSubview(registerButton)
         addSubview(headerView)
         
-        headerView.addConstraints(leadingAnchor, trailingAnchor, nil, emailTextField.topAnchor, .init(top: 0, left: padding, bottom: 10, right: padding), .init(width: 0, height: 50))
-        warningLabel.addConstraints(leadingAnchor, trailingAnchor, nil, nameTextField.topAnchor, .init(top: 0, left: padding, bottom: spacing * 2, right: padding), .init(width: 0, height: height * 1.5))
-        nameTextField.addConstraints(leadingAnchor, trailingAnchor, nil, emailTextField.topAnchor, .init(top: 0, left: padding, bottom: spacing, right: padding), .init(width: 0, height: height))
-        emailTextField.addConstraints(leadingAnchor, trailingAnchor, nil, passwordTextField.topAnchor, .init(top: 0, left: padding, bottom: spacing, right: padding), .init(width: 0, height: height))
-        passwordTextField.addConstraints(leadingAnchor, trailingAnchor, nil, universityButton.topAnchor, .init(top: 0, left: padding, bottom: spacing, right: padding), .init(width: 0, height: height))
-        universityButton.addConstraints(leadingAnchor, trailingAnchor, nil, nil, .init(top: 0, left: padding, bottom: 0, right: padding), .init(width: 0, height: height))
+        headerView.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, nil, emailTextField.topAnchor, .init(top: 0, left: padding, bottom: 10, right: padding), .init(width: 0, height: 50))
+        warningLabel.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, nil, nameTextField.topAnchor, .init(top: 0, left: padding, bottom: spacing * 2, right: padding), .init(width: 0, height: height * 1.5))
+        nameTextField.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, nil, emailTextField.topAnchor, .init(top: 0, left: padding, bottom: spacing, right: padding), .init(width: 0, height: height))
+        emailTextField.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, nil, passwordTextField.topAnchor, .init(top: 0, left: padding, bottom: spacing, right: padding), .init(width: 0, height: height))
+        passwordTextField.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, nil, universityButton.topAnchor, .init(top: 0, left: padding, bottom: spacing, right: padding), .init(width: 0, height: height))
+        universityButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, nil, nil, .init(top: 0, left: padding, bottom: 0, right: padding), .init(width: 0, height: height))
         universityButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        groupButton.addConstraints(leadingAnchor, trailingAnchor, universityButton.bottomAnchor, nil, .init(top: spacing, left: padding, bottom: 0, right: padding), .init(width: 0, height: height))
-        registerButton.addConstraints(leadingAnchor, trailingAnchor, groupButton.bottomAnchor, nil, .init(top: spacing * 1.5, left: padding, bottom: 0, right: padding), .init(width: 0, height: height))
+        groupButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, universityButton.bottomAnchor, nil, .init(top: spacing, left: padding, bottom: 0, right: padding), .init(width: 0, height: height))
+        registerButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, groupButton.bottomAnchor, nil, .init(top: spacing * 1.5, left: padding, bottom: 0, right: padding), .init(width: 0, height: height))
     }
     
     fileprivate func putDelegates() {

@@ -25,17 +25,38 @@ class AddExamController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
         ref = Database.database().reference()
-        if fromEdit {
-            setupViewEdit()
-        } else {
-            navigationItem.title = "Добавить зачет"
-        }
+        setupViewEdit()
         navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.prefersLargeTitles = true
         setupView()
         addExamView.saveButton.addTarget(self, action: #selector(handleSave), for: .touchUpInside)
+        setupKeyboardNotifications()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+        ref.removeAllObservers()
     }
     
     // MARK:- Fileprivate Methods
+    
+    fileprivate func setupKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc fileprivate func keyboardWillShow(notification: Notification) {
+        guard let userInfo = notification.userInfo else { return }
+        let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let keyboardViewEndFrame = view.convert(keyboardSize, from: view.window)
+        addExamView.contentSize = CGSize(width: addExamView.frame.width, height: addExamView.frame.height + keyboardViewEndFrame.height)
+        addExamView.scrollIndicatorInsets = addExamView.contentInset
+    }
+    
+    @objc fileprivate func keyboardWillHide() {
+        addExamView.contentSize = CGSize(width: addExamView.bounds.size.width, height: addExamView.bounds.size.height)
+    }
     
     fileprivate func setupView() {
         view.addSubview(addExamView)
@@ -64,7 +85,10 @@ class AddExamController: UIViewController {
     }
     
     fileprivate func setupViewEdit() {
-        guard let exam = exam else { return }
+        guard let exam = exam else {
+            navigationItem.title = "Новый зачет"
+            return
+        }
         addExamView.subjectName.text = exam.name
         addExamView.classroom.text = exam.classroom
         addExamView.startTimeTextField.text = exam.time

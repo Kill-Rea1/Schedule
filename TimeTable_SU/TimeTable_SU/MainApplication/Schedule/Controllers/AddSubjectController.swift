@@ -21,11 +21,6 @@ class AddSubjectController: UIViewController {
     
     // MARK:- ViewController Methods
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        ref.removeAllObservers()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
@@ -34,16 +29,37 @@ class AddSubjectController: UIViewController {
         let university = user.university
         let group = user.group
         ref = Database.database().reference().child("universities").child(university).child("groups").child(group).child("schedule")
-        if subject != nil {
-            editingView()
-        } else {
-            navigationItem.title = "Новый предмет"
-        }
+        editingView()
         navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
+        setupKeyboardNotifications()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+        ref.removeAllObservers()
     }
     
     // MARK:- Private Methods
+    
+    fileprivate func setupKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc fileprivate func keyboardWillShow(notification: Notification) {
+        guard let userInfo = notification.userInfo else { return }
+        let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let keyboardViewEndFrame = view.convert(keyboardSize, from: view.window)
+        addSubjectView.contentSize = CGSize(width: addSubjectView.frame.width, height: addSubjectView.frame.height + keyboardViewEndFrame.height)
+        addSubjectView.scrollIndicatorInsets = addSubjectView.contentInset
+    }
+    
+    @objc fileprivate func keyboardWillHide() {
+        addSubjectView.contentSize = CGSize(width: addSubjectView.bounds.size.width, height: addSubjectView.bounds.size.height)
+    }
 
     @objc fileprivate func save() {
         guard let name = addSubjectView.subjectName.text, name != "" else {
@@ -82,7 +98,10 @@ class AddSubjectController: UIViewController {
     }
     
     fileprivate func editingView() {
-        guard let subject = subject else { return }
+        guard let subject = subject else {
+            navigationItem.title = "Новый предмет"
+            return
+        }
         addSubjectView.subjectName.text = subject.subjectName
         addSubjectView.classroom.text = subject.classroom
         addSubjectView.startTimeTextField.text = subject.startTime

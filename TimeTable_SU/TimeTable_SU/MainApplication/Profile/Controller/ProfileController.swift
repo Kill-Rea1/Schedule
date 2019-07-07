@@ -20,23 +20,21 @@ class ProfileController: UIViewController {
         willSet {
             profileView.nameTextField.text = newValue.name
             self.university = newValue.university
-            self.prevUniversity = newValue.university
             self.group = newValue.group
             if !newValue.isAdmin {
                 profileView.nameTextFieldLeadingConstraint.constant -= profileView.adminImageView.frame.width
             }
             profileView.adminImageView.isHidden = !newValue.isAdmin
-            profileView.emaiTextField.text = newValue.email
+            profileView.emailTextField.text = newValue.email
             self.isAdmin = newValue.isAdmin
         }
     }
-    fileprivate var prevUniversity: String!
-    fileprivate var prevGroup: String!
     public var university: String! {
         willSet {
             profileView.universityLabel.text = newValue
             if self.university != newValue {
                 profileView.groupLabel.text = "Выберете группу"
+            } else {
             }
         }
     }
@@ -49,9 +47,9 @@ class ProfileController: UIViewController {
         willSet {
             profileView.adminImageView.isHidden = !newValue
             if newValue {
-                profileView.nameTextFieldLeadingConstraint.constant = 32 + profileView.adminImageView.frame.width
+                profileView.nameTextFieldLeadingConstraint.constant = 40 + profileView.adminImageView.frame.width
             } else {
-                profileView.nameTextFieldLeadingConstraint.constant = 32
+                profileView.nameTextFieldLeadingConstraint.constant = 40
             }
         }
     }
@@ -64,9 +62,31 @@ class ProfileController: UIViewController {
         view.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
         setupNavigationItem()
         addTargets()
+        setupKeyboardNotifications()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK:- Fileprivate Methods
+    
+    fileprivate func setupKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc fileprivate func keyboardWillShow(notofication: Notification) {
+        guard let userInfo = notofication.userInfo else { return }
+        let keyboardFrameSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        profileView.contentSize = CGSize(width: profileView.frame.width, height: profileView.frame.height + keyboardFrameSize.height)
+        profileView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrameSize.height, right: 0)
+    }
+    
+    @objc fileprivate func keyboardWillHide() {
+        profileView.contentSize = CGSize(width: profileView.frame.width, height: profileView.frame.height)
+    }
     
     fileprivate func addTargets() {
         profileView.nameChangeButton.addTarget(self, action: #selector(handleButtonTapped(sender:)), for: .touchUpInside)
@@ -76,14 +96,13 @@ class ProfileController: UIViewController {
     }
     
     @objc fileprivate func handleButtonTapped(sender: UIButton) {
-        navigationItem.rightBarButtonItem?.isEnabled = true
         switch sender {
         case profileView.nameChangeButton:
             profileView.nameTextField.isEnabled = true
             profileView.nameTextField.layer.borderWidth = 1
         case profileView.emailChangeButton:
-            profileView.emaiTextField.isEnabled = true
-            profileView.emaiTextField.layer.borderWidth = 1
+            profileView.emailTextField.isEnabled = true
+            profileView.emailTextField.layer.borderWidth = 1
         default:
             handleSearch(sender: sender)
         }
@@ -109,16 +128,15 @@ class ProfileController: UIViewController {
     fileprivate func setupNavigationItem() {
         navigationItem.title = "Профиль"
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu"), style: .plain, target: self, action: #selector(handleMenu))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "editProfile"), style: .plain, target: self, action: #selector(handleSave))
-        navigationItem.rightBarButtonItem?.isEnabled = false
         navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     @objc fileprivate func handleSave() {
         guard let name = profileView.nameTextField.text, name != "" else {
             return
         }
-        guard let email = profileView.emaiTextField.text, email != "" else {
+        guard let email = profileView.emailTextField.text, email != "" else {
             return
         }
         guard let university = university else {
@@ -141,8 +159,8 @@ class ProfileController: UIViewController {
         newUserRef?.setValue(nil)
         profileView.nameTextField.isEnabled = false
         profileView.nameTextField.layer.borderWidth = 0
-        profileView.emaiTextField.isEnabled = false
-        profileView.emaiTextField.layer.borderWidth = 0
+        profileView.emailTextField.isEnabled = false
+        profileView.emailTextField.layer.borderWidth = 0
         navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
@@ -151,7 +169,49 @@ class ProfileController: UIViewController {
     }
     
     fileprivate func setupView() {
+        profileView.nameTextField.delegate = self
+        profileView.emailTextField.delegate = self
+        createToolBar()
+        hideKeyboard()
         view.addSubview(profileView)
         profileView.addConstraints(view.safeAreaLayoutGuide.leadingAnchor, view.safeAreaLayoutGuide.trailingAnchor, view.safeAreaLayoutGuide.topAnchor, view.safeAreaLayoutGuide.bottomAnchor)
+    }
+    
+    fileprivate func createToolBar() {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        let flexibleButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Готово", style: .plain, target: self, action: #selector(dismissKeyboard))
+        doneButton.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        toolbar.setItems([flexibleButton, doneButton], animated: true)
+        toolbar.isUserInteractionEnabled = true
+        toolbar.backgroundColor = #colorLiteral(red: 0.8138477206, green: 0.8237602115, blue: 0.8536676764, alpha: 1)
+        profileView.emailTextField.inputAccessoryView = toolbar
+        profileView.nameTextField.inputAccessoryView = toolbar
+    }
+    
+    fileprivate func hideKeyboard () {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc fileprivate func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
+
+extension ProfileController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        profileView.saveButton.isEnabled = true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField {
+        case profileView.nameTextField:
+            profileView.saveButton.isEnabled = textField.text != user.name
+        default:
+            profileView.saveButton.isEnabled = textField.text != user.email
+        }
     }
 }

@@ -50,7 +50,6 @@ class RegistrationController: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 28)
         button.backgroundColor = .clear
-//        button.layer.cornerRadius = 14
         return button
     }()
     fileprivate let registerView = RegistrationView()
@@ -85,9 +84,29 @@ class RegistrationController: UIViewController {
         ref = Database.database().reference()
         setup()
         setupActions()
+        navigationController?.navigationBar.isHidden = false
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK:- Private Methods
+    
+    @objc fileprivate func keyboardWillShow(notification: Notification) {
+        guard let userInfo = notification.userInfo else { return }
+        let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let keyboardViewEndFrame = view.convert(keyboardSize, from: view.window)
+        registerView.contentSize = CGSize(width: registerView.frame.width, height: registerView.frame.height + keyboardViewEndFrame.height)
+        registerView.scrollIndicatorInsets = registerView.contentInset
+    }
+    
+    @objc fileprivate func keyboardWillHide() {
+        registerView.contentSize = CGSize(width: registerView.bounds.size.width, height: registerView.bounds.size.height)
+    }
     
     @objc fileprivate func handleHide() {
         registerView.isUserInteractionEnabled = true

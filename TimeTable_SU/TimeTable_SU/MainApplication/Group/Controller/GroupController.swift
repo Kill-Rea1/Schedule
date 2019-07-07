@@ -37,6 +37,7 @@ class GroupController: UIViewController {
     fileprivate func setupNavigationBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu"), style: .plain, target: self, action: #selector(handleMenu))
         navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     @objc fileprivate func handleMenu() {

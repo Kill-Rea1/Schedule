@@ -30,11 +30,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSAttributedString.Key.foregroundColor: UIColor.black,
             NSAttributedString.Key.font: UIFont(name: UIFont().myFont(), size: 30)!
         ]
-        UINavigationBar.appearance().prefersLargeTitles = true
+//        UINavigationBar.appearance().prefersLargeTitles = true
         UINavigationBar.appearance().largeTitleTextAttributes = attrs
         UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().isTranslucent = false
-//        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         let customFont = UIFont(name: UIFont().myFont(), size: 13)!
         UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: customFont], for: .normal)
         

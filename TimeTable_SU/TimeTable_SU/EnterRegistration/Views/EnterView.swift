@@ -25,12 +25,13 @@ extension EnterView: UITextFieldDelegate {
     }
 }
 
-class EnterView: BaseView {
+class EnterView: BaseScrollView {
     
     // MARK:- Properties
     
     fileprivate let height: CGFloat = 40
     fileprivate let padding: CGFloat = 20
+    fileprivate let spacing: CGFloat = 20
     
     override func setupViews() {
         super.setupViews()
@@ -127,14 +128,14 @@ class EnterView: BaseView {
 
     fileprivate func addConstraints() {
         
-        titleLabel.addConstraints(leadingAnchor, trailingAnchor, nil, warningLabel.topAnchor, .init(top: 0, left: 0, bottom: 20, right: 0), .init(width: 0, height: 100))
-        emailTextField.addConstraints(leadingAnchor, trailingAnchor, nil, passwordTextField.topAnchor, .init(top: 0, left: padding, bottom: 15, right: padding), .init(width: 0, height: height))
+        titleLabel.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, nil, warningLabel.topAnchor, .init(top: 0, left: 0, bottom: spacing, right: padding), .init(width: 0, height: 100))
+        emailTextField.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, nil, passwordTextField.topAnchor, .init(top: 0, left: padding, bottom: spacing, right: padding), .init(width: contentSize.width, height: height))
         passwordTextField.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        passwordTextField.addConstraints(leadingAnchor, trailingAnchor, nil, nil, .init(top: 0, left: padding, bottom: 0, right: padding), .init(width: 0, height: height))
-        resetPasswordButton.addConstraints(centerXAnchor, trailingAnchor, passwordTextField.bottomAnchor, nil, .init(top: 5, left: 0, bottom: 0, right: padding), .init(width: 0, height: 20))
-        loginButton.addConstraints(leadingAnchor, trailingAnchor, passwordTextField.bottomAnchor, nil, .init(top: 50, left: padding * 4, bottom: 0, right: padding * 4), .init(width: 0, height: height))
-        registerButton.addConstraints(leadingAnchor, trailingAnchor, loginButton.bottomAnchor, nil, .init(top: 20, left: padding * 4, bottom: 0, right: padding * 4), .init(width: 0, height: height))
-        warningLabel.addConstraints(leadingAnchor, trailingAnchor, nil, emailTextField.topAnchor, .init(top: 0, left: 0, bottom: 20, right: 0), .init(width: 0, height: 50))
+        passwordTextField.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, nil, nil, .init(top: 0, left: padding, bottom: 0, right: padding), .init(width: 0, height: height))
+        resetPasswordButton.addConstraints(centerXAnchor, safeAreaLayoutGuide.trailingAnchor, passwordTextField.bottomAnchor, nil, .init(top: 5, left: 0, bottom: 0, right: padding), .init(width: 0, height: 20))
+        loginButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, passwordTextField.bottomAnchor, nil, .init(top: 50, left: padding * 4, bottom: 0, right: padding * 4), .init(width: 0, height: height))
+        registerButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, loginButton.bottomAnchor, nil, .init(top: spacing, left: padding * 4, bottom: 0, right: padding * 4), .init(width: 0, height: height))
+        warningLabel.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, nil, emailTextField.topAnchor, .init(top: 0, left: 0, bottom: 20, right: 0), .init(width: 0, height: 50))
     }
 
     fileprivate func putDelegates() {

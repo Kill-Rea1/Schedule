@@ -8,8 +8,9 @@
 
 import UIKit
 
-class ProfileView: BaseView {
-    
+//class ProfileView: BaseView {
+class ProfileView: BaseScrollView {
+
     // MARK:- Properties
     
     fileprivate let padding: CGFloat = 20
@@ -80,7 +81,7 @@ class ProfileView: BaseView {
         return button
     }()
     
-    public let emaiTextField: MainTextField = {
+    public let emailTextField: MainTextField = {
         let textField = MainTextField()
         textField.layer.borderWidth = 0
         textField.isEnabled = false
@@ -103,6 +104,19 @@ class ProfileView: BaseView {
         return imageView
     }()
     
+    public let saveButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle(" Сохранить изменения ", for: .normal)
+        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 24)
+        button.layer.cornerRadius = 10
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.black.cgColor
+        button.backgroundColor = .clear
+        button.tintColor = .black
+        button.isEnabled = false
+        return button
+    }()
+    
     // MARK:- Fileprivate Methods
         
     fileprivate func addViews() {
@@ -113,19 +127,22 @@ class ProfileView: BaseView {
         addSubview(universityChangeButton)
         addSubview(groupLabel)
         addSubview(groupChangeButton)
-        addSubview(emaiTextField)
+        addSubview(emailTextField)
         addSubview(emailChangeButton)
+        addSubview(saveButton)
         
-        adminImageView.addConstraints(leadingAnchor, nil, topAnchor, nil, .init(top: 0, left: padding, bottom: 0, right: 0), .init(width: 44, height: 44))
-        nameTextField.addConstraints(nil, trailingAnchor, topAnchor, nil, .init(top: 0, left: 0, bottom: 0, right: padding), .init(width: 0, height: 44))
-        nameChangeButton.addConstraints(leadingAnchor, nil, nameTextField.bottomAnchor, nil, .init(top: spacingButtons, left: padding, bottom: 0, right: 0), .init(width: 0, height: 20))
-        universityLabel.addConstraints(leadingAnchor, trailingAnchor, nameChangeButton.bottomAnchor, nil, .init(top: spacingSections, left: padding, bottom: 0, right: padding))
-        universityChangeButton.addConstraints(leadingAnchor, nil, universityLabel.bottomAnchor, nil, .init(top: spacingButtons, left: padding, bottom: 0, right: 0), .init(width: 0, height: 20))
-        groupLabel.addConstraints(leadingAnchor, trailingAnchor, universityChangeButton.bottomAnchor, nil, .init(top: spacingSections, left: padding, bottom: 0, right: padding))
-        groupChangeButton.addConstraints(leadingAnchor, nil, groupLabel.bottomAnchor, nil, .init(top: spacingButtons, left: padding, bottom: 0, right: 0), .init(width: 0, height: 20))
-        emaiTextField.addConstraints(leadingAnchor, trailingAnchor, groupChangeButton.bottomAnchor, nil, .init(top: spacingSections, left: padding, bottom: 0, right: padding), .init(width: 0, height: 44))
-        emailChangeButton.addConstraints(leadingAnchor, nil, emaiTextField.bottomAnchor, nil, .init(top: spacingButtons, left: padding, bottom: 0, right: 0), .init(width: 0, height: 20))
-        nameTextFieldLeadingConstraint = nameTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding + adminImageView.frame.width + 12)
+        adminImageView.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, topAnchor, nil, .init(top: 20, left: padding, bottom: 0, right: 0), .init(width: 44, height: 44))
+        nameTextField.addConstraints(nil, safeAreaLayoutGuide.trailingAnchor, topAnchor, nil, .init(top: 20, left: 0, bottom: 0, right: padding), .init(width: 0, height: 44))
+        nameChangeButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, nameTextField.bottomAnchor, nil, .init(top: spacingButtons, left: padding, bottom: 0, right: 0), .init(width: 0, height: 20))
+        universityLabel.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, nameChangeButton.bottomAnchor, nil, .init(top: spacingSections, left: padding, bottom: 0, right: padding))
+        universityChangeButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, universityLabel.bottomAnchor, nil, .init(top: spacingButtons, left: padding, bottom: 0, right: 0), .init(width: 0, height: 20))
+        groupLabel.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, universityChangeButton.bottomAnchor, nil, .init(top: spacingSections, left: padding, bottom: 0, right: padding))
+        groupChangeButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, groupLabel.bottomAnchor, nil, .init(top: spacingButtons, left: padding, bottom: 0, right: 0), .init(width: 0, height: 20))
+        emailTextField.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, groupChangeButton.bottomAnchor, nil, .init(top: spacingSections, left: padding, bottom: 0, right: padding), .init(width: 0, height: 44))
+        emailChangeButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, emailTextField.bottomAnchor, nil, .init(top: spacingButtons, left: padding, bottom: 0, right: 0), .init(width: 0, height: 20))
+        nameTextFieldLeadingConstraint = nameTextField.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: padding + adminImageView.frame.width + 12)
         nameTextFieldLeadingConstraint.isActive = true
+        saveButton.addConstraints(nil, nil, emailChangeButton.bottomAnchor, nil, .init(top: spacingSections * 2, left: 0, bottom: 0, right: 0), .init(width: 0, height: 45))
+        saveButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
 }

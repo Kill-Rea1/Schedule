@@ -84,6 +84,7 @@ class TimetableController: UIViewController, MGSwipeTableCellDelegate {
         navigationItem.title = "Расписание"
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu"), style: .plain, target: self, action: #selector(handleMenu))
         navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     @objc fileprivate func handleLogout() {

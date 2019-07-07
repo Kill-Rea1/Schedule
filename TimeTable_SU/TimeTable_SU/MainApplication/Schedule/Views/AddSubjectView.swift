@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddSubjectView: BaseView {
+class AddSubjectView: BaseScrollView {
     
     // MARK:- Properties
     
@@ -179,15 +179,15 @@ class AddSubjectView: BaseView {
     }
     
     fileprivate func addConstraints() {
-        subjectName.addConstraints(leadingAnchor, trailingAnchor, topAnchor, nil, .init(top: 20, left: 20, bottom: 0, right: 20), .init(width: 0, height: 40))
-        classroom.addConstraints(leadingAnchor, trailingAnchor, subjectName.bottomAnchor, nil, .init(top: 20, left: 20, bottom: 0, right: 20), .init(width: 0, height: 40))
-        startTimeLabel.addConstraints(leadingAnchor, nil, classroom.bottomAnchor, nil, .init(top: 20, left: 20, bottom: 0, right: 0), .init(width: 175, height: 30))
-        startTimeTextField.addConstraints(nil, trailingAnchor, classroom.bottomAnchor, nil, .init(top: 20, left: 0, bottom: 0, right: 20), .init(width: 65, height: 30))
-        endTimeLabel.addConstraints(leadingAnchor, nil, startTimeLabel.bottomAnchor, nil, .init(top: 20, left: 20, bottom: 0, right: 0), .init(width: 200, height: 30))
-        endTimeTextField.addConstraints(nil, trailingAnchor, startTimeTextField.bottomAnchor, nil, .init(top: 20, left: 0, bottom: 0, right: 20), .init(width: 65, height: 30))
-        weekday.addConstraints(leadingAnchor, nil, endTimeLabel.bottomAnchor, nil, .init(top: 0, left: 20, bottom: 0, right: 0), .init(width: 175, height: 125))
-        type.addConstraints(nil, trailingAnchor, endTimeLabel.bottomAnchor, nil, .init(top: 0, left: 0, bottom: 0, right: 20), .init(width: 150, height: 125))
-        weekParity.addConstraints(leadingAnchor, trailingAnchor, weekday.bottomAnchor, nil, .init(top: 0, left: 15, bottom: 0, right: 15), .init(width: 0, height: 40))
+        subjectName.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, topAnchor, nil, .init(top: 20, left: 20, bottom: 0, right: 20), .init(width: 0, height: 40))
+        classroom.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, subjectName.bottomAnchor, nil, .init(top: 20, left: 20, bottom: 0, right: 20), .init(width: 0, height: 40))
+        startTimeLabel.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, classroom.bottomAnchor, nil, .init(top: 20, left: 20, bottom: 0, right: 0), .init(width: 175, height: 30))
+        startTimeTextField.addConstraints(nil, safeAreaLayoutGuide.trailingAnchor, classroom.bottomAnchor, nil, .init(top: 20, left: 0, bottom: 0, right: 20), .init(width: 65, height: 30))
+        endTimeLabel.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, startTimeLabel.bottomAnchor, nil, .init(top: 20, left: 20, bottom: 0, right: 0), .init(width: 200, height: 30))
+        endTimeTextField.addConstraints(nil, safeAreaLayoutGuide.trailingAnchor, startTimeTextField.bottomAnchor, nil, .init(top: 20, left: 0, bottom: 0, right: 20), .init(width: 65, height: 30))
+        weekday.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, endTimeLabel.bottomAnchor, nil, .init(top: 0, left: 20, bottom: 0, right: 0), .init(width: 175, height: 125))
+        type.addConstraints(nil, safeAreaLayoutGuide.trailingAnchor, endTimeLabel.bottomAnchor, nil, .init(top: 0, left: 0, bottom: 0, right: 20), .init(width: 150, height: 125))
+        weekParity.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, weekday.bottomAnchor, nil, .init(top: 0, left: 15, bottom: 0, right: 15), .init(width: 0, height: 40))
         saveButton.addConstraints(nil, nil, weekParity.bottomAnchor, nil, .init(top: 50, left: 0, bottom: 0, right: 0), .init(width: 120, height: 50))
         saveButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
