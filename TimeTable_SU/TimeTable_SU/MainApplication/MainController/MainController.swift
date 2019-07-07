@@ -25,6 +25,11 @@ class MainController: UIViewController, UINavigationControllerDelegate {
     fileprivate var panGesture: UIPanGestureRecognizer!
     fileprivate var isMenuOpened = false
     fileprivate var currentController: UIViewController = UINavigationController(rootViewController: TimetableController())
+    public var isAddControllerOpened: Bool! {
+        willSet {
+            panGesture.isEnabled = !newValue
+        }
+    }
     
     // MARK:- Views
     

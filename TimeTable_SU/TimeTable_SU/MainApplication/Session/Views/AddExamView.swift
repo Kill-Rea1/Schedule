@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddExamView: BaseScrollView, UITextFieldDelegate {
+class AddExamView: BaseScrollView {
     
     // MARK:- Properties
     
@@ -29,6 +29,7 @@ class AddExamView: BaseScrollView, UITextFieldDelegate {
         subjectName.delegate = self
         classroom.delegate = self
         startTimeTextField.delegate = self
+        dateTextField.delegate = self
     }
     
     // MARK:- UIKit
@@ -169,7 +170,7 @@ class AddExamView: BaseScrollView, UITextFieldDelegate {
     }
     
     fileprivate func addConstraints() {
-        subjectName.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, topAnchor, nil, .init(top: spacing * 4, left: padding, bottom: 0, right: padding), .init(width: 0, height: 40))
+        subjectName.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, topAnchor, nil, .init(top: spacing * 2, left: padding, bottom: 0, right: padding), .init(width: 0, height: 40))
         classroom.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, subjectName.bottomAnchor, nil, .init(top: spacing, left: padding, bottom: 0, right: padding), .init(width: 0, height: 40))
         startTimeLabel.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, classroom.bottomAnchor, nil, .init(top: spacing, left: padding, bottom: 0, right: 0), .init(width: 175, height: 30))
         startTimeTextField.addConstraints(nil, safeAreaLayoutGuide.trailingAnchor, classroom.bottomAnchor, nil, .init(top: spacing, left: 0, bottom: 0, right: padding), .init(width: 65, height: 30))
@@ -178,5 +179,20 @@ class AddExamView: BaseScrollView, UITextFieldDelegate {
         examType.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, dateTextField.bottomAnchor, nil, .init(top: spacing, left: padding, bottom: 0, right: padding), .init(width: 0, height: 40))
         saveButton.addConstraints(nil, nil, examType.bottomAnchor, nil, .init(top: spacing * 3, left: 0, bottom: 0, right: 0), .init(width: 120, height: 50))
         saveButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+    }
+}
+
+extension AddExamView: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        switch textField {
+        case dateTextField:
+            let date = Date()
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd MMMM"
+            let currentDate = formatter.string(from: date)
+            textField.text = currentDate
+        default:
+            return
+        }
     }
 }

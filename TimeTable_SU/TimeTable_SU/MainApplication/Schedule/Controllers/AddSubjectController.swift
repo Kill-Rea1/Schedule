@@ -26,13 +26,10 @@ class AddSubjectController: UIViewController {
         view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         addSubjectView.saveButton.addTarget(self, action: #selector(save), for: .touchUpInside)
         setupView()
-        let university = user.university
-        let group = user.group
-        ref = Database.database().reference().child("universities").child(university).child("groups").child(group).child("schedule")
+        ref = Database.database().reference().child("universities").child(user.university).child("groups").child(user.group).child("schedule")
         editingView()
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.prefersLargeTitles = true
-        view.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
         setupKeyboardNotifications()
     }
     

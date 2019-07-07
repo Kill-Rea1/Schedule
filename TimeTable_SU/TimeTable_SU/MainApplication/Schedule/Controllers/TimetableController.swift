@@ -53,6 +53,7 @@ class TimetableController: UIViewController, MGSwipeTableCellDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         checkIfUserLoggedIn()
+        ((UIApplication.shared.keyWindow?.rootViewController as? UINavigationController)?.viewControllers.first as? MainController)?.isAddControllerOpened = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -108,6 +109,7 @@ class TimetableController: UIViewController, MGSwipeTableCellDelegate {
         guard let user = user else { return }
         let addSubjectVC = AddSubjectController()
         addSubjectVC.user = user
+        ((UIApplication.shared.keyWindow?.rootViewController as? UINavigationController)?.viewControllers.first as? MainController)?.isAddControllerOpened = true
         navigationController?.pushViewController(addSubjectVC, animated: true)
     }
     
