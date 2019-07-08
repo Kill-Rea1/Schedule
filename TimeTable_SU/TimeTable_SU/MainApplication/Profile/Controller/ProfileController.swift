@@ -27,14 +27,18 @@ class ProfileController: UIViewController {
     public var university: String! {
         willSet {
             profileView.universityLabel.text = newValue
-            if university != newValue {
-                profileView.groupLabel.text = "Выберете группу"
+            if university != nil && newValue != university {
+                profileView.saveButton.isEnabled = true
+                profileView.groupChangeButton.setTitle("Выберете группу", for: .normal)
             }
         }
     }
     public var group: String! {
         willSet {
             profileView.groupLabel.text = "Группа \(newValue ?? "")"
+            if group != nil && newValue != group {
+                profileView.saveButton.isEnabled = true
+            }
         }
     }
     public var isAdmin: Bool! {
@@ -90,11 +94,10 @@ class ProfileController: UIViewController {
         profileView.universityChangeButton.addTarget(self, action: #selector(handleButtonTapped), for: .touchUpInside)
         profileView.groupChangeButton.addTarget(self, action: #selector(handleButtonTapped), for: .touchUpInside)
         profileView.emailChangeButton.addTarget(self, action: #selector(handleButtonTapped), for: .touchUpInside)
-        profileView.saveButton.addTarget(self, action: #selector(handleSave), for: .touchUpInside)
+        profileView.passwordChangeButton.addTarget(self, action: #selector(handleButtonTapped), for: .touchUpInside)
     }
     
     @objc fileprivate func handleButtonTapped(sender: UIButton) {
-        
         switch sender {
         case profileView.nameChangeButton:
             profileView.nameTextField.isEnabled = true
@@ -104,6 +107,8 @@ class ProfileController: UIViewController {
             profileView.emailTextField.isEnabled = true
             profileView.emailTextField.layer.borderWidth = 1
             profileView.emailTextField.becomeFirstResponder()
+        case profileView.passwordChangeButton:
+            navigationController?.pushViewController(ChangePasswordController(), animated: true)
         default:
             handleSearch(sender: sender)
         }
@@ -212,10 +217,6 @@ class ProfileController: UIViewController {
 }
 
 extension ProfileController: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        profileView.saveButton.isEnabled = true
-    }
-    
     func textFieldDidEndEditing(_ textField: UITextField) {
         switch textField {
         case profileView.nameTextField:

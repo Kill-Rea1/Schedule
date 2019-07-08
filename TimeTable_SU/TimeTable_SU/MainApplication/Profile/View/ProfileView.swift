@@ -32,7 +32,7 @@ class ProfileView: BaseScrollView {
         textField.textAlignment = .left
         textField.layer.borderWidth = 0
         textField.isEnabled = false
-        textField.font = UIFont(name: "Comfortaa", size: 28)
+        textField.font = UIFont(name: UIFont().myFont(), size: 28)
         return textField
     }()
     
@@ -40,15 +40,14 @@ class ProfileView: BaseScrollView {
         let button = UIButton(type: .system)
         button.setTitle("Изменить имя", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont(name: "Comfortaa", size: 14)
-        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 14)
         return button
     }()
     
     public let universityLabel: MainLabel = {
         let label = MainLabel()
         label.textAlignment = .left
-        label.font = UIFont(name: "Comfortaa", size: 28)
+        label.font = UIFont(name: UIFont().myFont(), size: 28)
         label.numberOfLines = 0
         return label
     }()
@@ -57,15 +56,14 @@ class ProfileView: BaseScrollView {
         let button = UIButton(type: .system)
         button.setTitle("Изменить университет", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont(name: "Comfortaa", size: 14)
-        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 14)
         return button
     }()
     
     public let groupLabel: MainLabel = {
         let label = MainLabel()
         label.textAlignment = .left
-        label.font = UIFont(name: "Comfortaa", size: 28)
+        label.font = UIFont(name: UIFont().myFont(), size: 28)
         label.numberOfLines = 0
         return label
     }()
@@ -74,16 +72,16 @@ class ProfileView: BaseScrollView {
         let button = UIButton(type: .system)
         button.setTitle("Изменить группу", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont(name: "Comfortaa", size: 14)
-        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 14)
         return button
     }()
     
     public let emailTextField: MainTextField = {
         let textField = MainTextField()
+        textField.autocapitalizationType = .none
         textField.layer.borderWidth = 0
         textField.isEnabled = false
-        textField.font = UIFont(name: "Comfortaa", size: 20)
+        textField.font = UIFont(name: UIFont().myFont(), size: 20)
         return textField
     }()
     
@@ -91,14 +89,20 @@ class ProfileView: BaseScrollView {
         let button = UIButton(type: .system)
         button.setTitle("Изменить почту", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont(name: "Comfortaa", size: 14)
-        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 14)
+        return button
+    }()
+    
+    public let passwordChangeButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Изменить пароль", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 14)
         return button
     }()
     
     public let adminImageView: UIImageView = {
         let imageView = UIImageView(image: #imageLiteral(resourceName: "premium"))
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
@@ -127,6 +131,7 @@ class ProfileView: BaseScrollView {
         addSubview(groupChangeButton)
         addSubview(emailTextField)
         addSubview(emailChangeButton)
+        addSubview(passwordChangeButton)
         addSubview(saveButton)
         adminImageView.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, topAnchor, nil, .init(top: 20, left: padding, bottom: 0, right: 0), .init(width: 44, height: 44))
         nameTextField.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, adminImageView.bottomAnchor, nil, .init(top: spacingButtons, left: padding, bottom: 0, right: padding), .init(width: 0, height: 44))
@@ -137,7 +142,8 @@ class ProfileView: BaseScrollView {
         groupChangeButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, groupLabel.bottomAnchor, nil, .init(top: spacingButtons, left: padding, bottom: 0, right: 0), .init(width: 0, height: 20))
         emailTextField.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, groupChangeButton.bottomAnchor, nil, .init(top: spacingSections, left: padding, bottom: 0, right: padding), .init(width: 0, height: 44))
         emailChangeButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, emailTextField.bottomAnchor, nil, .init(top: spacingButtons, left: padding, bottom: 0, right: 0), .init(width: 0, height: 20))
-        saveButton.addConstraints(nil, nil, emailChangeButton.bottomAnchor, bottomAnchor, .init(top: spacingSections, left: 0, bottom: 50, right: 0), .init(width: 0, height: 50))
+        passwordChangeButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, emailChangeButton.bottomAnchor, nil, .init(top: spacingButtons, left: padding, bottom: 0, right: 0), .init(width: 0, height: 20))
+        saveButton.addConstraints(nil, nil, passwordChangeButton.bottomAnchor, bottomAnchor, .init(top: spacingSections, left: 0, bottom: 50, right: 0), .init(width: 0, height: 50))
         saveButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
 }

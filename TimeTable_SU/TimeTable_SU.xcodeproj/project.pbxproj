@@ -41,6 +41,7 @@
 		EDAE2E9122BC2CB400A8D794 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAE2E9022BC2CB400A8D794 /* MainController.swift */; };
 		EDAE2E9722BD0D0B00A8D794 /* AddSubjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAE2E9622BD0D0B00A8D794 /* AddSubjectView.swift */; };
 		EDAE2E9922BD25A300A8D794 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDAE2E9822BD25A300A8D794 /* Assets.xcassets */; };
+		EDD26F9B22D3480800A3EC47 /* ChangePasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD26F9A22D3480800A3EC47 /* ChangePasswordController.swift */; };
 		EDE45CF022BD57AD005091BC /* EnterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE45CEF22BD57AD005091BC /* EnterView.swift */; };
 		EDE45CF222BD57BD005091BC /* EnterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE45CF122BD57BD005091BC /* EnterController.swift */; };
 		EDE45CF422BE5A79005091BC /* Extensions+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE45CF322BE5A79005091BC /* Extensions+Helpers.swift */; };
@@ -115,6 +116,7 @@
 		EDAE2E9022BC2CB400A8D794 /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		EDAE2E9622BD0D0B00A8D794 /* AddSubjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSubjectView.swift; sourceTree = "<group>"; };
 		EDAE2E9822BD25A300A8D794 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EDD26F9A22D3480800A3EC47 /* ChangePasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordController.swift; sourceTree = "<group>"; };
 		EDE45CEF22BD57AD005091BC /* EnterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterView.swift; sourceTree = "<group>"; };
 		EDE45CF122BD57BD005091BC /* EnterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterController.swift; sourceTree = "<group>"; };
 		EDE45CF322BE5A79005091BC /* Extensions+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+Helpers.swift"; sourceTree = "<group>"; };
@@ -443,6 +445,7 @@
 			isa = PBXGroup;
 			children = (
 				EDE45CFB22BE67D7005091BC /* ProfileController.swift */,
+				EDD26F9A22D3480800A3EC47 /* ChangePasswordController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -734,6 +737,7 @@
 				ED56C6C022A97BCC00A618A1 /* MenuTableCell.swift in Sources */,
 				ED56C6C522A97BD900A618A1 /* MenuEnum.swift in Sources */,
 				EDA30E0922CC125C00E74D76 /* StudentTableCell.swift in Sources */,
+				EDD26F9B22D3480800A3EC47 /* ChangePasswordController.swift in Sources */,
 				EDE45CF422BE5A79005091BC /* Extensions+Helpers.swift in Sources */,
 				ED56C6D022A97BF100A618A1 /* TimetableController.swift in Sources */,
 				ED0858FD22CE974F00B2512B /* GroupController.swift in Sources */,

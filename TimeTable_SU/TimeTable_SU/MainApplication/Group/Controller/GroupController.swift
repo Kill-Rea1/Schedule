@@ -16,11 +16,7 @@ class GroupController: UIViewController {
     fileprivate var ref: DatabaseReference!
     fileprivate var students = [Student]()
     fileprivate let tableView = UITableView(frame: .zero, style: .plain)
-    fileprivate var user: UserDB! {
-        willSet {
-            navigationItem.title = "Группа \(newValue.group)"
-        }
-    }
+    fileprivate var user: UserDB!
 
     // MARK:- View Methods
     
@@ -38,6 +34,7 @@ class GroupController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu"), style: .plain, target: self, action: #selector(handleMenu))
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.title = "Группа"
     }
     
     @objc fileprivate func handleMenu() {
@@ -140,8 +137,14 @@ extension GroupController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let user = user else {
+            let view = UIView()
+            view.backgroundColor = .clear
+            return view
+        }
         let label = UILabel()
-        label.text = "Все студенты"
+        label.text = user.group
+        label.numberOfLines = 0
         label.font = UIFont(name: UIFont().myFont(), size: 28)
         label.textColor = .black
         label.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
