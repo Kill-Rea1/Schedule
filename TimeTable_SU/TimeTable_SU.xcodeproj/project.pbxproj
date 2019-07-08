@@ -42,6 +42,7 @@
 		EDAE2E9722BD0D0B00A8D794 /* AddSubjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAE2E9622BD0D0B00A8D794 /* AddSubjectView.swift */; };
 		EDAE2E9922BD25A300A8D794 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDAE2E9822BD25A300A8D794 /* Assets.xcassets */; };
 		EDD26F9B22D3480800A3EC47 /* ChangePasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD26F9A22D3480800A3EC47 /* ChangePasswordController.swift */; };
+		EDD26F9D22D3E5E600A3EC47 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD26F9C22D3E5E600A3EC47 /* ChangePasswordView.swift */; };
 		EDE45CF022BD57AD005091BC /* EnterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE45CEF22BD57AD005091BC /* EnterView.swift */; };
 		EDE45CF222BD57BD005091BC /* EnterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE45CF122BD57BD005091BC /* EnterController.swift */; };
 		EDE45CF422BE5A79005091BC /* Extensions+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE45CF322BE5A79005091BC /* Extensions+Helpers.swift */; };
@@ -117,6 +118,7 @@
 		EDAE2E9622BD0D0B00A8D794 /* AddSubjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSubjectView.swift; sourceTree = "<group>"; };
 		EDAE2E9822BD25A300A8D794 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EDD26F9A22D3480800A3EC47 /* ChangePasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordController.swift; sourceTree = "<group>"; };
+		EDD26F9C22D3E5E600A3EC47 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		EDE45CEF22BD57AD005091BC /* EnterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterView.swift; sourceTree = "<group>"; };
 		EDE45CF122BD57BD005091BC /* EnterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterController.swift; sourceTree = "<group>"; };
 		EDE45CF322BE5A79005091BC /* Extensions+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+Helpers.swift"; sourceTree = "<group>"; };
@@ -454,6 +456,7 @@
 			isa = PBXGroup;
 			children = (
 				EDE45CF922BE60A9005091BC /* ProfileView.swift */,
+				EDD26F9C22D3E5E600A3EC47 /* ChangePasswordView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -716,6 +719,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED56C6CC22A97BF100A618A1 /* AddSubjectController.swift in Sources */,
+				EDD26F9D22D3E5E600A3EC47 /* ChangePasswordView.swift in Sources */,
 				ED56C6CF22A97BF100A618A1 /* MenuController.swift in Sources */,
 				EDA30E1322CC22D600E74D76 /* ExamTableCell.swift in Sources */,
 				EDA30E0722CC03FE00E74D76 /* StudentClass.swift in Sources */,

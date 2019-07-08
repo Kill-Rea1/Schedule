@@ -91,15 +91,15 @@ class EnterController: UIViewController {
     @objc fileprivate func handleDone() {
         guard let email = alertController.myTextView.text, email != "", email != "Почта" else {
             handleCancel()
-            displayWarningLabel(withText: "Вы не ввели почту")
+            enterView.displayWarningLabel(withText: "Вы не ввели почту")
             return
         }
         handleCancel()
         Auth.auth().sendPasswordReset(withEmail: email) { [weak self] (error) in
             if error != nil {
-                self?.displayWarningLabel(withText: "Такой пользователь не найден")
+                self?.enterView.displayWarningLabel(withText: "Такой пользователь не найден")
             }
-            self?.displayWarningLabel(withText: "Проверьте почту")
+            self?.enterView.displayWarningLabel(withText: "Проверьте почту")
         }
     }
     
@@ -114,28 +114,14 @@ class EnterController: UIViewController {
         navigationController?.pushViewController(RegistrationController(), animated: true)
     }
     
-    fileprivate func displayWarningLabel(withText text: String) {
-        enterView.warningLabel.text = text
-        UIView.animate(withDuration: 3,
-                       delay: 0,
-                       usingSpringWithDamping: 1,
-                       initialSpringVelocity: 1,
-                       options: .curveEaseInOut,
-                       animations: { [weak self] in
-                        self?.enterView.warningLabel.alpha = 1
-        }) { [weak self] (complete) in
-            self?.enterView.warningLabel.alpha = 0
-        }
-    }
-    
     @objc fileprivate func handleLogin() {
         guard let email = enterView.emailTextField.text, let password = enterView.passwordTextField.text, email != "", password != "" else {
-            displayWarningLabel(withText: "Данные не корректны")
+            enterView.displayWarningLabel(withText: "Данные не корректны")
             return
         }
         Auth.auth().signIn(withEmail: email, password: password, completion: { [weak self] (user, error) in
             if error != nil {
-                self?.displayWarningLabel(withText: "Неправильный пароль")
+                self?.enterView.displayWarningLabel(withText: "Неправильный пароль")
                 return
             }
             if user != nil {
@@ -146,7 +132,7 @@ class EnterController: UIViewController {
                 self?.dismiss(animated: true, completion: nil)
                 return
             }
-            self?.displayWarningLabel(withText: "Такой пользователь не найден")
+            self?.enterView.displayWarningLabel(withText: "Такой пользователь не найден")
         })
     }
 }

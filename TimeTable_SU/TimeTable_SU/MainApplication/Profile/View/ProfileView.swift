@@ -22,6 +22,8 @@ class ProfileView: BaseScrollView {
     override func setupViews() {
         super.setupViews()
         backgroundColor = .clear
+        createToolBar()
+        hideKeyboard()
         addViews()
     }
     
@@ -76,23 +78,6 @@ class ProfileView: BaseScrollView {
         return button
     }()
     
-    public let emailTextField: MainTextField = {
-        let textField = MainTextField()
-        textField.autocapitalizationType = .none
-        textField.layer.borderWidth = 0
-        textField.isEnabled = false
-        textField.font = UIFont(name: UIFont().myFont(), size: 20)
-        return textField
-    }()
-    
-    public let emailChangeButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Изменить почту", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 14)
-        return button
-    }()
-    
     public let passwordChangeButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Изменить пароль", for: .normal)
@@ -120,30 +105,48 @@ class ProfileView: BaseScrollView {
     }()
     
     // MARK:- Fileprivate Methods
+    
+    fileprivate func createToolBar() {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        let flexibleButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Готово", style: .plain, target: self, action: #selector(dismissKeyboard))
+        doneButton.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        toolbar.setItems([flexibleButton, doneButton], animated: true)
+        toolbar.isUserInteractionEnabled = true
+        toolbar.backgroundColor = #colorLiteral(red: 0.8138477206, green: 0.8237602115, blue: 0.8536676764, alpha: 1)
+        nameTextField.inputAccessoryView = toolbar
+    }
+    
+    fileprivate func hideKeyboard () {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        addGestureRecognizer(tap)
+    }
+    
+    @objc fileprivate func dismissKeyboard() {
+        endEditing(true)
+    }
         
     fileprivate func addViews() {
         addSubview(adminImageView)
         addSubview(nameTextField)
         addSubview(nameChangeButton)
+        addSubview(passwordChangeButton)
         addSubview(universityLabel)
         addSubview(universityChangeButton)
         addSubview(groupLabel)
         addSubview(groupChangeButton)
-        addSubview(emailTextField)
-        addSubview(emailChangeButton)
-        addSubview(passwordChangeButton)
         addSubview(saveButton)
         adminImageView.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, topAnchor, nil, .init(top: 20, left: padding, bottom: 0, right: 0), .init(width: 44, height: 44))
         nameTextField.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, adminImageView.bottomAnchor, nil, .init(top: spacingButtons, left: padding, bottom: 0, right: padding), .init(width: 0, height: 44))
         nameChangeButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, nameTextField.bottomAnchor, nil, .init(top: spacingButtons, left: padding, bottom: 0, right: 0), .init(width: 0, height: 20))
+        passwordChangeButton.addConstraints(nil, safeAreaLayoutGuide.trailingAnchor, nameTextField.bottomAnchor, nil, .init(top: spacingButtons, left: 0, bottom: 0, right: padding), .init(width: 0, height: 20))
         universityLabel.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, nameChangeButton.bottomAnchor, nil, .init(top: spacingSections, left: padding, bottom: 0, right: padding))
         universityChangeButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, universityLabel.bottomAnchor, nil, .init(top: spacingButtons, left: padding, bottom: 0, right: 0), .init(width: 0, height: 20))
         groupLabel.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, universityChangeButton.bottomAnchor, nil, .init(top: spacingSections, left: padding, bottom: 0, right: padding))
         groupChangeButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, groupLabel.bottomAnchor, nil, .init(top: spacingButtons, left: padding, bottom: 0, right: 0), .init(width: 0, height: 20))
-        emailTextField.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, groupChangeButton.bottomAnchor, nil, .init(top: spacingSections, left: padding, bottom: 0, right: padding), .init(width: 0, height: 44))
-        emailChangeButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, emailTextField.bottomAnchor, nil, .init(top: spacingButtons, left: padding, bottom: 0, right: 0), .init(width: 0, height: 20))
-        passwordChangeButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, emailChangeButton.bottomAnchor, nil, .init(top: spacingButtons, left: padding, bottom: 0, right: 0), .init(width: 0, height: 20))
-        saveButton.addConstraints(nil, nil, passwordChangeButton.bottomAnchor, bottomAnchor, .init(top: spacingSections, left: 0, bottom: 50, right: 0), .init(width: 0, height: 50))
+        saveButton.addConstraints(nil, nil, groupChangeButton.bottomAnchor, bottomAnchor, .init(top: spacingSections, left: 0, bottom: 50, right: 0), .init(width: 0, height: 50))
         saveButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
 }

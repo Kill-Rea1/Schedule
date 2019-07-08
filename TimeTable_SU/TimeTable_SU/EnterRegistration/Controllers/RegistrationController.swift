@@ -161,20 +161,6 @@ class RegistrationController: UIViewController {
         doneButton.addTarget(self, action: #selector(handleHide), for: .touchUpInside)
     }
     
-    fileprivate func displayWarningLabel(withText text: String) {
-        registerView.warningLabel.text = text
-        UIView.animate(withDuration: 3,
-                       delay: 0,
-                       usingSpringWithDamping: 1,
-                       initialSpringVelocity: 1,
-                       options: .curveEaseInOut,
-                       animations: { [weak self] in
-                        self?.registerView.warningLabel.alpha = 1
-        }) { [weak self] (complete) in
-            self?.registerView.warningLabel.alpha = 0
-        }
-    }
-    
     @objc fileprivate func handleSearch(sender: UIButton) {
         let searchController = SearchController()
         searchController.prevVC = self
@@ -187,41 +173,42 @@ class RegistrationController: UIViewController {
             searchController.isUniversitySearching = false
             searchController.selectedUniversity = university
         }
-        present(searchController, animated: true, completion: nil)
+        let navController = UINavigationController(rootViewController: searchController)
+        present(navController, animated: true, completion: nil)
     }
     
     @objc fileprivate func handleRegister() {
         guard let name = registerView.nameTextField.text, name != "" else {
             registerView.nameTextField.layer.borderColor = UIColor.red.cgColor
-            displayWarningLabel(withText: "Вы не ввели имя")
+            registerView.displayWarningLabel(withText: "Вы не ввели имя")
             return
         }
         guard let email = registerView.emailTextField.text, email != "" else {
             registerView.emailTextField.layer.borderColor = UIColor.red.cgColor
-            displayWarningLabel(withText: "Вы не ввели почту")
+            registerView.displayWarningLabel(withText: "Вы не ввели почту")
             return
         }
         guard let password = registerView.passwordTextField.text, password != "" else {
             registerView.passwordTextField.layer.borderColor = UIColor.red.cgColor
-            displayWarningLabel(withText: "Вы не ввели пароль")
+            registerView.displayWarningLabel(withText: "Вы не ввели пароль")
             return
         }
         if password.count < 6 {
             registerView.passwordTextField.layer.borderColor = UIColor.red.cgColor
-            displayWarningLabel(withText: "Короткий пароль. Минимум 6 символов")
+            registerView.displayWarningLabel(withText: "Короткий пароль. Минимум 6 символов")
             return
         }
         guard let university = university else {
-            displayWarningLabel(withText: "Вы не выбрали университет")
+            registerView.displayWarningLabel(withText: "Вы не выбрали университет")
             return
         }
         guard let group = group else {
-            displayWarningLabel(withText: "Вы не выбрали группу")
+            registerView.displayWarningLabel(withText: "Вы не выбрали группу")
             return
         }
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] (res, error) in
             if error != nil {
-                self?.displayWarningLabel(withText: "Пользователь уже существует")
+                self?.registerView.displayWarningLabel(withText: "Пользователь уже существует")
                 return
             }
             

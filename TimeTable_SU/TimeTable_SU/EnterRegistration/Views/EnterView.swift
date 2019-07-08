@@ -98,12 +98,7 @@ class EnterView: BaseScrollView {
         return button
     }()
     
-    public let warningLabel: MainLabel = {
-        let label = MainLabel()
-        label.textColor = .red
-        label.text = "Warning"
-        return label
-    }()
+    fileprivate let warningLabel = WarningLabel()
     
     public let resetPasswordButton: UIButton = {
         let button = UIButton(type: .system)
@@ -115,6 +110,20 @@ class EnterView: BaseScrollView {
     }()
     
     // MARK:- Fileprivate Methods
+    
+    public func displayWarningLabel(withText text: String) {
+        warningLabel.text = text
+        UIView.animate(withDuration: 3,
+                       delay: 0,
+                       usingSpringWithDamping: 1,
+                       initialSpringVelocity: 1,
+                       options: .curveEaseInOut,
+                       animations: { [weak self] in
+                        self?.warningLabel.alpha = 1
+        }) { [weak self] (complete) in
+            self?.warningLabel.alpha = 0
+        }
+    }
 
     fileprivate func addSubviews() {
         addSubview(titleLabel)

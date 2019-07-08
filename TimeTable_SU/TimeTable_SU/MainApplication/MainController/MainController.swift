@@ -17,7 +17,6 @@ class MainController: UIViewController, UINavigationControllerDelegate {
     
     // MARK:- Properties
     
-    public var user: UserDB!
     fileprivate var mainViewLeadingConstraint: NSLayoutConstraint!
     fileprivate var mainViewTrailingConstraint: NSLayoutConstraint!
     fileprivate let menuWidth: CGFloat = 300

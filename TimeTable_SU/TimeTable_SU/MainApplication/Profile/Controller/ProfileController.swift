@@ -20,7 +20,6 @@ class ProfileController: UIViewController {
             profileView.nameTextField.text = newValue.name
             self.university = newValue.university
             self.group = newValue.group
-            profileView.emailTextField.text = newValue.email
             self.isAdmin = newValue.isAdmin
         }
     }
@@ -93,7 +92,6 @@ class ProfileController: UIViewController {
         profileView.nameChangeButton.addTarget(self, action: #selector(handleButtonTapped), for: .touchUpInside)
         profileView.universityChangeButton.addTarget(self, action: #selector(handleButtonTapped), for: .touchUpInside)
         profileView.groupChangeButton.addTarget(self, action: #selector(handleButtonTapped), for: .touchUpInside)
-        profileView.emailChangeButton.addTarget(self, action: #selector(handleButtonTapped), for: .touchUpInside)
         profileView.passwordChangeButton.addTarget(self, action: #selector(handleButtonTapped), for: .touchUpInside)
     }
     
@@ -103,12 +101,9 @@ class ProfileController: UIViewController {
             profileView.nameTextField.isEnabled = true
             profileView.nameTextField.layer.borderWidth = 1
             profileView.nameTextField.becomeFirstResponder()
-        case profileView.emailChangeButton:
-            profileView.emailTextField.isEnabled = true
-            profileView.emailTextField.layer.borderWidth = 1
-            profileView.emailTextField.becomeFirstResponder()
         case profileView.passwordChangeButton:
-            navigationController?.pushViewController(ChangePasswordController(), animated: true)
+            let navController = UINavigationController(rootViewController: ChangePasswordController())
+            present(navController, animated: true, completion: nil)
         default:
             handleSearch(sender: sender)
         }
@@ -128,7 +123,8 @@ class ProfileController: UIViewController {
             searchController.isUniversitySearching = false
             searchController.selectedUniversity = university
         }
-        present(searchController, animated: true)
+        let navController = UINavigationController(rootViewController: searchController)
+        present(navController, animated: true)
     }
     
     fileprivate func setupNavigationItem() {
@@ -142,9 +138,6 @@ class ProfileController: UIViewController {
         guard let name = profileView.nameTextField.text, name != "" else {
             return
         }
-        guard let email = profileView.emailTextField.text, email != "" else {
-            return
-        }
         guard let university = university else {
             return
         }
@@ -156,7 +149,7 @@ class ProfileController: UIViewController {
             return
         }
         
-        let newUser = UserDB(uid: user.uid, email: email, name: name, university: university, group: group, isAdmin: isAdmin)
+        let newUser = UserDB(uid: user.uid, email: user.email, name: name, university: university, group: group, isAdmin: isAdmin)
         var newUserRef = user.ref
         newUserRef?.setValue(newUser.convertToDictionary())
         newUserRef? = Database.database().reference().child("universities").child(user.university).child("groups").child(user.group).child("students").child(user.uid)
@@ -165,8 +158,6 @@ class ProfileController: UIViewController {
         newUserRef?.updateChildValues(["name": newUser.name, "uid": newUser.uid, "email": newUser.email, "isAdmin": isAdmin])
         profileView.nameTextField.isEnabled = false
         profileView.nameTextField.layer.borderWidth = 0
-        profileView.emailTextField.isEnabled = false
-        profileView.emailTextField.layer.borderWidth = 0
         profileView.saveButton.isEnabled = false
     }
     
@@ -176,34 +167,8 @@ class ProfileController: UIViewController {
     
     fileprivate func setupView() {
         profileView.nameTextField.delegate = self
-        profileView.emailTextField.delegate = self
-        createToolBar()
-        hideKeyboard()
         view.addSubview(profileView)
         profileView.addConstraints(view.leadingAnchor, view.trailingAnchor, view.topAnchor, view.bottomAnchor)
-    }
-    
-    fileprivate func createToolBar() {
-        let toolbar = UIToolbar()
-        toolbar.sizeToFit()
-        let flexibleButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Готово", style: .plain, target: self, action: #selector(dismissKeyboard))
-        doneButton.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        toolbar.setItems([flexibleButton, doneButton], animated: true)
-        toolbar.isUserInteractionEnabled = true
-        toolbar.backgroundColor = #colorLiteral(red: 0.8138477206, green: 0.8237602115, blue: 0.8536676764, alpha: 1)
-        profileView.emailTextField.inputAccessoryView = toolbar
-        profileView.nameTextField.inputAccessoryView = toolbar
-    }
-    
-    fileprivate func hideKeyboard () {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
-    
-    @objc fileprivate func dismissKeyboard() {
-        view.endEditing(true)
     }
     
     fileprivate func loadUser() {

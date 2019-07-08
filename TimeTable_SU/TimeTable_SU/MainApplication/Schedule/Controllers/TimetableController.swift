@@ -18,9 +18,6 @@ class TimetableController: UIViewController, MGSwipeTableCellDelegate {
     fileprivate var refreshControl = UIRefreshControl()
     fileprivate var user: UserDB! {
         willSet {
-            guard let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController else { return }
-            guard let mainController = navigationController.viewControllers.first as? MainController else { return }
-            mainController.user = newValue
             if newValue.isAdmin {
                 let addButton = UIBarButtonItem(image: #imageLiteral(resourceName: "add"), style: .plain, target: self, action: #selector(handleAdd))
                 let refreshButton = UIBarButtonItem(image: #imageLiteral(resourceName: "refresh"), style: .plain, target: self, action: #selector(refresh))

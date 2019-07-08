@@ -16,7 +16,18 @@ class SessionController: UIViewController, MGSwipeTableCellDelegate {
     
     fileprivate var ref: DatabaseReference!
     fileprivate var exams = [Exam]()
-    fileprivate var user: UserDB!
+    fileprivate var user: UserDB! {
+        willSet {
+            if newValue.isAdmin {
+                let addButton = UIBarButtonItem(image: #imageLiteral(resourceName: "add"), style: .plain, target: self, action: #selector(handleAdd))
+                let refreshButton = UIBarButtonItem(image: #imageLiteral(resourceName: "refresh"), style: .plain, target: self, action: #selector(handleRefresh))
+                navigationItem.rightBarButtonItems = [addButton, refreshButton]
+            } else {
+                let refreshButton = UIBarButtonItem(image: #imageLiteral(resourceName: "refresh"), style: .plain, target: self, action: #selector(handleRefresh))
+                navigationItem.rightBarButtonItems = [refreshButton]
+            }
+        }
+    }
     fileprivate let tableView = UITableView(frame: .zero, style: .plain)
     fileprivate let backgroundImage: UIImageView = {
         let imageView = UIImageView()

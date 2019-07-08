@@ -156,22 +156,30 @@ class RegistrationView: BaseScrollView {
         return button
     }()
     
-    let tipButton: UIButton = {
+    public let tipButton: UIButton = {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "tip"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    let warningLabel: MainLabel = {
-        let label = MainLabel()
-        label.textColor = .red
-        label.text = "Warning"
-        label.numberOfLines = 0
-        return label
-    }()
+    fileprivate let warningLabel = WarningLabel()
     
     // MARK:- Private Methods
+    
+    public func displayWarningLabel(withText text: String) {
+        warningLabel.text = text
+        UIView.animate(withDuration: 3,
+                       delay: 0,
+                       usingSpringWithDamping: 1,
+                       initialSpringVelocity: 1,
+                       options: .curveEaseInOut,
+                       animations: { [weak self] in
+                        self?.warningLabel.alpha = 1
+        }) { [weak self] (complete) in
+            self?.warningLabel.alpha = 0
+        }
+    }
     
     fileprivate func setup() {
         addSubview(warningLabel)

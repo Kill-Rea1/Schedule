@@ -101,31 +101,12 @@ class SearchController: UIViewController {
         bar.isTranslucent = false
         return bar
     }()
+    
     fileprivate let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
         table.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
-    }()
-    fileprivate let titleLabel: MainLabel = {
-        let label = MainLabel()
-        label.font = UIFont(name: UIFont().myFont(), size: 16)
-        label.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
-        return label
-    }()
-    fileprivate let backButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(#imageLiteral(resourceName: "cancel"), for: .normal)
-        button.tintColor = .black
-        button.addTarget(self, action: #selector(handleBack), for: .touchUpInside)
-        return button
-    }()
-    fileprivate let addButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(#imageLiteral(resourceName: "add"), for: .normal)
-        button.tintColor = .black
-        button.addTarget(self, action: #selector(handleAdd), for: .touchUpInside)
-        return button
     }()
     
     // MARK:- ViewController Methods
@@ -136,9 +117,7 @@ class SearchController: UIViewController {
         view.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
         setupViews()
         setupDelegates()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
-        alertController.confirmButton.addTarget(self, action: #selector(handleSave), for: .touchUpInside)
-        alertController.cancelButton.addTarget(self, action: #selector(handleCancel), for: .touchUpInside)
+        setupNavigationBar()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -147,6 +126,14 @@ class SearchController: UIViewController {
     }
     
     // MARK:- Private Methods
+    
+    fileprivate func setupNavigationBar() {
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.title = isUniversitySearching ? "Выберите университет" : "Выберите группу"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "cancel"), style: .done, target: self, action: #selector(handleBack))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "add"), style: .plain, target: self, action: #selector(handleAdd))
+        navigationController?.navigationBar.tintColor = .black
+    }
     
     @objc fileprivate func handleAdd() {
         view.endEditing(true)
@@ -225,19 +212,14 @@ class SearchController: UIViewController {
     fileprivate func setupViews() {
         view.addSubview(searchBar)
         view.addSubview(tableView)
-        view.addSubview(titleLabel)
-        view.addSubview(backButton)
-        view.addSubview(addButton)
         view.addSubview(alertController)
         let window = UIApplication.shared.keyWindow
         alertController.frame = window?.frame ?? .zero
-        titleLabel.text = isUniversitySearching ? "Выберите университет" : "Выберите группу"
-        titleLabel.addConstraints(nil, nil, view.safeAreaLayoutGuide.topAnchor, nil, .init(top: 10, left: 0, bottom: 0, right: 0), .init(width: 0, height: 40))
-        titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        backButton.addConstraints(view.safeAreaLayoutGuide.leadingAnchor, nil, view.safeAreaLayoutGuide.topAnchor, nil, .init(top: 10, left: 10, bottom: 0, right: 0), .init(width: 35, height: 35))
-        addButton.addConstraints(nil, view.safeAreaLayoutGuide.trailingAnchor, view.safeAreaLayoutGuide.topAnchor, nil, .init(top: 10, left: 0, bottom: 0, right: 10), .init(width: 35, height: 35))
-        searchBar.addConstraints(view.safeAreaLayoutGuide.leadingAnchor, view.safeAreaLayoutGuide.trailingAnchor, titleLabel.bottomAnchor, nil, .init(top: 10, left: 0, bottom: 0, right: 0), .init(width: 0, height: 40))
+        searchBar.addConstraints(view.safeAreaLayoutGuide.leadingAnchor, view.safeAreaLayoutGuide.trailingAnchor, view.safeAreaLayoutGuide.topAnchor, nil, .init(top: 10, left: 0, bottom: 0, right: 0), .init(width: 0, height: 40))
         tableView.addConstraints(view.safeAreaLayoutGuide.leadingAnchor, view.safeAreaLayoutGuide.trailingAnchor, searchBar.bottomAnchor, view.safeAreaLayoutGuide.bottomAnchor)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
+        alertController.confirmButton.addTarget(self, action: #selector(handleSave), for: .touchUpInside)
+        alertController.cancelButton.addTarget(self, action: #selector(handleCancel), for: .touchUpInside)
     }
     
     @objc fileprivate func handleBack() {

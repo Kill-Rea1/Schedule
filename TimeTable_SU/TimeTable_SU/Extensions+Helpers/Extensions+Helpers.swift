@@ -69,6 +69,23 @@ class MainLabel: UILabel {
     }
 }
 
+class WarningLabel: UILabel {
+    init() {
+        super.init(frame: .zero)
+        self.textColor = .red
+        self.font = UIFont(name: UIFont().myFont(), size: 20)
+        self.backgroundColor = .clear
+        self.textAlignment = .center
+        self.numberOfLines = 0
+        self.alpha = 0
+        self.text = "Warning"
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 class MainTextField: UITextField {
     override init(frame: CGRect) {
         super.init(frame: frame)
