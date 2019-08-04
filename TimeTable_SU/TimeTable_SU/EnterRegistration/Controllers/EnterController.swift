@@ -111,7 +111,8 @@ class EnterController: UIViewController {
     }
     
     @objc fileprivate func handleRegister() {
-        navigationController?.pushViewController(RegistrationController(), animated: true)
+        let navController = UINavigationController(rootViewController: RegistrationController())
+        present(navController, animated: true)
     }
     
     @objc fileprivate func handleLogin() {
