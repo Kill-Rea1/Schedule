@@ -131,10 +131,10 @@ class TimetableController: UIViewController, MGSwipeTableCellDelegate {
     fileprivate func checkIfSubjectsExist() {
         if timetableView.subjects.isEmpty {
             timetableView.tableView.alpha = 0
-            timetableView.backgroundView.alpha = 0.5
+            timetableView.emptyView.alpha = 0.5
         } else {
             timetableView.tableView.alpha = 1
-            timetableView.backgroundView.alpha = 0
+            timetableView.emptyView.alpha = 0
         }
     }
     
@@ -233,57 +233,31 @@ class TimetableController: UIViewController, MGSwipeTableCellDelegate {
 
 extension TimetableController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch tableView {
-        case timetableView.tableView:
-            if user.isAdmin {
-                let cell = tableView.cellForRow(at: indexPath) as! TimetableCell
-                cell.showSwipe(.rightToLeft, animated: true)
-            } else {
-                return
-            }
-        default:
+        if user.isAdmin {
+            let cell = tableView.cellForRow(at: indexPath) as! TimetableCell
+            cell.showSwipe(.rightToLeft, animated: true)
+        } else {
             return
         }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        switch tableView {
-        case timetableView.tableView:
-            return timetableView.subjects.count
-        default:
-            return 0
-        }
+        return timetableView.subjects.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch tableView {
-        case timetableView.tableView:
-            return timetableView.subjects[section].count
-        default:
-            return 0
-        }
+        return timetableView.subjects[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch tableView {
-        case timetableView.tableView:
-            let subject = timetableView.subjects[indexPath.section][indexPath.row]
-            let cell = tableView.dequeueReusableCell(withIdentifier: TimetableCell.reuseId, for: indexPath) as! TimetableCell
-            cell.subjectLabel.text = subject.subjectName
-            cell.classroomLabel.text = subject.classroom + " ауд"
-            cell.startSubjectTime.text = subject.startTime
-            cell.endSubjectTime.text = subject.endTime
-            cell.typeSubjectLabel.text = subject.subjectType
-            cell.weekParityLabel.text = subject.parity
-            cell.selectionStyle = .none
-            cell.swipeBackgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
-            cell.delegate = self
-            cell.rightSwipeSettings.transition = .border
-            return cell
-        default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-            return cell
-        }
+        let subject = timetableView.subjects[indexPath.section][indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: TimetableCell.reuseId, for: indexPath) as! TimetableCell
+        cell.subject = subject
+        cell.selectionStyle = .none
+        cell.swipeBackgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+        cell.delegate = self
+        cell.rightSwipeSettings.transition = .border
+        return cell
     }
     
     func swipeTableCell(_ cell: MGSwipeTableCell, swipeButtonsFor direction: MGSwipeDirection, swipeSettings: MGSwipeSettings, expansionSettings: MGSwipeExpansionSettings) -> [UIView]? {

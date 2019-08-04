@@ -34,7 +34,7 @@ class TimetableView: BaseView {
         return segmentedControl
     }()
     
-    fileprivate let backgroundImage: UIImageView = {
+    fileprivate let emptyImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = #imageLiteral(resourceName: "noSchedule")
         imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
@@ -44,14 +44,14 @@ class TimetableView: BaseView {
         return imageView
     }()
     
-    fileprivate let backgroundLabel: MainLabel = {
+    fileprivate let emptyLabel: MainLabel = {
         let label = MainLabel()
         label.text = "Нет расписания"
         label.font = UIFont(name: UIFont().myFont(), size: 35)
         return label
     }()
     
-    public let backgroundView: UIView = {
+    public let emptyView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .clear
@@ -103,10 +103,10 @@ class TimetableView: BaseView {
         dateLabel.addConstraints(leadingAnchor, nil, weekParity.bottomAnchor, nil, .init(top: 3, left: 0, bottom: 0, right: 0), .init(width: 175, height: 20))
         weekLabel.addConstraints(leadingAnchor, nil, dateLabel.bottomAnchor, nil, .init(top: 3, left: 5, bottom: 0, right: 0), .init(width: 175, height: 20))
         tableView.addConstraints(leadingAnchor, trailingAnchor, weekLabel.bottomAnchor, bottomAnchor, .init(top: 10, left: 10, bottom: 0, right: 10))
-        backgroundView.addConstraints(leadingAnchor, trailingAnchor, weekLabel.bottomAnchor, bottomAnchor, .init(top: 10, left: 10, bottom: 0, right: 10))
-        backgroundImage.addConstraints(nil, nil, backgroundView.topAnchor, nil, .init(top: 20, left: 0, bottom: 0, right: 0), .init(width: 150, height: 150))
-        backgroundImage.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor).isActive = true
-        backgroundLabel.addConstraints(backgroundView.leadingAnchor, backgroundView.trailingAnchor, backgroundImage.bottomAnchor, nil, .init(top: 30, left: 0, bottom: 0, right: 0), .init(width: 0, height: 55))
+        emptyView.addConstraints(leadingAnchor, trailingAnchor, weekLabel.bottomAnchor, bottomAnchor, .init(top: 10, left: 10, bottom: 0, right: 10))
+        emptyImage.addConstraints(nil, nil, emptyView.topAnchor, nil, .init(top: 20, left: 0, bottom: 0, right: 0), .init(width: 150, height: 150))
+        emptyImage.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
+        emptyLabel.addConstraints(emptyView.leadingAnchor, emptyView.trailingAnchor, emptyImage.bottomAnchor, nil, .init(top: 30, left: 0, bottom: 0, right: 0), .init(width: 0, height: 55))
     }
     
     fileprivate func addSubviews() {
@@ -114,8 +114,8 @@ class TimetableView: BaseView {
         addSubview(dateLabel)
         addSubview(weekLabel)
         addSubview(tableView)
-        addSubview(backgroundView)
-        backgroundView.addSubview(backgroundImage)
-        backgroundView.addSubview(backgroundLabel)
+        addSubview(emptyView)
+        emptyView.addSubview(emptyImage)
+        emptyView.addSubview(emptyLabel)
     }
 }

@@ -13,6 +13,16 @@ class TimetableCell: BaseCell {
     // MARK:- Properties
     
     static let reuseId = "timetableCell"
+    public var subject: Subject! {
+        didSet {
+            subjectLabel.text = subject.subjectName
+            classroomLabel.text = subject.classroom + "ауд."
+            startSubjectTime.text = subject.startTime
+            endSubjectTime.text = subject.endTime
+            typeSubjectLabel.text = subject.subjectType
+            weekParityLabel.text = subject.parity
+        }
+    }
     
     // MARK:- Initialisation
     
@@ -34,35 +44,35 @@ class TimetableCell: BaseCell {
     
     // MARK:- UIKit
     
-    public let subjectLabel: MainLabel = {
+    fileprivate let subjectLabel: MainLabel = {
         let label = MainLabel()
         label.font = UIFont(name: UIFont().myFont(), size: 18)
         label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return label
     }()
     
-    public let classroomLabel: MainLabel = {
+    fileprivate let classroomLabel: MainLabel = {
         let label = MainLabel()
         label.font = UIFont(name: UIFont().myFont(), size: 12)
         label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return label
     }()
     
-    public let startSubjectTime: MainLabel = {
+    fileprivate let startSubjectTime: MainLabel = {
         let label = MainLabel()
         label.font = UIFont(name: UIFont().myFont(), size: 12)
         label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return label
     }()
     
-    public let endSubjectTime: MainLabel = {
+    fileprivate let endSubjectTime: MainLabel = {
         let label = MainLabel()
         label.font = UIFont(name: UIFont().myFont(), size: 12)
         label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return label
     }()
     
-    public let clockImage: UIImageView = {
+    fileprivate let clockImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "clock")
         imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
@@ -71,14 +81,14 @@ class TimetableCell: BaseCell {
         return imageView
     }()
     
-    public let typeSubjectLabel: MainLabel = {
+    fileprivate let typeSubjectLabel: MainLabel = {
         let label = MainLabel()
         label.font = UIFont(name: UIFont().myFont(), size: 14)
         label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return label
     }()
     
-    public let weekParityLabel: MainLabel = {
+    fileprivate let weekParityLabel: MainLabel = {
         let label = MainLabel()
         label.font = UIFont(name: UIFont().myFont(), size: 14)
         label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
