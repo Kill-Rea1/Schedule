@@ -30,6 +30,7 @@ class AddSubjectController: UIViewController {
         editingView()
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "cancel"), style: .plain, target: self, action: #selector(handleBack))
         setupKeyboardNotifications()
     }
     
@@ -40,6 +41,10 @@ class AddSubjectController: UIViewController {
     }
     
     // MARK:- Private Methods
+    
+    @objc fileprivate func handleBack() {
+        dismiss(animated: true)
+    }
     
     fileprivate func setupKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)

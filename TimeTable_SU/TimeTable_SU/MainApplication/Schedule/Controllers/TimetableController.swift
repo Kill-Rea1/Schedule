@@ -106,8 +106,8 @@ class TimetableController: UIViewController, MGSwipeTableCellDelegate {
         guard let user = user else { return }
         let addSubjectVC = AddSubjectController()
         addSubjectVC.user = user
-        ((UIApplication.shared.keyWindow?.rootViewController as? UINavigationController)?.viewControllers.first as? MainController)?.isAddControllerOpened = true
-        navigationController?.pushViewController(addSubjectVC, animated: true)
+        let navController = UINavigationController(rootViewController: addSubjectVC)
+        present(navController, animated: true)
     }
     
     fileprivate func setupTargets() {
