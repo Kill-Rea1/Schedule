@@ -28,6 +28,7 @@ class AddExamController: UIViewController {
         setupViewEdit()
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "cancel"), style: .plain, target: self, action: #selector(handleBack))
         setupView()
         addExamView.saveButton.addTarget(self, action: #selector(handleSave), for: .touchUpInside)
         setupKeyboardNotifications()
@@ -40,6 +41,10 @@ class AddExamController: UIViewController {
     }
     
     // MARK:- Fileprivate Methods
+    
+    @objc fileprivate func handleBack() {
+        dismiss(animated: true)
+    }
     
     fileprivate func setupKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)

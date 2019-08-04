@@ -61,7 +61,6 @@ class SessionController: UIViewController, MGSwipeTableCellDelegate {
         if user != nil {
             loadExams()
         }
-        ((UIApplication.shared.keyWindow?.rootViewController as? UINavigationController)?.viewControllers.first as? MainController)?.isAddControllerOpened = false
     }
     
     override func viewDidLoad() {
@@ -99,10 +98,8 @@ class SessionController: UIViewController, MGSwipeTableCellDelegate {
         guard let user = user else { return }
         let addExamVC = AddExamController()
         addExamVC.user = user
-        ((UIApplication.shared.keyWindow?.rootViewController as? UINavigationController)?.viewControllers.first as? MainController)?.isAddControllerOpened = true
-        if let navigationController = navigationController {
-            navigationController.pushViewController(addExamVC, animated: true)
-        }
+        let navController = UINavigationController(rootViewController: addExamVC)
+        present(navController, animated: true)
     }
     
     @objc fileprivate func handleRefresh() {
