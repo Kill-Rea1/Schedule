@@ -59,7 +59,7 @@ class MainLabel: UILabel {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.textColor = .black
-        self.font = UIFont(name: UIFont().myFont(), size: 20)
+        self.font = UIFont(name: Comfortaa.regular.rawValue, size: 20)
         self.backgroundColor = .clear
         self.textAlignment = .center
     }
@@ -73,7 +73,7 @@ class WarningLabel: UILabel {
     init() {
         super.init(frame: .zero)
         self.textColor = .red
-        self.font = UIFont(name: UIFont().myFont(), size: 20)
+        self.font = UIFont(name: Comfortaa.regular.rawValue, size: 20)
         self.backgroundColor = .clear
         self.textAlignment = .center
         self.numberOfLines = 0
@@ -94,7 +94,7 @@ class MainTextField: UITextField {
         self.layer.cornerRadius = 14
         self.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         self.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        self.font = UIFont(name: UIFont().myFont(), size: 16)
+        self.font = UIFont(name: Comfortaa.regular.rawValue, size: 16)
         self.translatesAutoresizingMaskIntoConstraints = false
         let paddingViewSubject = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: self.frame.height))
         self.leftView = paddingViewSubject
@@ -116,8 +116,8 @@ class MainSegmentedControl: UISegmentedControl {
     override init(items: [Any]?) {
         super.init(items: items)
         self.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: UIFont().myFont(), size: 11)!], for: .normal)
-        self.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        self.tintColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
+//        self.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+//        self.tintColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
         self.layer.cornerRadius = 12
         self.selectedSegmentIndex = 0
         self.translatesAutoresizingMaskIntoConstraints = false

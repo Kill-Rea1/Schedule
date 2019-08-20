@@ -30,7 +30,7 @@ class AddSubjectController: UIViewController {
         editingView()
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "cancel"), style: .plain, target: self, action: #selector(handleBack))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "close"), style: .plain, target: self, action: #selector(handleBack))
         setupKeyboardNotifications()
     }
     
@@ -89,9 +89,7 @@ class AddSubjectController: UIViewController {
         let subjectRef = self.ref.child(newSubject.weekday).childByAutoId()
         subjectRef.setValue(newSubject.convertToDictionary())
 
-        if let navigation = navigationController {
-            navigation.popViewController(animated: true)
-        }
+        dismiss(animated: true)
     }
 
     fileprivate func setupView() {
@@ -110,7 +108,7 @@ class AddSubjectController: UIViewController {
         addSubjectView.endTimeTextField.text = subject.endTime
         addSubjectView.weekday.selectRow(addSubjectView.weekdays.firstIndex(of: subject.weekday.capitalized)!, inComponent: 0, animated: true)
         addSubjectView.type.selectRow(addSubjectView.types.firstIndex(of: subject.subjectType.capitalized)!, inComponent: 0, animated: true)
-        addSubjectView.weekParity.selectedSegmentIndex = addSubjectView.weekParities.firstIndex(of: subject.parity.capitalized)!
+        addSubjectView.weekParity.selectedIndex = addSubjectView.weekParities.firstIndex(of: subject.parity.capitalized) ?? 0
         fromEdit = true
         addSubjectView.saveButton.setTitle("Сохранить", for: .normal)
         addSubjectView.selectedParity = subject.parity.capitalized

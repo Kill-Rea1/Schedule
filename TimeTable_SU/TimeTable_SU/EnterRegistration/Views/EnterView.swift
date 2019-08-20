@@ -49,7 +49,7 @@ class EnterView: BaseScrollView {
     
     fileprivate let titleLabel: MainLabel = {
         let label = MainLabel()
-        label.font = UIFont(name: UIFont().myFont(), size: 40)
+        label.font = UIFont(name: Comfortaa.regular.rawValue, size: 40)
         label.text = "Расписание"
         return label
     }()
@@ -58,7 +58,7 @@ class EnterView: BaseScrollView {
         let textField = MainTextField()
         textField.textAlignment = .center
         textField.placeholder = "Введите почту.."
-        textField.font = UIFont(name: UIFont().myFont(), size: 20)
+        textField.font = UIFont(name: Comfortaa.regular.rawValue, size: 20)
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
         return textField
@@ -68,7 +68,7 @@ class EnterView: BaseScrollView {
         let textField = MainTextField()
         textField.textAlignment = .center
         textField.placeholder = "Введите пароль.."
-        textField.font = UIFont(name: UIFont().myFont(), size: 20)
+        textField.font = UIFont(name: Comfortaa.regular.rawValue, size: 20)
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
         textField.isSecureTextEntry = true
@@ -81,7 +81,7 @@ class EnterView: BaseScrollView {
         button.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         button.layer.cornerRadius = 14
         button.setTitle("Войти", for: .normal)
-        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 18)
+        button.titleLabel?.font = UIFont(name: Comfortaa.regular.rawValue, size: 18)
         button.tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -92,7 +92,7 @@ class EnterView: BaseScrollView {
         button.backgroundColor = .clear
         button.layer.cornerRadius = 14
         button.setTitle("Регистрация", for: .normal)
-        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 18)
+        button.titleLabel?.font = UIFont(name: Comfortaa.regular.rawValue, size: 18)
         button.tintColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -105,7 +105,7 @@ class EnterView: BaseScrollView {
         button.setTitle("Забыл пароль", for: .normal)
         button.setTitleColor(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 14)
+        button.titleLabel?.font = UIFont(name: Comfortaa.regular.rawValue, size: 14)
         return button
     }()
     

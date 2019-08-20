@@ -19,6 +19,7 @@ class AddSubjectView: BaseScrollView {
     public var selectedType = "Лекция"
     public var selectedParity = "Каждая"
     
+    private let padding: CGFloat = 20
     fileprivate var subject: Subject?
     
     // MARK:- Initialisation
@@ -116,18 +117,19 @@ class AddSubjectView: BaseScrollView {
         return picker
     }()
     
-    public let weekParity: MainSegmentedControl = {
+    public let weekParity: CustomSegmentedControl = {
         let items = ["Каждая неделя", "Нечетная неделя", "Четная неделя"]
-        let segmented = MainSegmentedControl(items: items)
-        segmented.addTarget(self, action: #selector(weekParityChanged(sender:)), for: .valueChanged)
-        return segmented
+        let csc = CustomSegmentedControl(frame: .zero)
+        csc.items = items
+        csc.addTarget(self, action: #selector(weekParityChanged), for: .valueChanged)
+        return csc
     }()
     
     public let saveButton: UIButton = {
         let button = UIButton(type: .system)
         button.frame = CGRect(x: 0, y: 0, width: 60, height: 50)
         button.setTitle("Добавить", for: .normal)
-        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 18)
+        button.titleLabel?.font = UIFont(name: Comfortaa.regular.rawValue, size: 18)
         button.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.borderWidth = 1
@@ -174,19 +176,19 @@ class AddSubjectView: BaseScrollView {
         endTimeTextField.text = formatter.string(from: datePicker.date)
     }
     
-    @objc fileprivate func weekParityChanged(sender: UISegmentedControl) {
-        selectedParity = weekParities[sender.selectedSegmentIndex]
+    @objc fileprivate func weekParityChanged(sender: CustomSegmentedControl) {
+        selectedParity = weekParities[sender.selectedIndex]
     }
     
     fileprivate func addConstraints() {
-        subjectName.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, topAnchor, nil, .init(top: 20, left: 20, bottom: 0, right: 20), .init(width: 0, height: 40))
-        classroom.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, subjectName.bottomAnchor, nil, .init(top: 20, left: 20, bottom: 0, right: 20), .init(width: 0, height: 40))
-        startTimeLabel.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, classroom.bottomAnchor, nil, .init(top: 20, left: 20, bottom: 0, right: 0), .init(width: 175, height: 30))
-        startTimeTextField.addConstraints(nil, safeAreaLayoutGuide.trailingAnchor, classroom.bottomAnchor, nil, .init(top: 20, left: 0, bottom: 0, right: 20), .init(width: 65, height: 30))
-        endTimeLabel.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, startTimeLabel.bottomAnchor, nil, .init(top: 20, left: 20, bottom: 0, right: 0), .init(width: 200, height: 30))
-        endTimeTextField.addConstraints(nil, safeAreaLayoutGuide.trailingAnchor, startTimeTextField.bottomAnchor, nil, .init(top: 20, left: 0, bottom: 0, right: 20), .init(width: 65, height: 30))
-        weekday.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, endTimeLabel.bottomAnchor, nil, .init(top: 0, left: 20, bottom: 0, right: 0), .init(width: 175, height: 125))
-        type.addConstraints(nil, safeAreaLayoutGuide.trailingAnchor, endTimeLabel.bottomAnchor, nil, .init(top: 0, left: 0, bottom: 0, right: 20), .init(width: 150, height: 125))
+        subjectName.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, topAnchor, nil, .init(top: padding, left: padding, bottom: 0, right: padding), .init(width: 0, height: 40))
+        classroom.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, subjectName.bottomAnchor, nil, .init(top: padding, left: padding, bottom: 0, right: padding), .init(width: 0, height: 40))
+        startTimeLabel.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, classroom.bottomAnchor, nil, .init(top: padding, left: padding, bottom: 0, right: 0), .init(width: 175, height: 30))
+        startTimeTextField.addConstraints(nil, safeAreaLayoutGuide.trailingAnchor, classroom.bottomAnchor, nil, .init(top: padding, left: 0, bottom: 0, right: padding), .init(width: 65, height: 30))
+        endTimeLabel.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, startTimeLabel.bottomAnchor, nil, .init(top: padding, left: padding, bottom: 0, right: 0), .init(width: 200, height: 30))
+        endTimeTextField.addConstraints(nil, safeAreaLayoutGuide.trailingAnchor, startTimeTextField.bottomAnchor, nil, .init(top: padding, left: 0, bottom: 0, right: padding), .init(width: 65, height: 30))
+        weekday.addConstraints(safeAreaLayoutGuide.leadingAnchor, nil, endTimeLabel.bottomAnchor, nil, .init(top: 0, left: padding, bottom: 0, right: 0), .init(width: 175, height: 125))
+        type.addConstraints(nil, safeAreaLayoutGuide.trailingAnchor, endTimeLabel.bottomAnchor, nil, .init(top: 0, left: 0, bottom: 0, right: padding), .init(width: 150, height: 125))
         weekParity.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, weekday.bottomAnchor, nil, .init(top: 0, left: 15, bottom: 0, right: 15), .init(width: 0, height: 40))
         saveButton.addConstraints(nil, nil, weekParity.bottomAnchor, bottomAnchor, .init(top: 50, left: 0, bottom: 50, right: 0), .init(width: 120, height: 50))
         saveButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true

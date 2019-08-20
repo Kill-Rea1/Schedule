@@ -70,7 +70,7 @@ class TimetableController: UIViewController, MGSwipeTableCellDelegate {
                 self?.spinner.stopAnimating()
                 UIApplication.shared.endIgnoringInteractionEvents()
                 DispatchQueue.main.async(execute: {
-                    self?.timetableView.weekParity.selectedSegmentIndex = 0
+                    self?.timetableView.weekParity.selectedIndex = 0
                     self?.loadData()
                 })
             }
@@ -110,7 +110,7 @@ class TimetableController: UIViewController, MGSwipeTableCellDelegate {
     }
     
     fileprivate func setupTargets() {
-        timetableView.weekParity.addTarget(self, action: #selector(changedWeek), for: .valueChanged)
+        timetableView.weekParity.addTarget(self, action: #selector(handleChangeWeek), for: .valueChanged)
     }
 
     fileprivate func configureTableView() {
@@ -120,7 +120,7 @@ class TimetableController: UIViewController, MGSwipeTableCellDelegate {
     }
 
     @objc fileprivate func refresh(_ sender: AnyObject) {
-        timetableView.weekParity.selectedSegmentIndex = 0
+        timetableView.weekParity.selectedIndex = 0
         checkIfUserLoggedIn()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.refreshControl.endRefreshing()
@@ -137,8 +137,8 @@ class TimetableController: UIViewController, MGSwipeTableCellDelegate {
         }
     }
     
-    @objc fileprivate func changedWeek(sender: UISegmentedControl) {
-        let index = sender.selectedSegmentIndex
+    @objc fileprivate func handleChangeWeek(sender: CustomSegmentedControl) {
+        let index = sender.selectedIndex
         switch index {
         case 1:
             timetableView.subjects = [[Subject]]()
@@ -292,9 +292,8 @@ extension TimetableController: UITableViewDelegate, UITableViewDataSource {
                     addSubjectVC.user = self.user
                     addSubjectVC.subject = subject
                     addSubjectVC.fromEdit = true
-                    if let navigationController = self.navigationController {
-                        navigationController.pushViewController(addSubjectVC, animated: true)
-                    }
+                    let navController = UINavigationController(rootViewController: addSubjectVC)
+                    self.present(navController, animated: true)
                     return true
                 })
             ]
@@ -309,7 +308,7 @@ extension TimetableController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let label = UILabel()
-        label.font = UIFont(name: UIFont().myFont(), size: 24)
+        label.font = UIFont(name: Comfortaa.regular.rawValue, size: 24)
         label.textColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         label.text = timetableView.subjects[section].first?.weekday ?? ""
         label.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)

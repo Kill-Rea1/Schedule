@@ -26,6 +26,7 @@ class MenuController: UITableViewController {
         navigationItem.title = "Меню"
         navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always
     }
     
     fileprivate func setupTableView() {

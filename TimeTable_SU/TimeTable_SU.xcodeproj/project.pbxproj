@@ -24,6 +24,9 @@
 		ED56C6CC22A97BF100A618A1 /* AddSubjectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED56C6C722A97BF100A618A1 /* AddSubjectController.swift */; };
 		ED56C6CF22A97BF100A618A1 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED56C6CA22A97BF100A618A1 /* MenuController.swift */; };
 		ED56C6D022A97BF100A618A1 /* TimetableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED56C6CB22A97BF100A618A1 /* TimetableController.swift */; };
+		ED6D3F74230B3D2C0035BB20 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6D3F73230B3D2C0035BB20 /* CustomSegmentedControl.swift */; };
+		ED6D3F78230B4B530035BB20 /* Comfortaa.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6D3F77230B4B530035BB20 /* Comfortaa.swift */; };
+		ED6D3F79230B4C1C0035BB20 /* Comfortaa-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ED6D3F75230B4B170035BB20 /* Comfortaa-Bold.ttf */; };
 		ED94C8BE22CF9FED00F1E1CF /* CustomAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED94C8BD22CF9FEC00F1E1CF /* CustomAlertController.swift */; };
 		ED98FCD422BD3F260010949B /* UserClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED98FCD322BD3F260010949B /* UserClass.swift */; };
 		EDA30DF222C7BBF900E74D76 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA30DF122C7BBF900E74D76 /* SearchController.swift */; };
@@ -100,6 +103,9 @@
 		ED56C6C722A97BF100A618A1 /* AddSubjectController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSubjectController.swift; sourceTree = "<group>"; };
 		ED56C6CA22A97BF100A618A1 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		ED56C6CB22A97BF100A618A1 /* TimetableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimetableController.swift; sourceTree = "<group>"; };
+		ED6D3F73230B3D2C0035BB20 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
+		ED6D3F75230B4B170035BB20 /* Comfortaa-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-Bold.ttf"; sourceTree = "<group>"; };
+		ED6D3F77230B4B530035BB20 /* Comfortaa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comfortaa.swift; sourceTree = "<group>"; };
 		ED94C8BD22CF9FEC00F1E1CF /* CustomAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertController.swift; sourceTree = "<group>"; };
 		ED98FCD322BD3F260010949B /* UserClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserClass.swift; sourceTree = "<group>"; };
 		EDA30DF122C7BBF900E74D76 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
@@ -241,6 +247,7 @@
 		ED56C68A22A9786400A618A1 /* TimeTable_SU */ = {
 			isa = PBXGroup;
 			children = (
+				ED6D3F76230B4B3C0035BB20 /* Fonts */,
 				ED56C68B22A9786400A618A1 /* AppDelegate.swift */,
 				EDA30DF522C83CCF00E74D76 /* EnterRegistration */,
 				EDA30DF922C83D4E00E74D76 /* MainApplication */,
@@ -268,11 +275,22 @@
 			path = TimeTable_SUUITests;
 			sourceTree = "<group>";
 		};
+		ED6D3F76230B4B3C0035BB20 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				EDAE2E7622B9815700A8D794 /* Comfortaa[wght].ttf */,
+				ED6D3F75230B4B170035BB20 /* Comfortaa-Bold.ttf */,
+				ED6D3F77230B4B530035BB20 /* Comfortaa.swift */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		ED9CB69D22C567A1002E781D /* Extensions+Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				EDE45CF322BE5A79005091BC /* Extensions+Helpers.swift */,
 				ED94C8BD22CF9FEC00F1E1CF /* CustomAlertController.swift */,
+				ED6D3F73230B3D2C0035BB20 /* CustomSegmentedControl.swift */,
 			);
 			path = "Extensions+Helpers";
 			sourceTree = "<group>";
@@ -486,7 +504,6 @@
 				EDA30E0422CBFC1C00E74D76 /* GoogleService-Info.plist */,
 				ED56C69722A9786600A618A1 /* LaunchScreen.storyboard */,
 				ED56C69A22A9786600A618A1 /* Info.plist */,
-				EDAE2E7622B9815700A8D794 /* Comfortaa[wght].ttf */,
 				ED56C69222A9786500A618A1 /* TimeTable_SU.xcdatamodeld */,
 			);
 			path = "Supporting files";
@@ -603,6 +620,7 @@
 			files = (
 				EDAE2E7722B9815700A8D794 /* Comfortaa[wght].ttf in Resources */,
 				ED56C69922A9786600A618A1 /* LaunchScreen.storyboard in Resources */,
+				ED6D3F79230B4C1C0035BB20 /* Comfortaa-Bold.ttf in Resources */,
 				ED56C69122A9786500A618A1 /* Main.storyboard in Resources */,
 				EDAE2E9922BD25A300A8D794 /* Assets.xcassets in Resources */,
 				EDA30E0522CBFC1C00E74D76 /* GoogleService-Info.plist in Resources */,
@@ -727,6 +745,7 @@
 				EDA30E0D22CC1BDA00E74D76 /* SessionController.swift in Sources */,
 				EDE45CF022BD57AD005091BC /* EnterView.swift in Sources */,
 				EDAE2E9722BD0D0B00A8D794 /* AddSubjectView.swift in Sources */,
+				ED6D3F74230B3D2C0035BB20 /* CustomSegmentedControl.swift in Sources */,
 				EDE45D0322BEA5B4005091BC /* UniversityClass.swift in Sources */,
 				EDE45CF222BD57BD005091BC /* EnterController.swift in Sources */,
 				EDE45CFC22BE67D7005091BC /* ProfileController.swift in Sources */,
@@ -740,6 +759,7 @@
 				EDE45CFA22BE60A9005091BC /* ProfileView.swift in Sources */,
 				ED56C6C022A97BCC00A618A1 /* MenuTableCell.swift in Sources */,
 				ED56C6C522A97BD900A618A1 /* MenuEnum.swift in Sources */,
+				ED6D3F78230B4B530035BB20 /* Comfortaa.swift in Sources */,
 				EDA30E0922CC125C00E74D76 /* StudentTableCell.swift in Sources */,
 				EDD26F9B22D3480800A3EC47 /* ChangePasswordController.swift in Sources */,
 				EDE45CF422BE5A79005091BC /* Extensions+Helpers.swift in Sources */,

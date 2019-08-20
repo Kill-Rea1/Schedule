@@ -42,7 +42,7 @@ class SessionController: UIViewController, MGSwipeTableCellDelegate {
     fileprivate let backgroundLabel: MainLabel = {
         let label = MainLabel()
         label.text = "Нет сессии"
-        label.font = UIFont(name: UIFont().myFont(), size: 35)
+        label.font = UIFont(name: Comfortaa.regular.rawValue, size: 35)
         return label
     }()
     
@@ -88,6 +88,7 @@ class SessionController: UIViewController, MGSwipeTableCellDelegate {
         navigationItem.rightBarButtonItems = [addButton, refreshButton]
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationItem.largeTitleDisplayMode = .always
     }
     
     @objc fileprivate func handleMenu() {
@@ -230,9 +231,8 @@ extension SessionController: UITableViewDelegate, UITableViewDataSource {
                     addExamVC.user = self.user
                     addExamVC.exam = exam
                     addExamVC.fromEdit = true
-                    if let navigationController = self.navigationController {
-                        navigationController.pushViewController(addExamVC, animated: true)
-                    }
+                    let navController = UINavigationController(rootViewController: addExamVC)
+                    self.present(navController, animated: true)
                     return true
                 })
             ]

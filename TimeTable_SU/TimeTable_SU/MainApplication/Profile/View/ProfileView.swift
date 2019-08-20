@@ -34,7 +34,7 @@ class ProfileView: BaseScrollView {
         textField.textAlignment = .left
         textField.layer.borderWidth = 0
         textField.isEnabled = false
-        textField.font = UIFont(name: UIFont().myFont(), size: 28)
+        textField.font = UIFont(name: Comfortaa.regular.rawValue, size: 28)
         return textField
     }()
     
@@ -42,14 +42,14 @@ class ProfileView: BaseScrollView {
         let button = UIButton(type: .system)
         button.setTitle("Изменить имя", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 14)
+        button.titleLabel?.font = UIFont(name: Comfortaa.regular.rawValue, size: 14)
         return button
     }()
     
     public let universityLabel: MainLabel = {
         let label = MainLabel()
         label.textAlignment = .left
-        label.font = UIFont(name: UIFont().myFont(), size: 28)
+        label.font = UIFont(name: Comfortaa.regular.rawValue, size: 28)
         label.numberOfLines = 0
         return label
     }()
@@ -58,14 +58,14 @@ class ProfileView: BaseScrollView {
         let button = UIButton(type: .system)
         button.setTitle("Изменить университет", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 14)
+        button.titleLabel?.font = UIFont(name: Comfortaa.regular.rawValue, size: 14)
         return button
     }()
     
     public let groupLabel: MainLabel = {
         let label = MainLabel()
         label.textAlignment = .left
-        label.font = UIFont(name: UIFont().myFont(), size: 28)
+        label.font = UIFont(name: Comfortaa.regular.rawValue, size: 28)
         label.numberOfLines = 0
         return label
     }()
@@ -74,7 +74,7 @@ class ProfileView: BaseScrollView {
         let button = UIButton(type: .system)
         button.setTitle("Изменить группу", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 14)
+        button.titleLabel?.font = UIFont(name: Comfortaa.regular.rawValue, size: 14)
         return button
     }()
     
@@ -82,7 +82,7 @@ class ProfileView: BaseScrollView {
         let button = UIButton(type: .system)
         button.setTitle("Изменить пароль", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 14)
+        button.titleLabel?.font = UIFont(name: Comfortaa.regular.rawValue, size: 14)
         return button
     }()
     
@@ -94,7 +94,7 @@ class ProfileView: BaseScrollView {
     public let saveButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle(" Сохранить изменения ", for: .normal)
-        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 24)
+        button.titleLabel?.font = UIFont(name: Comfortaa.regular.rawValue, size: 24)
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.black.cgColor

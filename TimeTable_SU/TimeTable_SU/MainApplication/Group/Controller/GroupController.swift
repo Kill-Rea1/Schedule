@@ -145,7 +145,7 @@ extension GroupController: UITableViewDelegate, UITableViewDataSource {
         let label = UILabel()
         label.text = user.group
         label.numberOfLines = 0
-        label.font = UIFont(name: UIFont().myFont(), size: 28)
+        label.font = UIFont(name: Comfortaa.regular.rawValue, size: 28)
         label.textColor = .black
         label.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
         return label

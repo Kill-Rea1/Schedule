@@ -90,23 +90,24 @@ class AddExamView: BaseScrollView {
         textField.inputView = date
         textField.textAlignment = .center
         textField.layer.cornerRadius = 8
-        textField.font = UIFont(name: UIFont().myFont(), size: 16)
+        textField.font = UIFont(name: Comfortaa.regular.rawValue, size: 16)
         textField.tintColor = UIColor.clear
         return textField
     }()
     
-    public let examType: MainSegmentedControl = {
+    public let examType: CustomSegmentedControl = {
         let items = ["Зачет", "Дифф. Зачет", "Экзамен"]
-        let segmented = MainSegmentedControl(items: items)
-        segmented.addTarget(self, action: #selector(examTypeChanged(sender:)), for: .valueChanged)
-        return segmented
+        let csc = CustomSegmentedControl(frame: .zero)
+        csc.items = items
+        csc.addTarget(self, action: #selector(examTypeChanged), for: .valueChanged)
+        return csc
     }()
     
     public let saveButton: UIButton = {
         let button = UIButton(type: .system)
         button.frame = CGRect(x: 0, y: 0, width: 60, height: 50)
         button.setTitle("Добавить", for: .normal)
-        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 18)
+        button.titleLabel?.font = UIFont(name: Comfortaa.regular.rawValue, size: 18)
         button.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.borderWidth = 1
@@ -117,8 +118,8 @@ class AddExamView: BaseScrollView {
     
     // MARK:- Fileprivate Methods
     
-    @objc fileprivate func examTypeChanged(sender: UISegmentedControl) {
-        selectedType = types[sender.selectedSegmentIndex]
+    @objc fileprivate func examTypeChanged(sender: CustomSegmentedControl) {
+        selectedType = types[sender.selectedIndex]
     }
     
     fileprivate func createToolBar() {

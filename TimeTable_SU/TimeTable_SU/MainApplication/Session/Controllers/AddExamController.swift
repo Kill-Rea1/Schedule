@@ -28,7 +28,7 @@ class AddExamController: UIViewController {
         setupViewEdit()
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "cancel"), style: .plain, target: self, action: #selector(handleBack))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "close"), style: .plain, target: self, action: #selector(handleBack))
         setupView()
         addExamView.saveButton.addTarget(self, action: #selector(handleSave), for: .touchUpInside)
         setupKeyboardNotifications()
@@ -84,9 +84,7 @@ class AddExamController: UIViewController {
         let newExamRef = ref.child("universities").child(user.university).child("groups").child(user.group).child("session").childByAutoId()
         newExamRef.setValue(newExam.convertToDictionary())
         
-        if let navigation = navigationController {
-            navigation.popViewController(animated: true)
-        }
+        dismiss(animated: true)
     }
     
     fileprivate func setupViewEdit() {
@@ -98,7 +96,7 @@ class AddExamController: UIViewController {
         addExamView.classroom.text = exam.classroom
         addExamView.startTimeTextField.text = exam.time
         addExamView.dateTextField.text = exam.date
-        addExamView.examType.selectedSegmentIndex = addExamView.types.firstIndex(of: exam.type)!
+        addExamView.examType.selectedIndex = addExamView.types.firstIndex(of: exam.type) ?? 0
         addExamView.selectedType = exam.type
         addExamView.saveButton.setTitle("Сохранить", for: .normal)
         navigationItem.title = "Изменить \(exam.type)"

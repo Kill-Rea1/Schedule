@@ -39,7 +39,7 @@ class RegistrationController: UIViewController {
         textView.text = "Только админы расписания могут изменять его"
         textView.backgroundColor = .clear
         textView.textColor = .white
-        textView.font = UIFont(name: UIFont().myFont(), size: 16)
+        textView.font = UIFont(name: Comfortaa.regular.rawValue, size: 16)
         return textView
     }()
     
@@ -48,7 +48,7 @@ class RegistrationController: UIViewController {
         button.setTitle("Понятно!", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 28)
+        button.titleLabel?.font = UIFont(name: Comfortaa.regular.rawValue, size: 28)
         button.backgroundColor = .clear
         return button
     }()
@@ -89,7 +89,7 @@ class RegistrationController: UIViewController {
         ref = Database.database().reference()
         setup()
         setupActions()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "cancel"), style: .plain, target: self, action: #selector(handleBack))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "close"), style: .plain, target: self, action: #selector(handleBack))
     }
     
     override func viewDidDisappear(_ animated: Bool) {

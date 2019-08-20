@@ -62,7 +62,7 @@ class CustomAlertController: BaseView {
     public let cancelButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Отмена", for: .normal)
-        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 16)
+        button.titleLabel?.font = UIFont(name: Comfortaa.regular.rawValue, size: 16)
         button.backgroundColor = .lightGray
         button.layer.cornerRadius = 14
         button.tintColor = .white
@@ -72,7 +72,7 @@ class CustomAlertController: BaseView {
     public let confirmButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Добавить", for: .normal)
-        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 16)
+        button.titleLabel?.font = UIFont(name: Comfortaa.regular.rawValue, size: 16)
         button.backgroundColor = .black
         button.layer.cornerRadius = 14
         button.tintColor = .white
@@ -85,7 +85,7 @@ class CustomAlertController: BaseView {
         textView.layer.borderColor = UIColor.black.cgColor
         textView.layer.cornerRadius = 14
         textView.backgroundColor = .white
-        textView.font = UIFont(name: UIFont().myFont(), size: 18)
+        textView.font = UIFont(name: Comfortaa.regular.rawValue, size: 18)
         textView.text = "Some text here..."
         textView.textColor = .lightGray
         textView.isScrollEnabled = false

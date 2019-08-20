@@ -36,7 +36,7 @@ class StudentTableCell: BaseCell {
     
     public let emailLabel: MainLabel = {
         let label = MainLabel()
-        label.font = UIFont(name: UIFont().myFont(), size: 14)
+        label.font = UIFont(name: Comfortaa.regular.rawValue, size: 14)
         label.textAlignment = .left
         label.numberOfLines = 0
         return label
@@ -44,7 +44,7 @@ class StudentTableCell: BaseCell {
     
     public let adminLabel: MainLabel = {
         let label = MainLabel()
-        label.font = UIFont(name: UIFont().myFont(), size: 14)
+        label.font = UIFont(name: Comfortaa.regular.rawValue, size: 14)
         label.text = "Admin"
         return label
     }()

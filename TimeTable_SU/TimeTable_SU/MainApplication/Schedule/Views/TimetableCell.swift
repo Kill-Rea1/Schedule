@@ -46,28 +46,28 @@ class TimetableCell: BaseCell {
     
     fileprivate let subjectLabel: MainLabel = {
         let label = MainLabel()
-        label.font = UIFont(name: UIFont().myFont(), size: 18)
+        label.font = UIFont(name: Comfortaa.regular.rawValue, size: 18)
         label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return label
     }()
     
     fileprivate let classroomLabel: MainLabel = {
         let label = MainLabel()
-        label.font = UIFont(name: UIFont().myFont(), size: 12)
+        label.font = UIFont(name: Comfortaa.regular.rawValue, size: 12)
         label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return label
     }()
     
     fileprivate let startSubjectTime: MainLabel = {
         let label = MainLabel()
-        label.font = UIFont(name: UIFont().myFont(), size: 12)
+        label.font = UIFont(name: Comfortaa.regular.rawValue, size: 12)
         label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return label
     }()
     
     fileprivate let endSubjectTime: MainLabel = {
         let label = MainLabel()
-        label.font = UIFont(name: UIFont().myFont(), size: 12)
+        label.font = UIFont(name: Comfortaa.regular.rawValue, size: 12)
         label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return label
     }()
@@ -83,14 +83,14 @@ class TimetableCell: BaseCell {
     
     fileprivate let typeSubjectLabel: MainLabel = {
         let label = MainLabel()
-        label.font = UIFont(name: UIFont().myFont(), size: 14)
+        label.font = UIFont(name: Comfortaa.regular.rawValue, size: 14)
         label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return label
     }()
     
     fileprivate let weekParityLabel: MainLabel = {
         let label = MainLabel()
-        label.font = UIFont(name: UIFont().myFont(), size: 14)
+        label.font = UIFont(name: Comfortaa.regular.rawValue, size: 14)
         label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return label
     }()

@@ -30,7 +30,7 @@ extension SearchController: UISearchBarDelegate, UITableViewDelegate, UITableVie
         cell.textLabel?.text = cellStr
         cell.textLabel?.numberOfLines = 0
         cell.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
-        cell.textLabel?.font = UIFont(name: UIFont().myFont(), size: 16)
+        cell.textLabel?.font = UIFont(name: Comfortaa.regular.rawValue, size: 16)
         return cell
     }
     
@@ -130,7 +130,7 @@ class SearchController: UIViewController {
     fileprivate func setupNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = isUniversitySearching ? "Выберите университет" : "Выберите группу"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "cancel"), style: .done, target: self, action: #selector(handleBack))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "close"), style: .done, target: self, action: #selector(handleBack))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "add"), style: .plain, target: self, action: #selector(handleAdd))
         navigationController?.navigationBar.tintColor = .black
     }
@@ -193,7 +193,7 @@ class SearchController: UIViewController {
         tableView.dataSource = self
         searchBar.delegate = self
         searchBar.returnKeyType = UIReturnKeyType.done
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedString.Key.font: UIFont(name: UIFont().myFont(), size: 16)!]
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedString.Key.font: UIFont(name: Comfortaa.regular.rawValue, size: 16)!]
         definesPresentationContext = true
     }
     

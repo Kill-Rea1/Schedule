@@ -60,7 +60,7 @@ class RegistrationView: BaseScrollView {
     }()
     fileprivate let adminLabel: MainLabel = {
         let label = MainLabel()
-        label.font = UIFont(name: UIFont().myFont(), size: 24)
+        label.font = UIFont(name: Comfortaa.regular.rawValue, size: 24)
         label.text = "Вы будете админом!"
         return label
     }()
@@ -93,7 +93,7 @@ class RegistrationView: BaseScrollView {
         let textField = MainTextField()
         textField.textAlignment = .center
         textField.placeholder = "Введите почту.."
-        textField.font = UIFont(name: UIFont().myFont(), size: 20)
+        textField.font = UIFont(name: Comfortaa.regular.rawValue, size: 20)
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
         return textField
@@ -103,7 +103,7 @@ class RegistrationView: BaseScrollView {
         let textField = MainTextField()
         textField.textAlignment = .center
         textField.placeholder = "Придумайте пароль.."
-        textField.font = UIFont(name: UIFont().myFont(), size: 20)
+        textField.font = UIFont(name: Comfortaa.regular.rawValue, size: 20)
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
         textField.isSecureTextEntry = true
@@ -114,7 +114,7 @@ class RegistrationView: BaseScrollView {
         let textField = MainTextField()
         textField.textAlignment = .center
         textField.placeholder = "Введите имя.."
-        textField.font = UIFont(name: UIFont().myFont(), size: 20)
+        textField.font = UIFont(name: Comfortaa.regular.rawValue, size: 20)
         textField.autocorrectionType = .no
         return textField
     }()
@@ -123,7 +123,7 @@ class RegistrationView: BaseScrollView {
         let button = UIButton(type: .system)
         button.frame = CGRect(x: 0, y: 0, width: 60, height: 50)
         button.setTitle("Выберите ВУЗ", for: .normal)
-        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 16)
+        button.titleLabel?.font = UIFont(name: Comfortaa.regular.rawValue, size: 16)
         button.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
         button.titleLabel?.textAlignment = .left
         button.titleLabel?.numberOfLines = 0
@@ -135,7 +135,7 @@ class RegistrationView: BaseScrollView {
         let button = UIButton(type: .system)
         button.frame = CGRect(x: 0, y: 0, width: 60, height: 50)
         button.setTitle("Выберите группу", for: .normal)
-        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 16)
+        button.titleLabel?.font = UIFont(name: Comfortaa.regular.rawValue, size: 16)
         button.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
         button.titleLabel?.textAlignment = .left
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -146,7 +146,7 @@ class RegistrationView: BaseScrollView {
         let button = UIButton(type: .system)
         button.frame = CGRect(x: 0, y: 0, width: 60, height: 50)
         button.setTitle("Зарегестрироваться", for: .normal)
-        button.titleLabel?.font = UIFont(name: UIFont().myFont(), size: 18)
+        button.titleLabel?.font = UIFont(name: Comfortaa.regular.rawValue, size: 18)
         button.setTitleColor(.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.borderWidth = 1

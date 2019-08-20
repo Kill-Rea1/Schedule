@@ -32,7 +32,7 @@ class ChangePasswordView: BaseView {
         let textField = MainTextField()
         textField.placeholder = "Текущий пароль"
         textField.isSecureTextEntry = true
-        textField.font = UIFont(name: UIFont().myFont(), size: 20)
+        textField.font = UIFont(name: Comfortaa.regular.rawValue, size: 20)
         return textField
     }()
     
@@ -40,7 +40,7 @@ class ChangePasswordView: BaseView {
         let textField = MainTextField()
         textField.placeholder = "Новый пароль"
         textField.isSecureTextEntry = true
-        textField.font = UIFont(name: UIFont().myFont(), size: 20)
+        textField.font = UIFont(name: Comfortaa.regular.rawValue, size: 20)
         return textField
     }()
     
@@ -48,7 +48,7 @@ class ChangePasswordView: BaseView {
         let textField = MainTextField()
         textField.placeholder = "Новый пароль еще раз"
         textField.isSecureTextEntry = true
-        textField.font = UIFont(name: UIFont().myFont(), size: 20)
+        textField.font = UIFont(name: Comfortaa.regular.rawValue, size: 20)
         return textField
     }()
     

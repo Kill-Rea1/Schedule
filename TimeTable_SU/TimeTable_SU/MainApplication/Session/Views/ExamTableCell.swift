@@ -26,14 +26,14 @@ class ExamTableCell: BaseCell {
     
     public let nameLabel: MainLabel = {
         let label = MainLabel()
-        label.font = UIFont(name: UIFont().myFont(), size: 18)
+        label.font = UIFont(name: Comfortaa.regular.rawValue, size: 18)
         label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return label
     }()
     
     public let classroomLabel: MainLabel = {
         let label = MainLabel()
-        label.font = UIFont(name: UIFont().myFont(), size: 12)
+        label.font = UIFont(name: Comfortaa.regular.rawValue, size: 12)
         label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return label
     }()
@@ -49,14 +49,14 @@ class ExamTableCell: BaseCell {
     
     public let timeLabel: MainLabel = {
         let label = MainLabel()
-        label.font = UIFont(name: UIFont().myFont(), size: 16)
+        label.font = UIFont(name: Comfortaa.regular.rawValue, size: 16)
         label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return label
     }()
     
     public let typeLabel: MainLabel = {
         let label = MainLabel()
-        label.font = UIFont(name: UIFont().myFont(), size: 14)
+        label.font = UIFont(name: Comfortaa.regular.rawValue, size: 14)
         label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return label
     }()
