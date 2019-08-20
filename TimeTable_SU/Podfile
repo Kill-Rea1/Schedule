@@ -11,6 +11,7 @@ target 'TimeTable_SU' do
   pod 'Firebase/Database'
   pod 'Firebase/Analytics'
   pod 'MGSwipeTableCell'
+  pod 'JGProgressHUD'
 
   target 'TimeTable_SUTests' do
     inherit! :search_paths
