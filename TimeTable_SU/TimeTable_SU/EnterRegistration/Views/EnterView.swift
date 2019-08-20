@@ -61,6 +61,7 @@ class EnterView: BaseView {
         textField.font = UIFont(name: Comfortaa.regular.rawValue, size: 20)
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
+        textField.keyboardType = .emailAddress
         return textField
     }()
 

@@ -96,6 +96,7 @@ class RegistrationView: BaseView {
         textField.font = UIFont(name: Comfortaa.regular.rawValue, size: 20)
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
+        textField.keyboardType = .emailAddress
         return textField
     }()
     
@@ -107,6 +108,11 @@ class RegistrationView: BaseView {
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
         textField.isSecureTextEntry = true
+        if #available(iOS 12, *) {
+            textField.textContentType = .oneTimeCode
+        } else {
+            textField.textContentType = .init(rawValue: "")
+        }
         return textField
     }()
     

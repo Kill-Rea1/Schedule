@@ -8,11 +8,12 @@
 
 import UIKit
 import Firebase
+import JGProgressHUD
 
 class RegistrationController: UIViewController {
     
     // MARK:- Properties
-    
+    fileprivate let registerHud = JGProgressHUD(style: .dark)
     fileprivate var ref: DatabaseReference!
     public var isAdmin = false {
         willSet {
@@ -209,7 +210,10 @@ class RegistrationController: UIViewController {
             registerView.displayWarningLabel(withText: "Вы не выбрали группу")
             return
         }
+        registerHud.textLabel.text = "Выполняется регистрация..."
+        registerHud.show(in: view)
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] (res, error) in
+            self?.registerHud.dismiss()
             if error != nil {
                 self?.registerView.displayWarningLabel(withText: "Пользователь уже существует")
                 return

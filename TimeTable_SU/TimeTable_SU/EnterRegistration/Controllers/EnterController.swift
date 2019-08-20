@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import JGProgressHUD
 
 class EnterController: UIViewController {
     
@@ -15,6 +16,7 @@ class EnterController: UIViewController {
 
     fileprivate let enterView = EnterView()
     fileprivate var alertController: CustomAlertController!
+    fileprivate let loginHud = JGProgressHUD(style: .dark)
     
     // MARK:- ViewController Methods
     
@@ -127,7 +129,10 @@ class EnterController: UIViewController {
             enterView.displayWarningLabel(withText: "Данные не корректны")
             return
         }
+        loginHud.textLabel.text = "Выполняется вход.."
+        loginHud.show(in: view)
         Auth.auth().signIn(withEmail: email, password: password, completion: { [weak self] (user, error) in
+            self?.loginHud.dismiss()
             if error != nil {
                 self?.enterView.displayWarningLabel(withText: "Неправильный пароль")
                 return
@@ -136,7 +141,6 @@ class EnterController: UIViewController {
                 guard let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController else { return }
                 navigationController.viewControllers = [MainController()]
                 UserDefaults.standard.setIsLoggedIn(value: true)
-                
                 self?.dismiss(animated: true, completion: nil)
                 return
             }
