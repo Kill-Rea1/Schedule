@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 extension SearchController: UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, CustomAlertControllerDelegate {
-    func didAdd() {
+    func didConfirm() {
         handleSave()
     }
     

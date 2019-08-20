@@ -9,7 +9,7 @@
 import UIKit
 
 protocol CustomAlertControllerDelegate: class {
-    func didAdd()
+    func didConfirm()
     func didCancel()
 }
 
@@ -91,7 +91,7 @@ class CustomAlertController: UIViewController {
     
     public let confirmButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Добавить", for: .normal)
+        button.setTitle("Готово", for: .normal)
         button.titleLabel?.font = UIFont(name: Comfortaa.regular.rawValue, size: 16)
         button.backgroundColor = .black
         button.layer.cornerRadius = 14
@@ -121,7 +121,7 @@ class CustomAlertController: UIViewController {
     }
     
     @objc fileprivate func handleConfirm() {
-        delegate?.didAdd()
+        delegate?.didConfirm()
         view.endEditing(true)
     }
     
@@ -154,7 +154,7 @@ class CustomAlertController: UIViewController {
     }
     
     fileprivate func hideKeyboard () {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         tap.cancelsTouchesInView = false
         blurVisualEffect.contentView.addGestureRecognizer(tap)
     }

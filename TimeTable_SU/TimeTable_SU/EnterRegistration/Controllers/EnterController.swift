@@ -75,19 +75,16 @@ class EnterController: UIViewController {
     
     fileprivate func setupView() {
         view.addSubview(enterView)
-        setupAlertController()
         enterView.addConstraints(view.leadingAnchor, view.trailingAnchor, view.topAnchor, view.bottomAnchor)
     }
     
     fileprivate func setupAlertController() {
         alertController = CustomAlertController()
+        alertController.delegate = self
         alertController.view.alpha = 0
         alertController.titleLabel.text = "Введите почту"
         alertController.myTextView.text = "Почта"
         alertController.placeholderText = "Почта"
-        alertController.confirmButton.setTitle("Готово", for: .normal)
-        alertController.confirmButton.addTarget(self, action: #selector(handleDone), for: .touchUpInside)
-        alertController.cancelButton.addTarget(self, action: #selector(handleCancel), for: .touchUpInside)
         view.addSubview(alertController.view)
         let window = UIApplication.shared.keyWindow
         alertController.view.frame = window?.frame ?? .zero
@@ -113,7 +110,10 @@ class EnterController: UIViewController {
         view.endEditing(true)
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.alertController.view.alpha = 0
-        })
+        }) { (_) in
+            self.alertController.view.removeFromSuperview()
+            self.alertController.removeFromParent()
+        }
     }
     
     @objc fileprivate func handleRegister() {
@@ -141,5 +141,15 @@ class EnterController: UIViewController {
             }
             self?.enterView.displayWarningLabel(withText: "Такой пользователь не найден")
         })
+    }
+}
+
+extension EnterController: CustomAlertControllerDelegate {
+    func didConfirm() {
+        handleDone()
+    }
+    
+    func didCancel() {
+        handleCancel()
     }
 }
