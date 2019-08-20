@@ -30,7 +30,7 @@ extension RegistrationView: UITextFieldDelegate {
     }
 }
 
-class RegistrationView: BaseScrollView {
+class RegistrationView: BaseView {
 
     // MARK:- Properties
     
@@ -145,7 +145,7 @@ class RegistrationView: BaseScrollView {
     public let registerButton: UIButton = {
         let button = UIButton(type: .system)
         button.frame = CGRect(x: 0, y: 0, width: 60, height: 50)
-        button.setTitle("Зарегестрироваться", for: .normal)
+        button.setTitle("Зарегистрироваться", for: .normal)
         button.titleLabel?.font = UIFont(name: Comfortaa.regular.rawValue, size: 18)
         button.setTitleColor(.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -198,7 +198,7 @@ class RegistrationView: BaseScrollView {
         passwordTextField.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, emailTextField.bottomAnchor, nil, .init(top: spacing, left: padding, bottom: 0, right: padding), .init(width: 0, height: height))
         universityButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, passwordTextField.bottomAnchor, nil, .init(top: spacing, left: padding, bottom: 0, right: padding), .init(width: 0, height: height))
         groupButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, universityButton.bottomAnchor, nil, .init(top: spacing, left: padding, bottom: 0, right: padding), .init(width: 0, height: height))
-        registerButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, groupButton.bottomAnchor, bottomAnchor, .init(top: spacing * 1.5, left: padding, bottom: height, right: padding), .init(width: 0, height: height))
+        registerButton.addConstraints(safeAreaLayoutGuide.leadingAnchor, safeAreaLayoutGuide.trailingAnchor, groupButton.bottomAnchor, bottomAnchor, .init(top: spacing * 1.5, left: padding, bottom: 0, right: padding), .init(width: 0, height: height))
     }
     
     fileprivate func putDelegates() {

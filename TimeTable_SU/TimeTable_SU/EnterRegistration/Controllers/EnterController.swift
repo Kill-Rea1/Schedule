@@ -39,23 +39,23 @@ class EnterController: UIViewController {
     // MARK:- Private Methods
     
     fileprivate func setupKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleShowKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleHideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    @objc fileprivate func keyboardWillShow(notification: Notification) {
+    @objc fileprivate func handleShowKeyboard(notification: Notification) {
         guard let userInfo = notification.userInfo else { return }
-        let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        let keyboardFrameSize = view.convert(keyboardSize, from: view.window)
-        enterView.contentSize = CGSize(width: enterView.contentSize.width, height: enterView.contentSize.height + keyboardFrameSize.height)
-        enterView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrameSize.height, right: 0)
+        guard let value = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        let keyboardFrame = value.cgRectValue
+        let bottomSpace = view.frame.height - enterView.frame.origin.y - (enterView.frame.height - enterView.registerButton.frame.height)
+        let difference = keyboardFrame.height - bottomSpace
+        if difference > 0 {
+            view.transform = CGAffineTransform(translationX: 0, y: -difference - 8)
+        }
     }
     
-    @objc fileprivate func keyboardWillHide(notification: Notification) {
-        guard let userInfo = notification.userInfo else { return }
-        let keyboardFrameSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        enterView.contentSize = CGSize(width: enterView.contentSize.width, height: enterView.contentSize.height - keyboardFrameSize.height)
-        enterView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    @objc fileprivate func handleHideKeyboard() {
+        view.transform = .identity
     }
     
     fileprivate func addTargets() {
@@ -75,7 +75,8 @@ class EnterController: UIViewController {
     
     fileprivate func setupView() {
         view.addSubview(enterView)
-        enterView.addConstraints(view.leadingAnchor, view.trailingAnchor, view.topAnchor, view.bottomAnchor)
+        enterView.addConstraints(view.leadingAnchor, view.trailingAnchor, nil, nil)
+        enterView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
     
     fileprivate func setupAlertController() {

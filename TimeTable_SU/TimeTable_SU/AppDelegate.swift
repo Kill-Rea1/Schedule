@@ -12,7 +12,8 @@ import Firebase
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?    
+    var window: UIWindow?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
 
@@ -23,21 +24,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             window?.rootViewController = UINavigationController(rootViewController: EnterController())
         }
-//        window?.rootViewController = UINavigationController(rootViewController: CustomAlertController())
+        setupNavigationBar()
         
+        return true
+    }
+    
+    fileprivate func setupNavigationBar() {
         UINavigationBar.appearance().barTintColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
         UINavigationBar.appearance().backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
-        let attrs = [
+        var attrs = [
             NSAttributedString.Key.foregroundColor: UIColor.black,
             NSAttributedString.Key.font: UIFont(name: Comfortaa.regular.rawValue, size: 30)!
         ]
         UINavigationBar.appearance().largeTitleTextAttributes = attrs
         UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().isTranslucent = false
+        attrs[NSAttributedString.Key.font] = UIFont(name: Comfortaa.regular.rawValue, size: 20)
+        UINavigationBar.appearance().titleTextAttributes = attrs
         let customFont = UIFont(name: Comfortaa.regular.rawValue, size: 13)!
         UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: customFont], for: .normal)
-        
-        return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

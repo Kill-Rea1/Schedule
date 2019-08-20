@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddExamView: BaseScrollView {
+class AddExamView: BaseView {
     
     // MARK:- Properties
     

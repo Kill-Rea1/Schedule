@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddSubjectView: BaseScrollView {
+class AddSubjectView: BaseView {
     
     // MARK:- Properties
     

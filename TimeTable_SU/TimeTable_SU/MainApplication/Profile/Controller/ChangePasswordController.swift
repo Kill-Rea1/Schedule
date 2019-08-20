@@ -23,7 +23,7 @@ class ChangePasswordController: UIViewController {
         setupViews()
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "Сменить пароль"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "cancel"), style: .done, target: self, action: #selector(handleBack))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "close"), style: .done, target: self, action: #selector(handleBack))
         navigationController?.navigationBar.tintColor = .black
     }
     

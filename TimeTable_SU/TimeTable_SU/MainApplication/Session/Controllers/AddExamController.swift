@@ -31,41 +31,27 @@ class AddExamController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "close"), style: .plain, target: self, action: #selector(handleBack))
         setupView()
         addExamView.saveButton.addTarget(self, action: #selector(handleSave), for: .touchUpInside)
-        setupKeyboardNotifications()
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        NotificationCenter.default.removeObserver(self)
         ref.removeAllObservers()
     }
     
     // MARK:- Fileprivate Methods
     
+    @objc fileprivate func handleTap() {
+        view.endEditing(true)
+    }
+    
     @objc fileprivate func handleBack() {
         dismiss(animated: true)
     }
     
-    fileprivate func setupKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    @objc fileprivate func keyboardWillShow(notification: Notification) {
-        guard let userInfo = notification.userInfo else { return }
-        let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        let keyboardViewEndFrame = view.convert(keyboardSize, from: view.window)
-        addExamView.contentSize = CGSize(width: addExamView.frame.width, height: addExamView.frame.height + keyboardViewEndFrame.height)
-        addExamView.scrollIndicatorInsets = addExamView.contentInset
-    }
-    
-    @objc fileprivate func keyboardWillHide() {
-        addExamView.contentSize = CGSize(width: addExamView.bounds.size.width, height: addExamView.bounds.size.height)
-    }
-    
     fileprivate func setupView() {
         view.addSubview(addExamView)
-        addExamView.addConstraints(view.leadingAnchor, view.trailingAnchor, view.topAnchor, view.bottomAnchor)
+        addExamView.addConstraints(view.leadingAnchor, view.trailingAnchor, view.topAnchor, nil)
     }
     
     @objc fileprivate func handleSave() {

@@ -23,7 +23,7 @@ class AddSubjectController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        view.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
         addSubjectView.saveButton.addTarget(self, action: #selector(save), for: .touchUpInside)
         setupView()
         ref = Database.database().reference().child("universities").child(user.university).child("groups").child(user.group).child("schedule")
@@ -31,12 +31,10 @@ class AddSubjectController: UIViewController {
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "close"), style: .plain, target: self, action: #selector(handleBack))
-        setupKeyboardNotifications()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self)
         ref.removeAllObservers()
     }
     
@@ -44,23 +42,6 @@ class AddSubjectController: UIViewController {
     
     @objc fileprivate func handleBack() {
         dismiss(animated: true)
-    }
-    
-    fileprivate func setupKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    @objc fileprivate func keyboardWillShow(notification: Notification) {
-        guard let userInfo = notification.userInfo else { return }
-        let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        let keyboardViewEndFrame = view.convert(keyboardSize, from: view.window)
-        addSubjectView.contentSize = CGSize(width: addSubjectView.frame.width, height: addSubjectView.frame.height + keyboardViewEndFrame.height)
-        addSubjectView.scrollIndicatorInsets = addSubjectView.contentInset
-    }
-    
-    @objc fileprivate func keyboardWillHide() {
-        addSubjectView.contentSize = CGSize(width: addSubjectView.bounds.size.width, height: addSubjectView.bounds.size.height)
     }
 
     @objc fileprivate func save() {
@@ -94,7 +75,7 @@ class AddSubjectController: UIViewController {
 
     fileprivate func setupView() {
         view.addSubview(addSubjectView)
-        addSubjectView.addConstraints(view.leadingAnchor, view.trailingAnchor, view.topAnchor, view.bottomAnchor)
+        addSubjectView.addConstraints(view.leadingAnchor, view.trailingAnchor, view.topAnchor, nil)
     }
     
     fileprivate func editingView() {

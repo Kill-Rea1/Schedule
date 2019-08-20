@@ -178,7 +178,7 @@ extension SessionController: UITableViewDelegate, UITableViewDataSource {
         let exam = exams[indexPath.section]
         let cell = tableView.dequeueReusableCell(withIdentifier: ExamTableCell.reuseId, for: indexPath) as! ExamTableCell
         cell.nameLabel.text = exam.name
-        cell.classroomLabel.text = exam.classroom + "ауд"
+        cell.classroomLabel.text = exam.classroom + " ауд"
         cell.typeLabel.text = exam.type
         cell.timeLabel.text = exam.time
         cell.selectionStyle = .none
