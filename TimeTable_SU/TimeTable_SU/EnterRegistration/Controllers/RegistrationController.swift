@@ -113,7 +113,7 @@ class RegistrationController: UIViewController {
         guard let userInfo = notification.userInfo else { return }
         guard let value = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         let keyboardFrame = value.cgRectValue
-        let bottomSpace = view.frame.height - registerView.frame.origin.y - registerView.frame.height
+        let bottomSpace = view.frame.height - registerView.frame.origin.y - (registerView.passwordTextField.frame.origin.y + registerView.passwordTextField.frame.height)
         let difference = keyboardFrame.height - bottomSpace
         if difference > 0 {
             view.transform = CGAffineTransform(translationX: 0, y: -difference - 8)
