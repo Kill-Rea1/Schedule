@@ -88,7 +88,6 @@ class SessionController: UIViewController, MGSwipeTableCellDelegate {
         navigationItem.rightBarButtonItems = [addButton, refreshButton]
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationItem.largeTitleDisplayMode = .always
     }
     
     @objc fileprivate func handleMenu() {

@@ -14,7 +14,7 @@ class EnterController: UIViewController {
     // MARK:- Properties
 
     fileprivate let enterView = EnterView()
-    fileprivate let alertController = CustomAlertController()
+    fileprivate var alertController: CustomAlertController!
     
     // MARK:- ViewController Methods
     
@@ -65,27 +65,33 @@ class EnterController: UIViewController {
     }
     
     @objc func handleReset() {
+        
+        setupAlertController()
+        
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseIn, animations: {
-            self.alertController.alpha = 1
+            self.alertController.view.alpha = 1
         })
     }
     
     fileprivate func setupView() {
         view.addSubview(enterView)
-        view.addSubview(alertController)
         setupAlertController()
         enterView.addConstraints(view.leadingAnchor, view.trailingAnchor, view.topAnchor, view.bottomAnchor)
-        let window = UIApplication.shared.keyWindow
-        alertController.frame = window?.frame ?? .zero
     }
     
     fileprivate func setupAlertController() {
-        alertController.alpha = 0
+        alertController = CustomAlertController()
+        alertController.view.alpha = 0
         alertController.titleLabel.text = "Введите почту"
         alertController.myTextView.text = "Почта"
+        alertController.placeholderText = "Почта"
         alertController.confirmButton.setTitle("Готово", for: .normal)
         alertController.confirmButton.addTarget(self, action: #selector(handleDone), for: .touchUpInside)
         alertController.cancelButton.addTarget(self, action: #selector(handleCancel), for: .touchUpInside)
+        view.addSubview(alertController.view)
+        let window = UIApplication.shared.keyWindow
+        alertController.view.frame = window?.frame ?? .zero
+        addChild(alertController)
     }
     
     @objc fileprivate func handleDone() {
@@ -106,7 +112,7 @@ class EnterController: UIViewController {
     @objc fileprivate func handleCancel() {
         view.endEditing(true)
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.alertController.alpha = 0
+            self.alertController.view.alpha = 0
         })
     }
     

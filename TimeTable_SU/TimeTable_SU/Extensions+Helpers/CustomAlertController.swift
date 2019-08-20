@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol CustomAlertControllerDelegate: class {
+    func didAdd()
+    func didCancel()
+}
+
 extension CustomAlertController : UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if myTextView.textColor == .lightGray && myTextView.isFirstResponder {
@@ -19,30 +24,44 @@ extension CustomAlertController : UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         if myTextView.text.isEmpty || myTextView.text == "" {
             myTextView.textColor = .lightGray
-            myTextView.text = "Some text here..."
+            myTextView.text = placeholderText
         }
     }
 }
 
-class CustomAlertController: BaseView {
+class CustomAlertController: UIViewController {
     
     // MARK:- Properties
     
     fileprivate let spacing: CGFloat = 10
+    public weak var delegate: CustomAlertControllerDelegate?
+    public var placeholderText: String!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = .clear
+        setupViews()
+    }
     
     // MARK:- Setup View
     
-    override func setupViews() {
-        super.setupViews()
+    func setupViews() {
         myTextView.delegate = self
-        backgroundColor = UIColor(white: 0, alpha: 0.6)
+        
         createToolBar()
         hideKeyboard()
-        addSubview(containerView)
+        
+        view.addSubview(blurVisualEffect)
+        blurVisualEffect.frame = view.frame
+        
+        view.addSubview(containerView)
         setupContainerView()
     }
     
     // MARK:- UIKit
+    
+    fileprivate let blurVisualEffect = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     
     fileprivate let containerView: UIView = {
         let view = UIView()
@@ -66,6 +85,7 @@ class CustomAlertController: BaseView {
         button.backgroundColor = .lightGray
         button.layer.cornerRadius = 14
         button.tintColor = .white
+        button.addTarget(self, action: #selector(handleCancel), for: .touchUpInside)
         return button
     }()
     
@@ -76,6 +96,7 @@ class CustomAlertController: BaseView {
         button.backgroundColor = .black
         button.layer.cornerRadius = 14
         button.tintColor = .white
+        button.addTarget(self, action: #selector(handleConfirm), for: .touchUpInside)
         return button
     }()
     
@@ -94,15 +115,25 @@ class CustomAlertController: BaseView {
     
     // MARK:- Fileprivate methods
     
+    @objc fileprivate func handleCancel() {
+        delegate?.didCancel()
+        view.endEditing(true)
+    }
+    
+    @objc fileprivate func handleConfirm() {
+        delegate?.didAdd()
+        view.endEditing(true)
+    }
+    
     fileprivate func setupContainerView() {
         containerView.addSubview(titleLabel)
         containerView.addSubview(cancelButton)
         containerView.addSubview(confirmButton)
         containerView.addSubview(myTextView)
         
-        containerView.widthAnchor.constraint(equalToConstant: 275).isActive = true
-        containerView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        containerView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        containerView.addConstraints(view.leadingAnchor, view.trailingAnchor, nil, nil, .init(top: 0, left: 16, bottom: 0, right: 16))
+        containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
         titleLabel.addConstraints(containerView.leadingAnchor, containerView.trailingAnchor, containerView.topAnchor, nil, .init(top: 5, left: 0, bottom: 0, right: 0), .init(width: 0, height: 40))
         myTextView.addConstraints(containerView.leadingAnchor, containerView.trailingAnchor, titleLabel.bottomAnchor, cancelButton.topAnchor, .init(top: spacing, left: 20, bottom: spacing * 1.5, right: 20))
@@ -125,10 +156,15 @@ class CustomAlertController: BaseView {
     fileprivate func hideKeyboard () {
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tap.cancelsTouchesInView = false
-        addGestureRecognizer(tap)
+        blurVisualEffect.contentView.addGestureRecognizer(tap)
+    }
+    
+    @objc fileprivate func handleTap() {
+        delegate?.didCancel()
+        view.endEditing(true)
     }
     
     @objc fileprivate func dismissKeyboard() {
-        endEditing(true)
+        view.endEditing(true)
     }
 }

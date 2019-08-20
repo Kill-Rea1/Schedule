@@ -9,7 +9,15 @@
 import UIKit
 import Firebase
 
-extension SearchController: UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
+extension SearchController: UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, CustomAlertControllerDelegate {
+    func didAdd() {
+        handleSave()
+    }
+    
+    func didCancel() {
+        handleCancel()
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isSearching {
             return filterData.count
@@ -86,13 +94,13 @@ class SearchController: UIViewController {
     
     // MARK:- UIKit
     
-    lazy var alertController: CustomAlertController = {
-        let view = CustomAlertController()
-        view.alpha = 0
-        view.myTextView.text = isUniversitySearching ? "Введите университет.." : "Введите группу.."
-        view.titleLabel.text = isUniversitySearching ? "Новый университет" : "Новая группа"
-        return view
-    }()
+    fileprivate var alertController: CustomAlertController! //= {
+//        let ac = CustomAlertController()
+//        ac.view.alpha = 0
+//        ac.myTextView.text = isUniversitySearching ? "Введите университет.." : "Введите группу.."
+//        ac.titleLabel.text = isUniversitySearching ? "Новый университет" : "Новая группа"
+//        return ac
+//    }()
     
     fileprivate let searchBar: UISearchBar = {
         let bar = UISearchBar()
@@ -136,10 +144,25 @@ class SearchController: UIViewController {
     }
     
     @objc fileprivate func handleAdd() {
+        createCustomAlertController()
         view.endEditing(true)
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseIn, animations: {
-            self.alertController.alpha = 1
+            self.alertController.view.alpha = 1
         })
+    }
+    
+    fileprivate func createCustomAlertController() {
+        alertController = CustomAlertController()
+        guard let alertControllerView = alertController.view, let navController = navigationController, let window = UIApplication.shared.keyWindow else { return }
+        navController.addChild(alertController)
+        navController.view.addSubview(alertControllerView)
+        alertControllerView.frame = window.frame
+        alertControllerView.alpha = 0
+        
+        alertController.myTextView.text = isUniversitySearching ? "Введите университет.." : "Введите группу.."
+        alertController.placeholderText = isUniversitySearching ? "Введите университет.." : "Введите группу.."
+        alertController.titleLabel.text = isUniversitySearching ? "Новый университет" : "Новая группа"
+        alertController.delegate = self
     }
     
     fileprivate func sendData(data: String) {
@@ -163,6 +186,7 @@ class SearchController: UIViewController {
             handleCancel()
             return
         }
+        print(newText)
         if isUniversitySearching {
             if !data.contains(newText) {
                 ref = Database.database().reference()
@@ -184,8 +208,11 @@ class SearchController: UIViewController {
     @objc fileprivate func handleCancel() {
         view.endEditing(true)
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.alertController.alpha = 0
-        })
+            self.alertController.view.alpha = 0
+        }) { (_) in
+            self.alertController.view.removeFromSuperview()
+            self.alertController.removeFromParent()
+        }
     }
     
     fileprivate func setupDelegates() {
@@ -212,14 +239,15 @@ class SearchController: UIViewController {
     fileprivate func setupViews() {
         view.addSubview(searchBar)
         view.addSubview(tableView)
-        view.addSubview(alertController)
-        let window = UIApplication.shared.keyWindow
-        alertController.frame = window?.frame ?? .zero
+//        view.addSubview(alertController.view)
+//        addChild(alertController)
+//        let window = UIApplication.shared.keyWindow
+//        alertController.view.frame = window?.frame ?? .zero
         searchBar.addConstraints(view.safeAreaLayoutGuide.leadingAnchor, view.safeAreaLayoutGuide.trailingAnchor, view.safeAreaLayoutGuide.topAnchor, nil, .init(top: 10, left: 0, bottom: 0, right: 0), .init(width: 0, height: 40))
         tableView.addConstraints(view.safeAreaLayoutGuide.leadingAnchor, view.safeAreaLayoutGuide.trailingAnchor, searchBar.bottomAnchor, view.safeAreaLayoutGuide.bottomAnchor)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
-        alertController.confirmButton.addTarget(self, action: #selector(handleSave), for: .touchUpInside)
-        alertController.cancelButton.addTarget(self, action: #selector(handleCancel), for: .touchUpInside)
+//        alertController.confirmButton.addTarget(self, action: #selector(handleSave), for: .touchUpInside)
+//        alertController.cancelButton.addTarget(self, action: #selector(handleCancel), for: .touchUpInside)
     }
     
     @objc fileprivate func handleBack() {
