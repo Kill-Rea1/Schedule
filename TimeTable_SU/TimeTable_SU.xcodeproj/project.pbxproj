@@ -44,6 +44,7 @@
 		EDAE2E9122BC2CB400A8D794 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAE2E9022BC2CB400A8D794 /* MainController.swift */; };
 		EDAE2E9722BD0D0B00A8D794 /* AddSubjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAE2E9622BD0D0B00A8D794 /* AddSubjectView.swift */; };
 		EDAE2E9922BD25A300A8D794 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDAE2E9822BD25A300A8D794 /* Assets.xcassets */; };
+		EDB59CC4234555B4005E1337 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EDB59CC6234555B4005E1337 /* Localizable.strings */; };
 		EDD26F9B22D3480800A3EC47 /* ChangePasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD26F9A22D3480800A3EC47 /* ChangePasswordController.swift */; };
 		EDD26F9D22D3E5E600A3EC47 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD26F9C22D3E5E600A3EC47 /* ChangePasswordView.swift */; };
 		EDE45CF022BD57AD005091BC /* EnterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE45CEF22BD57AD005091BC /* EnterView.swift */; };
@@ -109,8 +110,6 @@
 		ED94C8BD22CF9FEC00F1E1CF /* CustomAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertController.swift; sourceTree = "<group>"; };
 		ED98FCD322BD3F260010949B /* UserClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserClass.swift; sourceTree = "<group>"; };
 		EDA30DF122C7BBF900E74D76 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
-		EDA30E0022C90CCF00E74D76 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
-		EDA30E0122C90CCF00E74D76 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		EDA30E0422CBFC1C00E74D76 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "TimeTable_SU/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		EDA30E0622CC03FE00E74D76 /* StudentClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClass.swift; sourceTree = "<group>"; };
 		EDA30E0822CC125C00E74D76 /* StudentTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentTableCell.swift; sourceTree = "<group>"; };
@@ -123,6 +122,10 @@
 		EDAE2E9022BC2CB400A8D794 /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		EDAE2E9622BD0D0B00A8D794 /* AddSubjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSubjectView.swift; sourceTree = "<group>"; };
 		EDAE2E9822BD25A300A8D794 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EDB59CC023455536005E1337 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		EDB59CC123455536005E1337 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		EDB59CC5234555B4005E1337 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EDB59CC7234555C0005E1337 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EDD26F9A22D3480800A3EC47 /* ChangePasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordController.swift; sourceTree = "<group>"; };
 		EDD26F9C22D3E5E600A3EC47 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		EDE45CEF22BD57AD005091BC /* EnterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterView.swift; sourceTree = "<group>"; };
@@ -225,6 +228,7 @@
 		ED56C67F22A9786400A618A1 = {
 			isa = PBXGroup;
 			children = (
+				EDB59CC6234555B4005E1337 /* Localizable.strings */,
 				ED56C68A22A9786400A618A1 /* TimeTable_SU */,
 				ED56C6A222A9786600A618A1 /* TimeTable_SUTests */,
 				ED56C6AD22A9786600A618A1 /* TimeTable_SUUITests */,
@@ -621,6 +625,7 @@
 				EDAE2E7722B9815700A8D794 /* Comfortaa[wght].ttf in Resources */,
 				ED56C69922A9786600A618A1 /* LaunchScreen.storyboard in Resources */,
 				ED6D3F79230B4C1C0035BB20 /* Comfortaa-Bold.ttf in Resources */,
+				EDB59CC4234555B4005E1337 /* Localizable.strings in Resources */,
 				ED56C69122A9786500A618A1 /* Main.storyboard in Resources */,
 				EDAE2E9922BD25A300A8D794 /* Assets.xcassets in Resources */,
 				EDA30E0522CBFC1C00E74D76 /* GoogleService-Info.plist in Resources */,
@@ -810,7 +815,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				ED56C69022A9786500A618A1 /* Base */,
-				EDA30E0022C90CCF00E74D76 /* ru */,
+				EDB59CC023455536005E1337 /* ru */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -819,9 +824,19 @@
 			isa = PBXVariantGroup;
 			children = (
 				ED56C69822A9786600A618A1 /* Base */,
-				EDA30E0122C90CCF00E74D76 /* ru */,
+				EDB59CC123455536005E1337 /* ru */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		EDB59CC6234555B4005E1337 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EDB59CC5234555B4005E1337 /* en */,
+				EDB59CC7234555C0005E1337 /* ru */,
+			);
+			name = Localizable.strings;
+			path = "TimeTable_SU/Supporting files";
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

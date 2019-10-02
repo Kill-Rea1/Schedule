@@ -17,9 +17,9 @@ extension EnterView: UITextFieldDelegate {
         if textField.text == "" || textField.text == nil {
             switch textField {
             case emailTextField:
-                textField.placeholder = "Введите почту.."
+                textField.placeholder = NSLocalizedString("Введите почту..", comment: "Enter e-mail..")
             default:
-                textField.placeholder = "Введите пароль.."
+                textField.placeholder = NSLocalizedString("Введите пароль..", comment: "Enter password..")
             }
         }
     }

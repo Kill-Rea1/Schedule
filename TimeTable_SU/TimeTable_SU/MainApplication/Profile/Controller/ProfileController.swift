@@ -93,6 +93,7 @@ class ProfileController: UIViewController {
         profileView.universityChangeButton.addTarget(self, action: #selector(handleButtonTapped), for: .touchUpInside)
         profileView.groupChangeButton.addTarget(self, action: #selector(handleButtonTapped), for: .touchUpInside)
         profileView.passwordChangeButton.addTarget(self, action: #selector(handleButtonTapped), for: .touchUpInside)
+        profileView.saveButton.addTarget(self, action: #selector(handleSave), for: .touchUpInside)
     }
     
     @objc fileprivate func handleButtonTapped(sender: UIButton) {

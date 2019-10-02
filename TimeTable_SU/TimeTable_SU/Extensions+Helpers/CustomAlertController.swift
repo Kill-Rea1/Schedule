@@ -42,6 +42,35 @@ class CustomAlertController: UIViewController {
         
         view.backgroundColor = .clear
         setupViews()
+        setupNotifications()
+    }
+    
+    // MARK:- Setup Notifications
+    
+    fileprivate func setupNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleShowKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleHideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc fileprivate func handleShowKeyboard(notification: Notification) {
+        guard let userInfo = notification.userInfo else { return }
+        guard let value = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        let keyboardFrame = value.cgRectValue
+        print(view.frame.height)
+        print(containerView.frame.origin.y)
+        print(containerView.frame.height)
+        var bottomSpace = view.frame.height - containerView.frame.origin.y - containerView.frame.height
+        if #available(iOS 13, *) {
+            bottomSpace -= 54
+        }
+        let difference = keyboardFrame.height - bottomSpace
+        if difference > 0 {
+            view.transform = CGAffineTransform(translationX: 0, y: -difference - 8)
+        }
+    }
+    
+    @objc fileprivate func handleHideKeyboard() {
+        view.transform = .identity
     }
     
     // MARK:- Setup View
@@ -110,6 +139,7 @@ class CustomAlertController: UIViewController {
         textView.text = "Some text here..."
         textView.textColor = .lightGray
         textView.isScrollEnabled = false
+        textView.autocorrectionType = .no
         return textView
     }()
     
@@ -136,9 +166,9 @@ class CustomAlertController: UIViewController {
         containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
         titleLabel.addConstraints(containerView.leadingAnchor, containerView.trailingAnchor, containerView.topAnchor, nil, .init(top: 5, left: 0, bottom: 0, right: 0), .init(width: 0, height: 40))
-        myTextView.addConstraints(containerView.leadingAnchor, containerView.trailingAnchor, titleLabel.bottomAnchor, cancelButton.topAnchor, .init(top: spacing, left: 20, bottom: spacing * 1.5, right: 20))
+        myTextView.addConstraints(containerView.leadingAnchor, containerView.trailingAnchor, titleLabel.bottomAnchor, nil, .init(top: spacing, left: 20, bottom: spacing * 1.5, right: 20))
         cancelButton.addConstraints(containerView.leadingAnchor, containerView.centerXAnchor, nil, containerView.bottomAnchor, .init(top: 0, left: 20, bottom: 8, right: 8), .init(width: 0, height: 40))
-        confirmButton.addConstraints(containerView.centerXAnchor, containerView.trailingAnchor, nil, containerView.bottomAnchor, .init(top: 0, left: 8, bottom: 8, right: 20), .init(width: 0, height: 40))
+        confirmButton.addConstraints(containerView.centerXAnchor, containerView.trailingAnchor, myTextView.bottomAnchor, containerView.bottomAnchor, .init(top: spacing * 1.5, left: 8, bottom: 8, right: 20), .init(width: 0, height: 40))
     }
     
     fileprivate func createToolBar() {

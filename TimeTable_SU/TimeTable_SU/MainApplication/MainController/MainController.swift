@@ -63,6 +63,7 @@ class MainController: UIViewController, UINavigationControllerDelegate {
         setupViews()
         navigationController?.navigationBar.isHidden = true
         setupGestures()
+        view.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.968627451, blue: 0.9803921569, alpha: 1)
     }
     
     // MARK:- Public Methods
