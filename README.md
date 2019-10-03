@@ -1,5 +1,6 @@
 # ScheduleApp
 The application is convenient schedule for students. It uses Realtime Database by Firebase.
+The navigation through the app is providing by slide-in menu.
 
 ### Sign Up / Login
 If you have already registered, you can enter your email and password to log in.
