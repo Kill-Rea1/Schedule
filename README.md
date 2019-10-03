@@ -33,4 +33,16 @@ Each group has "admins", which allowed to add new subjects and exams or change c
 The first "admin" is always the student which create that schedule. 
 This title can be given to another students in the group by another "admin".
 
-<img src="TimeTable_SU/Screenshots/group.png" width=250 alt='Group screen'>
+<img src="TimeTable_SU/Screenshots/groupnew.png" width=250 alt='Group screen'>
+
+### Profile
+
+You can change your name, password, University and group whenever you want. 
+
+<img src="TimeTable_SU/Screenshots/profile.png" width=250 alt='Profile screen'>
+
+### Technologies
+
+ - MVC Architecture
+ - Realtime Database by Firebase
+ - UI is written using Autolayout without interface builders
